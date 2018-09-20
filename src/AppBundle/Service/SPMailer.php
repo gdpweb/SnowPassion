@@ -34,7 +34,10 @@ class SPMailer
             "<html>
             <h4>Bonjour " . $user->getUsername() . ",</h4>
             <p>Vous avez demandé la réinitialisation de votre mot de passe.</p>
-            <p>Merci de suivre: <a href='http://127.0.0.1:8000/reset/" . $user->getToken() . "'>ce lien</a></p>
+            <p>Merci de suivre: 
+                <a href='http://127.0.0.1:8000/reset/" . $user->getToken() . "'>
+            ce lien</a>
+            </p>
             <p>Cordialement SnowPassion.</p>
             </html>";
 

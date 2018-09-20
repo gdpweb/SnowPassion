@@ -68,7 +68,6 @@ class UserController extends Controller
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
 
-
             $userManager->activeAccount($user);
 
             $this->addFlash(
