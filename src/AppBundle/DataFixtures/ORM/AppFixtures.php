@@ -1,29 +1,17 @@
 <?php
-/*
- * This file is part of the Symfony package.
- *
- * (c) Fabien Potencier <fabien@symfony.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 
-namespace AppBundle\DataFixtures;
-
+namespace AppBundle\DataFixtures\ORM;
 
 use AppBundle\Entity\User;
-use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class AppFixtures extends Fixture
+class AppFixtures implements FixtureInterface, ContainerAwareInterface
 {
-    private $passwordEncoder;
-
-    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
-    {
-        $this->passwordEncoder = $passwordEncoder;
-    }
+    /** @var ContainerInterface */
+    private $container;
 
     public function load(ObjectManager $manager)
     {
@@ -32,25 +20,38 @@ class AppFixtures extends Fixture
 
     private function loadUsers(ObjectManager $manager)
     {
-        foreach ($this->getUserData() as [$fullname, $username, $password, $email, $roles]) {
-            $user = new User();
-            $user->setUsername($username);
-            $user->setPassword($this->passwordEncoder->encodePassword($user, $password));
-            $user->setEmail($email);
-            $user->setRoles($roles);
-            $manager->persist($user);
-            $this->addReference($username, $user);
-        }
+        $factory = $this->container->get('security.encoder_factory');
+
+        $user = new User();
+        $user->setUsername('admin');
+        $password = $factory->getEncoder($user)->encodePassword('admin', $user->getSalt());
+        $user->setPassword($password);
+        $user->setRoles(['ROLE_AUTEUR','ROLE_ADMIN']);
+        $user->setEmail('admin@gdpweb.fr');
+        $user->setIsActive(true);
+        $manager->persist($user);
+
+        $user = new User();
+        $user->setUsername('auteur');
+        $password = $factory->getEncoder($user)->encodePassword('auteur', $user->getSalt());
+        $user->setPassword($password);
+        $user->setRoles(['ROLE_AUTEUR']);
+        $user->setEmail('auteur@gdpweb.fr');
+        $user->setIsActive(true);
+        $manager->persist($user);
+
+        $user = new User();
+        $user->setUsername('user');
+        $password = $factory->getEncoder($user)->encodePassword('user', $user->getSalt());
+        $user->setPassword($password);
+        $user->setEmail('user@gdpweb.fr');
+        $user->setIsActive(true);
+        $manager->persist($user);
         $manager->flush();
     }
-    private function getUserData(): array
-    {
-        return [
-            // $userData = [$fullname, $username, $password, $email, $roles];
-            [ 'jane_admin', 'kitten', 'jane_admin@symfony.com', ['ROLE_ADMIN']],
-            [ 'tom_admin', 'kitten', 'tom_admin@symfony.com', ['ROLE_ADMIN']],
-            ['john_user', 'kitten', 'john_user@symfony.com', ['ROLE_USER']],
-        ];
-    }
 
+    public function setContainer(ContainerInterface $container = null)
+    {
+        $this->container = $container;
+    }
 }

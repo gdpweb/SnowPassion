@@ -1,0 +1,10 @@
+.cadre{
+    box-shadow: 8px 8px 12px #aaa;
+    padding: 20px;
+    border-radius: 7px;
+    background-color: white;
+    color: black;
+}
+body{
+    font-size: 14px;
+}

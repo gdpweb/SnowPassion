@@ -10,7 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class UserResetType extends AbstractType
+class UserRegisterType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -18,18 +18,22 @@ class UserResetType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email', EmailType::class)
+            ->add('username', TextType::class, array(
+                'label'=>"Nom d'utilisateur"
+            ))
             ->add('password', PasswordType::class, array(
                 'label'=>"Mot de passe"
             ))
-
+            ->add('email', EmailType::class)
             ->add('save', SubmitType::class, array(
-                'label' => 'Réinitialiser',
+                'label' => 'Valider',
                 'attr' => array(
                     'class' => 'btn-success'
                 )
             ));
+
     }
+
     /**
      * {@inheritdoc}
      */
@@ -39,6 +43,7 @@ class UserResetType extends AbstractType
             'data_class' => 'AppBundle\Entity\User'
         ));
     }
+
     /**
      * {@inheritdoc}
      */

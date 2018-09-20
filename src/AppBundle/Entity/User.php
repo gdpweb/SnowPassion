@@ -1,71 +1,133 @@
 <?php
 
-namespace CFA\AppBundle\Entity;
+namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Serializable;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-
 /**
+ * User
  *
  * @ORM\Table(name="sp_user")
- * @ORM\Entity(repositoryClass="CFA\UserBundle\Repository\UserRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
+ * @UniqueEntity(fields="email", message="Cette adresse mail est déjà utilisée par un autre compte")
  */
-class User implements UserInterface, \Serializable
+class User implements UserInterface, Serializable
 {
-    const ROLE_DEFAULT = 'ROLE_USER';
-
-    const ROLE_SUPER_ADMIN = 'ROLE_SUPER_ADMIN';
-
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
     /**
-     * @ORM\Column(name="username", type="string", length=255, unique=true)
+     * @ORM\Column(name="username", type="string", length=255)
+     * @Assert\Length(min=6,minMessage="Votre identifiant doit contenir au moins 6 caractères")
      */
     private $username;
-
     /**
-     * @ORM\Column(type="string", length=40)
+     * @var string
+     * @ORM\Column(name="salt", type="string", length=255)
      */
     private $salt;
-
     /**
-     * @ORM\Column(type="string", length=40)
+     * @ORM\Column(name="password", type="string", length=255)
+     * @Assert\Length(min=6,minMessage="Votre mot de passe doit contenir au moins 6 caractères")
      */
     private $password;
-
     /**
-     * @ORM\Column(type="string", length=60, unique=true)
+     * @ORM\Column(name="email", type="string", length=255, unique=true)
+     * @Assert\Email(
+     *     message = "L'email '{{ value }}' n'est pas valide.",
+     *     checkMX = true
+     * )
      */
     private $email;
 
     /**
-     * @ORM\OneToOne(targetEntity="CFA\AppBundle\Entity\ImageUser", cascade={"remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(name="roles", type="array")
+     */
+    private $roles;
+    /**
+     * @var bool
+     * @ORM\Column(name="is_active", type="boolean")
      */
 
+    private $isActive = true;
+
+    /**
+     * @var string
+     * @ORM\Column(name="token", type="string", length=255, nullable=true)
+     */
+    private  $token;
+
+    /**
+     * @var string
+     * @ORM\Column(name="date_token", type="datetime", nullable=true)
+     */
+    private $dateToken;
+
+    /**
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Image", cascade={"remove"} )
+     * @ORM\Column(nullable=true)
+     */
     private $image;
 
     /**
-     * @ORM\Column(name="roles", type="array")
+     * @return mixed
      */
-    private $roles = array();
-
-
-    /**
-     * @ORM\Column(name="isactive", type="boolean")
-     */
-    private $isActive;
-
     public function __construct()
     {
-        $this->isActive = true;
-        $this->salt = md5(uniqid(null, true));
+        $this->addRole('ROLE_DEFAULT');
+        return $this;
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    /**
+     * @param mixed $username
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * @param string $password
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
     }
 
     /**
@@ -84,17 +146,42 @@ class User implements UserInterface, \Serializable
         $this->email = $email;
     }
 
+       public function getRoles()
+    {
+        $roles = $this->roles;
+
+        return array_unique($roles);
+    }
 
     /**
-     * @return mixed
+     * @param $role
      */
-    public function getIsActive()
+
+    public function addRole($role)
+    {
+        $this->roles[] = $role;
+    }
+
+
+    public function setRoles(array $roles)
+    {
+        $mergeRoles = array_merge($this->roles, $roles);
+        $this->roles = $mergeRoles;
+        // allows for chaining
+        return $this;
+
+    }
+
+    /**
+     * @return bool
+     */
+    public function isActive()
     {
         return $this->isActive;
     }
 
     /**
-     * @param mixed $isActive
+     * @param bool $isActive
      */
     public function setIsActive($isActive)
     {
@@ -102,63 +189,68 @@ class User implements UserInterface, \Serializable
     }
 
     /**
-     * @inheritDoc
-     */
-    public function getUsername()
-    {
-        return $this->username;
-    }
-
-    /**
-     * @inheritDoc
+     * @return null|string
      */
     public function getSalt()
     {
+        $this->salt = sha1(uniqid(mt_rand()));
         return $this->salt;
     }
 
     /**
-     * @inheritDoc
+     * @return string
      */
-    public function getPassword()
+    public function getToken()
     {
-        return $this->password;
+        return $this->token;
     }
 
     /**
-     * {@inheritdoc}
+     * @param string $token
      */
-    public function getGroups()
+    public function setToken($token)
     {
-        return $this->groups ?: $this->groups = new ArrayCollection();
+        $this->token = $token;
     }
 
     /**
-     * {@inheritdoc}
+     * @return string
      */
-    public function addRole($role)
+    public function getDateToken()
     {
-        $role = strtoupper($role);
-        if ($role === static::ROLE_DEFAULT) {
-            return $this;
-        }
-
-        if (!in_array($role, $this->roles, true)) {
-            $this->roles[] = $role;
-        }
-
-        return $this;
+        return $this->dateToken;
     }
 
     /**
-     * {@inheritdoc}
+     * @param \DateTime $dateToken
      */
-    /**
-     * @inheritDoc
-     */
-    public function getRoles()
+    public function setDateToken(\DateTime $dateToken)
     {
-        return $this->roles;
+        $this->dateToken = $dateToken;
+    }
+
+
+    public function eraseCredentials()
+    {
+
+    }
+
+    public function serialize()
+    {
+        return serialize(
+            array(
+                $this->id,
+                $this->username,
+                $this->password
+            )
+        );
+    }
+
+    public function unserialize($serialized)
+    {
+        list(
+            $this->id, $this->username, $this->password
+            ) = unserialize($serialized);
     }
 
     /**
@@ -178,38 +270,4 @@ class User implements UserInterface, \Serializable
     }
 
 
-    /**
-     * @inheritDoc
-     */
-    public function eraseCredentials()
-    {
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function equals(UserInterface $user)
-    {
-        return $this->id === $user->getId();
-    }
-
-    /**
-     * @see \Serializable::serialize()
-     */
-    public function serialize()
-    {
-        return serialize(array(
-            $this->id,
-        ));
-    }
-
-    /**
-     * @see \Serializable::unserialize()
-     */
-    public function unserialize($serialized)
-    {
-        list (
-            $this->id,
-            ) = unserialize($serialized);
-    }
 }

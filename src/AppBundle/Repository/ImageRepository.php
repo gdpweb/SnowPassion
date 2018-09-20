@@ -1,6 +1,6 @@
 <?php
 
-namespace CFA\AppBundle\Repository;
+namespace AppBundle\Repository;
 
 /**
  * ImageRepository

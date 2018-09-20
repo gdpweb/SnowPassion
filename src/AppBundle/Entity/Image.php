@@ -1,6 +1,6 @@
 <?php
 
-namespace CFA\AppBundle\Entity;
+namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -9,15 +9,11 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  * Image
  *
  * @ORM\Table(name="sp_image")
- * @ORM\Entity(repositoryClass="CFA\AppBundle\Repository\ImageRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ImageRepository")
  */
 class Image
 {
-    /**
-     * @ORM\ManyToOne(targetEntity="CFA\AppBundle\Entity\Figure", inversedBy="images")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $figure;
+
     /**
      * @var int
      *
@@ -52,18 +48,6 @@ class Image
     public function setFile(UploadedFile $file = null)
     {
         $this->file = $file;
-    }
-
-    public function setFigure(Figure $figure)
-    {
-        $this->figure = $figure;
-
-        return $this;
-    }
-
-    public function getFigure()
-    {
-        return $this->figure;
     }
 
     /**
