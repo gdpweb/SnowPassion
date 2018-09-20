@@ -2,15 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="27becbe9-a4a6-41c4-baa5-1c40bdf1b078" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/AppBundle/Exception/AccountActiveException.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/AppBundle/Security/UserChecker.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/config/security.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/config/security.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AppBundle/Controller/TricksController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/TricksController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/AppBundle/Controller/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/UserController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/AppBundle/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AppBundle/Form/UserResetType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBundle/Form/UserResetType.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/AppBundle/Manager/UserManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBundle/Manager/UserManager.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AppBundle/Service/SPMailer.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBundle/Service/SPMailer.php" afterDir="false" />
     </list>
     <ignored path=".idea/" />
     <ignored path=".gitignore" />
@@ -62,7 +58,7 @@
           <entry key="json" value="3" />
           <entry key="less" value="1" />
           <entry key="md" value="11" />
-          <entry key="php" value="9154" />
+          <entry key="php" value="9160" />
           <entry key="twig" value="1247" />
           <entry key="txt" value="20" />
           <entry key="vmoptions" value="8" />
@@ -76,7 +72,7 @@
           <entry key="JSON" value="3" />
           <entry key="Less" value="1" />
           <entry key="Markdown" value="11" />
-          <entry key="PHP" value="9143" />
+          <entry key="PHP" value="9149" />
           <entry key="PLAIN_TEXT" value="84" />
           <entry key="Twig" value="1246" />
           <entry key="YAML" value="683" />
@@ -92,7 +88,7 @@
           <entry key="less" value="1" />
           <entry key="lock" value="1" />
           <entry key="md" value="1" />
-          <entry key="php" value="119" />
+          <entry key="php" value="123" />
           <entry key="properties" value="2" />
           <entry key="rnc" value="1" />
           <entry key="twig" value="56" />
@@ -108,7 +104,7 @@
           <entry key="JavaScript" value="2" />
           <entry key="Less" value="1" />
           <entry key="Markdown" value="1" />
-          <entry key="PHP" value="119" />
+          <entry key="PHP" value="123" />
           <entry key="PLAIN_TEXT" value="6" />
           <entry key="RNG Compact" value="1" />
           <entry key="Twig" value="56" />
@@ -141,24 +137,24 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/AppBundle/Security/UserChecker.php">
+        <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/User.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="16" column="43" selection-start-line="16" selection-start-column="43" selection-end-line="16" selection-end-column="43" />
+            <state relative-caret-position="-25">
+              <caret line="52" column="19" selection-start-line="52" selection-start-column="19" selection-end-line="52" selection-end-column="19" />
               <folding>
-                <element signature="e#36#83#0#PHP" expanded="true" />
+                <element signature="e#36#68#0#PHP" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/User.php">
+        <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/UserController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="263">
-              <caret line="52" column="19" lean-forward="true" selection-start-line="52" selection-start-column="19" selection-end-line="52" selection-end-column="19" />
+            <state relative-caret-position="811">
+              <caret line="100" column="9" lean-forward="true" selection-start-line="100" selection-start-column="9" selection-end-line="100" selection-end-column="9" />
               <folding>
-                <element signature="e#36#68#0#PHP" expanded="true" />
+                <element signature="e#40#66#0#PHP" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -246,7 +242,6 @@
         <option value="$PROJECT_DIR$/app/Resources/views/User/reset.html.twig" />
         <option value="$PROJECT_DIR$/app/Resources/views/base.html.twig" />
         <option value="$PROJECT_DIR$/app/Resources/views/default.html.twig" />
-        <option value="$PROJECT_DIR$/src/AppBundle/Service/SPMailer.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Form/UserRegisterType.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Controller/TricksController.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Repository/UserRepository.php" />
@@ -254,11 +249,12 @@
         <option value="$PROJECT_DIR$/src/AppBundle/Form/UserResetType.php" />
         <option value="$PROJECT_DIR$/app/config/security.yml" />
         <option value="$PROJECT_DIR$/src/AppBundle/Exception/Account.php" />
-        <option value="$PROJECT_DIR$/src/AppBundle/Controller/UserController.php" />
-        <option value="$PROJECT_DIR$/src/AppBundle/Manager/UserManager.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Exception/AccountActiveException.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Security/UserChecker.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/User.php" />
+        <option value="$PROJECT_DIR$/src/AppBundle/Manager/UserManager.php" />
+        <option value="$PROJECT_DIR$/src/AppBundle/Service/SPMailer.php" />
+        <option value="$PROJECT_DIR$/src/AppBundle/Controller/UserController.php" />
       </list>
     </option>
   </component>
@@ -429,12 +425,6 @@
             <path>
               <item name="SnowPassion" type="b2602c69:ProjectViewProjectNode" />
               <item name="SnowPassion" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="config" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="SnowPassion" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SnowPassion" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -448,14 +438,14 @@
               <item name="SnowPassion" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="AppBundle" type="462c0819:PsiDirectoryNode" />
-              <item name="Entity" type="462c0819:PsiDirectoryNode" />
+              <item name="Controller" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="SnowPassion" type="b2602c69:ProjectViewProjectNode" />
               <item name="SnowPassion" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="AppBundle" type="462c0819:PsiDirectoryNode" />
-              <item name="Exception" type="462c0819:PsiDirectoryNode" />
+              <item name="Manager" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="SnowPassion" type="b2602c69:ProjectViewProjectNode" />
@@ -463,6 +453,13 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="AppBundle" type="462c0819:PsiDirectoryNode" />
               <item name="Security" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SnowPassion" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SnowPassion" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="AppBundle" type="462c0819:PsiDirectoryNode" />
+              <item name="Service" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="SnowPassion" type="b2602c69:ProjectViewProjectNode" />
@@ -561,7 +558,7 @@
       <workItem from="1537270242824" duration="33698000" />
       <workItem from="1537369748128" duration="21901000" />
       <workItem from="1537442955996" duration="23883000" />
-      <workItem from="1537474993314" duration="4367000" />
+      <workItem from="1537474993314" duration="5156000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1535575972575</created>
@@ -612,11 +609,18 @@
       <option name="project" value="LOCAL" />
       <updated>1537458087036</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Adding a UserCheck and Exception class">
+      <created>1537479527767</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1537479527767</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="137955000" />
+    <option name="totallyTimeSpent" value="138744000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -644,7 +648,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.48335856" weight="0.32569557" />
-      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.48562783" weight="0.5270049" />
+      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.48562783" visible="true" weight="0.5270049" />
       <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.51664144" side_tool="true" weight="0.32569557" />
       <window_info anchor="bottom" id="Messages" order="12" weight="0.3289689" />
       <window_info anchor="bottom" id="TypeScript" order="13" />
@@ -709,7 +713,8 @@
     <MESSAGE value="Revert &quot;Initial commit&quot;&#10;&#10;This reverts commit 87a457a" />
     <MESSAGE value="Initial commit" />
     <MESSAGE value="reorganization of the tree structure of the project" />
-    <option name="LAST_COMMIT_MESSAGE" value="reorganization of the tree structure of the project" />
+    <MESSAGE value="Adding a UserCheck and Exception class" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adding a UserCheck and Exception class" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/web/assets/startbootstrap/less/clean-blog.less">
@@ -918,13 +923,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Service/SPMailer.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-765">
-          <caret line="14" column="1" selection-start-line="14" selection-start-column="1" selection-end-line="14" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/TricksController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -1019,16 +1017,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/UserController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1173">
-          <caret line="93" column="5" lean-forward="true" selection-start-line="93" selection-start-column="5" selection-end-line="93" selection-end-column="5" />
-          <folding>
-            <element signature="e#40#66#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/SecurityController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1005">
@@ -1036,16 +1024,6 @@
           <folding>
             <element signature="e#40#74#0#PHP" expanded="true" />
             <element signature="e#1380#1396#1#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Manager/UserManager.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="68" column="7" lean-forward="true" selection-start-line="68" selection-start-column="7" selection-end-line="68" selection-end-column="7" />
-          <folding>
-            <element signature="e#122#148#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1067,12 +1045,36 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Manager/UserManager.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="20">
+          <caret line="74" selection-start-line="74" selection-end-line="74" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Service/SPMailer.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="14" column="1" selection-start-line="14" selection-start-column="1" selection-end-line="14" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/User.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="263">
-          <caret line="52" column="19" lean-forward="true" selection-start-line="52" selection-start-column="19" selection-end-line="52" selection-end-column="19" />
+        <state relative-caret-position="-25">
+          <caret line="52" column="19" selection-start-line="52" selection-start-column="19" selection-end-line="52" selection-end-column="19" />
           <folding>
             <element signature="e#36#68#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/UserController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="811">
+          <caret line="100" column="9" lean-forward="true" selection-start-line="100" selection-start-column="9" selection-end-line="100" selection-end-column="9" />
+          <folding>
+            <element signature="e#40#66#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -20,7 +20,7 @@ class SPMailer
     private $body;
 
 
-    public function __construct($from,\Swift_Mailer $mailer)
+    public function __construct($from, \Swift_Mailer $mailer)
     {
         $this->mailer = $mailer;
         $this->message = new \Swift_Message();

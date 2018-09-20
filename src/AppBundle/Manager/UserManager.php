@@ -1,4 +1,5 @@
 <?php
+
 namespace AppBundle\Manager;
 
 
@@ -7,7 +8,8 @@ use AppBundle\Service\SPMailer;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Container\ContainerInterface;
 
-class UserManager{
+class UserManager
+{
     /**
      * @var SPMailer
      */
@@ -33,14 +35,15 @@ class UserManager{
         $this->container = $container;
     }
 
-    public function activeAccount(User $user){
+    public function activeAccount(User $user)
+    {
 
         $user->setIsActive(true);
         //sécurisation du mot de passe
         $factory = $this->container->get('security.encoder_factory');
         $password = $factory->getEncoder($user)->encodePassword($user->getPassword(), $user->getSalt());
         $user->setPassword($password);
-        $user->setToken(NULL);
+        $user->setToken(null);
 
         $this->em->persist($user);
         $this->em->flush();
@@ -67,8 +70,8 @@ class UserManager{
     /**
      * @param User $user
      */
-    private function createToken(User $user){
-
+    private function createToken(User $user)
+    {
         $token = md5(uniqid(rand(), true));
         $user->setToken($token);
         $date = new \DateTime();
@@ -76,7 +79,7 @@ class UserManager{
         $this->em->persist($user);
         $this->em->flush();
 
-        }
+    }
 
 
 }

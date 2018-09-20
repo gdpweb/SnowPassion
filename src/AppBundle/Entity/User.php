@@ -62,7 +62,7 @@ class User implements UserInterface, Serializable
      * @var string
      * @ORM\Column(name="token", type="string", length=255, nullable=true)
      */
-    private  $token;
+    private $token;
 
     /**
      * @var string
@@ -146,7 +146,7 @@ class User implements UserInterface, Serializable
         $this->email = $email;
     }
 
-       public function getRoles()
+    public function getRoles()
     {
         $roles = $this->roles;
 

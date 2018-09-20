@@ -20,7 +20,7 @@ class UserController extends Controller
      * @param UserManager $userManager
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function registerAction(Request $request,UserManager $userManager)
+    public function registerAction(Request $request, UserManager $userManager)
     {
         $user = new User();
         $form = $this->get('form.factory')->create(UserRegisterType::class, $user);
@@ -53,11 +53,11 @@ class UserController extends Controller
      * @param $token
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function resetAction(Request $request,UserManager $userManager, EntityManagerInterface $em,$token)
+    public function resetAction(Request $request, UserManager $userManager, EntityManagerInterface $em, $token)
     {
         $user = $em->getRepository('AppBundle:User')->tokenIsValid($token);
 
-        if($user===null){
+        if ($user === null) {
             $this->addFlash(
                 'danger', 'Ce lien a expiré'
             );

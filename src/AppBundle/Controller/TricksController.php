@@ -3,7 +3,6 @@
 namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class TricksController extends Controller
@@ -13,7 +12,6 @@ class TricksController extends Controller
      */
     public function indexAction()
     {
-
 
         return $this->render('Tricks/index.html.twig');
     }
