@@ -1,0 +1,44 @@
+{% extends "@App/default.html.twig" %}
+
+{% block title %}
+    Login - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <div class="col-md-4 col-md-offset-4 cadre">
+        <h3>LOGIN</h3>
+        <hr>
+        {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+
+        {% for key, messages in app.session.flashbag.all() %}
+            {% for message in messages %}
+                <div class="alert alert-{{ key }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+
+        <form action="{{ path('app_login') }}" method="POST">
+            <div class="form-group text-center">
+                <label for="username">Username</label>
+                <input class="form-control" type="text" id="username" name="_username" value="{{ last_username }}"/>
+            </div>
+
+            <div class="form-group text-center">
+                <label for="password">Password</label>
+                <input class="form-control" type="password" id="password" name="_password"/>
+            </div>
+            <div class="form-group text-left">
+                <a href="{{ path('app_forgot') }}">Forgot your password?</a>
+            </div>
+            <hr>
+            <div class="form-group text-center">
+            <button class="btn btn-success" type="submit">login</button>
+            </div>
+        </form>
+
+    </div>
+
+{% endblock %}
