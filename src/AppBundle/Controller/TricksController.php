@@ -14,6 +14,7 @@ class TricksController extends Controller
     public function indexAction()
     {
 
+
         return $this->render('Tricks/index.html.twig');
     }
 

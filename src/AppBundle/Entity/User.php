@@ -56,7 +56,7 @@ class User implements UserInterface, Serializable
      * @ORM\Column(name="is_active", type="boolean")
      */
 
-    private $isActive = true;
+    private $isActive = false;
 
     /**
      * @var string

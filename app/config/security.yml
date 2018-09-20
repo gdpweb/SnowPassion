@@ -17,6 +17,8 @@ security:
 
       pattern: ^/
 
+      user_checker: AppBundle\Security\UserChecker
+
       logout_on_user_change: false
 
       anonymous: true

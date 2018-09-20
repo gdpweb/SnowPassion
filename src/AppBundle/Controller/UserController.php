@@ -6,6 +6,7 @@ use AppBundle\Entity\User;
 use AppBundle\Form\UserResetType;
 use AppBundle\Form\UserRegisterType;
 use AppBundle\Manager\UserManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,23 +17,15 @@ class UserController extends Controller
     /**
      * @Route("/register", name="register")
      * @param Request $request
+     * @param UserManager $userManager
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function registerAction(UserManager $userManager, Request $request)
+    public function registerAction(Request $request,UserManager $userManager)
     {
         $user = new User();
         $form = $this->get('form.factory')->create(UserRegisterType::class, $user);
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-
-            $em = $this->getDoctrine()->getManager();
-
-            //sécurisation du mot de passe
-            $factory = $this->container->get('security.encoder_factory');
-            $password = $factory->getEncoder($user)->encodePassword($user->getPassword(), $user->getSalt());
-            $user->setPassword($password);
-            $em->persist($user);
-            $em->flush();
 
             // envoie d'un mail et du lien avec le token validation
             $userManager->registerMail($user);
@@ -55,20 +48,31 @@ class UserController extends Controller
     /**
      * @Route("/reset/{token}", name="reset")
      * @param Request $request
+     * @param UserManager $userManager
+     * @param EntityManagerInterface $em
      * @param $token
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function resetAction(Request $request, $token)
+    public function resetAction(Request $request,UserManager $userManager, EntityManagerInterface $em,$token)
     {
+        $user = $em->getRepository('AppBundle:User')->tokenIsValid($token);
 
-        $user = new User();
-        $form = $this->get('form.factory')->create(UserResetType::class, $user);
-        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-            //
-
-            $em = $this->getDoctrine()->getManager();
+        if($user===null){
             $this->addFlash(
-                'info', 'Votre mot de passe a été réinitialisé.'
+                'danger', 'Ce lien a expiré'
+            );
+            return $this->redirectToRoute('homepage');
+        }
+
+        $form = $this->get('form.factory')->create(UserResetType::class, $user);
+
+        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+
+
+            $userManager->activeAccount($user);
+
+            $this->addFlash(
+                'success', 'Votre mot de passe a été réinitialisé.'
             );
             return $this->redirectToRoute('homepage');
         }
@@ -81,7 +85,8 @@ class UserController extends Controller
 
     /**
      * @Route("/validate/{token}", name="validate_account")
-     * @param $token
+     * @param UserManager $userManager
+     * @param User $user
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @Entity("User", expr="repository.tokenIsValid(token)")
      */
@@ -89,7 +94,9 @@ class UserController extends Controller
     {
 
         if ($user !== null) {
+
             $userManager->activeAccount($user);
+
             $this->addFlash('info', 'Votre compte est activé.');
         }
         if ($user === null) {

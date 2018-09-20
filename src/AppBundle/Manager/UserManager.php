@@ -1,17 +1,11 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: brieres
- * Date: 20/09/2018
- * Time: 15:13
- */
-
 namespace AppBundle\Manager;
 
 
 use AppBundle\Entity\User;
 use AppBundle\Service\SPMailer;
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\Container\ContainerInterface;
 
 class UserManager{
     /**
@@ -23,21 +17,31 @@ class UserManager{
      */
     private $em;
 
+
+    private $container;
+
     /**
      * UserManager constructor.
      * @param SPMailer $mailer
      * @param EntityManagerInterface $em
+     * @param ContainerInterface $container
      */
-    public function __construct(SPMailer $mailer, EntityManagerInterface $em)
+    public function __construct(SPMailer $mailer, EntityManagerInterface $em, ContainerInterface $container)
     {
         $this->mailer = $mailer;
         $this->em = $em;
+        $this->container = $container;
     }
 
     public function activeAccount(User $user){
 
         $user->setIsActive(true);
+        //sécurisation du mot de passe
+        $factory = $this->container->get('security.encoder_factory');
+        $password = $factory->getEncoder($user)->encodePassword($user->getPassword(), $user->getSalt());
+        $user->setPassword($password);
         $user->setToken(NULL);
+
         $this->em->persist($user);
         $this->em->flush();
     }
@@ -65,12 +69,12 @@ class UserManager{
      */
     private function createToken(User $user){
 
-            $token = md5(uniqid(rand(), true));
-            $user->setToken($token);
-            $date = new \DateTime('NOW', new \DateTimezone("Europe/Paris"));
-            $user->setDateToken($date);
-            $this->em->persist($user);
-            $this->em->flush();
+        $token = md5(uniqid(rand(), true));
+        $user->setToken($token);
+        $date = new \DateTime();
+        $user->setDateToken($date);
+        $this->em->persist($user);
+        $this->em->flush();
 
         }
 
