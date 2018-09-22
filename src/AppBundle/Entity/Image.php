@@ -17,7 +17,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Image
 {
-
     /**
      * @var int
      *
@@ -75,8 +74,6 @@ class Image
             $this->url = null;
             $this->alt = null;
         }
-
-
     }
 
     /**
