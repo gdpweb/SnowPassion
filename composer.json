@@ -1,6 +1,7 @@
 {
-    "name": "administrateur/.checkout",
+    "name": "snowpassion/stephane-briere",
     "license": "proprietary",
+    "description": "projet 6 openclassroom",
     "type": "project",
     "autoload": {
         "psr-4": {

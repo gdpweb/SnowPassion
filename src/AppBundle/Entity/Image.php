@@ -174,6 +174,7 @@ class Image
         $this->file->move($this->getPath(), $this->id . "." . $this->ext);
 
     }
+
     /**
      * @return mixed
      */

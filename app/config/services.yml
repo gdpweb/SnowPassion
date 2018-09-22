@@ -36,7 +36,3 @@ services:
   AppBundle\Service\SPMailer:
     arguments:
       $from: '%mailer_user%'
-
-  AppBundle\Entity\Image:
-    arguments:
-      $paths: '%avatar_directory%'
