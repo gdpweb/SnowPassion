@@ -37,12 +37,12 @@ class UserManager
 
     public function activeAccount(User $user)
     {
-
         $user->setIsActive(true);
-        //sécurisation du mot de passe
+
         $factory = $this->container->get('security.encoder_factory');
         $password = $factory->getEncoder($user)->encodePassword($user->getPassword(), $user->getSalt());
         $user->setPassword($password);
+
         $user->setToken(null);
 
         $this->em->persist($user);
@@ -55,6 +55,7 @@ class UserManager
     public function resetMail(User $user)
     {
         $this->createToken($user);
+
         $this->em->persist($user);
         $this->em->flush();
 
@@ -83,12 +84,10 @@ class UserManager
      */
     private function createToken(User $user)
     {
-
         $token = md5(uniqid(rand(), true));
         $user->setToken($token);
         $date = new \DateTime();
         $user->setDateToken($date);
-
     }
 
 

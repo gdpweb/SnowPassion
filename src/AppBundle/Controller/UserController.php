@@ -28,6 +28,8 @@ class UserController extends Controller
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
 
+            $user->getImage()->setPath($this->getParameter('avatar_directory'));
+
             //envoie d'un mail et du lien avec le token validation
             $userManager->registerMail($user);
 

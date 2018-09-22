@@ -17,6 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Image
 {
+
     /**
      * @var int
      *
@@ -56,6 +57,9 @@ class Image
 
     private $tempFilename;
 
+    private $path;
+
+
     public function getFile()
     {
         return $this->file;
@@ -68,12 +72,14 @@ class Image
         // On vérifie si on avait déjà un fichier pour cette entité
         if (null !== $this->ext) {
             // On sauvegarde l'extension du fichier pour le supprimer plus tard
-            $this->tempFilename = $this->id() . '.' . $this->ext();
+            $this->tempFilename = $this->id . '.' . $this->ext;
 
             // On réinitialise les valeurs des attributs url et alt
             $this->url = null;
             $this->alt = null;
         }
+
+
     }
 
     /**
@@ -127,7 +133,6 @@ class Image
         return $this->ext;
     }
 
-
     /**
      * @ORM\PrePersist()
      * @ORM\PreUpdate()
@@ -135,7 +140,7 @@ class Image
     public function PreUpload()
     {
         if (null === $this->file) {
-            return;
+            return false;
         }
 
         $fileName = $this->file->getClientOriginalName();
@@ -160,27 +165,30 @@ class Image
 
         // Si on avait un ancien fichier, on le supprime
         if (null !== $this->tempFilename) {
-            $oldFile = $this->getUploadRootDir() . '/' . $this->tempFilename;
+            $oldFile = $this->getPath() . '/' . $this->tempFilename;
             if (file_exists($oldFile)) {
                 unlink($oldFile);
             }
         }
 
-        $this->file->move($this->getUploadDir(), $this->id . "." . $this->ext);
+        $this->file->move($this->getPath(), $this->id . "." . $this->ext);
 
     }
-
-
-    public function getUploadDir()
+    /**
+     * @return mixed
+     */
+    public function getPath()
     {
-        // On retourne le chemin relatif vers l'image pour un navigateur (relatif au répertoire /web donc)
-        return 'uploads/avatar';
+        return $this->path;
     }
 
-    protected function getUploadRootDir()
+    /**
+     * @param mixed $paths
+     */
+    public function setPath($path)
     {
-        // On retourne le chemin relatif vers l'image pour notre code PHP
-        return __DIR__ . '/../../../../web/' . $this->getUploadDir();
+        $this->path = $path;
     }
+
 }
 

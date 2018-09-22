@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: brieres
- * Date: 18/09/2018
- * Time: 18:29
- */
 
 namespace AppBundle\Service;
-
 
 use AppBundle\Entity\User;
 
@@ -18,6 +11,7 @@ class SPMailer
     private $to;
     private $subject;
     private $body;
+
 
     public function __construct($from, \Swift_Mailer $mailer)
     {
@@ -46,6 +40,7 @@ class SPMailer
 
     }
 
+
     public function validateUserMail(User $user)
     {
         $this->subject = "Création de votre compte";
@@ -53,9 +48,7 @@ class SPMailer
             "<html>
             <h4>Bonjour " . $user->getUsername() . ",</h4>
             <p>Vous avez demandé la création d'un compte sur le site SnowPassion.</p>
-            <p>Afin de valider votre compte, merci de suivre: 
-            <a href='http://127.0.0.1:8000/validate/" . $user->getToken() . "'>ce lien</a>
-            </p>
+            <p>Afin de valider votre compte, merci de suivre: <a href='http://127.0.0.1:8000/validate/" . $user->getToken() . "'>ce lien</a></p>
             <p>Cordialement SnowPassion.</p>
             </html>";
 
@@ -63,6 +56,7 @@ class SPMailer
 
         $this->sendMessage();
     }
+
 
     private function sendMessage()
     {
