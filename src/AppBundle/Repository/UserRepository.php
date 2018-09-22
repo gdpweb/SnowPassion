@@ -26,7 +26,6 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
             ->setParameter('date', $date)
             ->setParameter('token', $token)
             ->getQuery()
-            ->getOneOrNullResult()
-            ;
+            ->getOneOrNullResult();
     }
 }

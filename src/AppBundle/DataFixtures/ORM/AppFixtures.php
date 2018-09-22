@@ -26,7 +26,7 @@ class AppFixtures implements FixtureInterface, ContainerAwareInterface
         $user->setUsername('admin');
         $password = $factory->getEncoder($user)->encodePassword('admin', $user->getSalt());
         $user->setPassword($password);
-        $user->setRoles(['ROLE_AUTEUR','ROLE_ADMIN']);
+        $user->setRoles(['ROLE_AUTEUR', 'ROLE_ADMIN']);
         $user->setEmail('admin@gdpweb.fr');
         $user->setIsActive(true);
         $manager->persist($user);
@@ -41,10 +41,10 @@ class AppFixtures implements FixtureInterface, ContainerAwareInterface
         $manager->persist($user);
 
         $user = new User();
-        $user->setUsername('user');
+        $user->setUsername('default');
         $password = $factory->getEncoder($user)->encodePassword('user', $user->getSalt());
         $user->setPassword($password);
-        $user->setEmail('user@gdpweb.fr');
+        $user->setEmail('default@gdpweb.fr');
         $user->setIsActive(true);
         $manager->persist($user);
         $manager->flush();

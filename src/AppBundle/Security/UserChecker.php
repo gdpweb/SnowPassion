@@ -1,5 +1,7 @@
 <?php
+
 namespace AppBundle\Security;
+
 use AppBundle\Exception\AccountActiveException;
 use AppBundle\entity\User as AppUser;
 use Symfony\Component\Security\Core\User\UserCheckerInterface;
@@ -21,7 +23,7 @@ class UserChecker implements UserCheckerInterface
         }
 
         // user account is not active, the user may be notified
-        if ($user->isActive()==false) {
+        if ($user->isActive() == false) {
             throw new AccountActiveException('....');
         }
     }

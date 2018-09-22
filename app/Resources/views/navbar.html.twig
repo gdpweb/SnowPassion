@@ -19,7 +19,24 @@
                 </li>
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                     <li>
-                        <a href="{{ path('logout') }}">Deconnecter</a>
+
+                        <a href="{{ path('logout') }}">
+                            {% if app.user.image is not null %}
+                                <img class="img-avatar"
+                                     src="{{ asset(app.user.image.uploadDir~'/'~app.user.image.id~'.'~app.user.image.ext) }}"
+                                     alt="{{ app.user.image.alt }}">
+                                <span class="span-avatar">Déconnexion</span>
+                            {% endif %}
+
+
+
+                            {% if app.user.image is null %}
+                                <img class="img-avatar"
+                                     src="{{ asset('assets/img/avatar_default.png') }}"
+                                     alt="default">
+                                <span class="span-avatar">Déconnexion</span>
+                            {% endif %}
+                        </a>
                     </li>
                 {% else %}
                     <li><a href="{{ path('login') }}">Connexion</a></li>

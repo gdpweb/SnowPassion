@@ -1,10 +1,28 @@
-.cadre{
+.cadre {
     box-shadow: 8px 8px 12px #aaa;
     padding: 20px;
     border-radius: 7px;
     background-color: white;
     color: black;
 }
-body{
+
+body {
     font-size: 14px;
+}
+
+a img:hover, a img:focus {
+    cursor: pointer;
+}
+
+.img-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    position: relative;
+    top: -10px;
+}
+
+.span-avatar {
+    position: relative;
+    top: -8px;
 }

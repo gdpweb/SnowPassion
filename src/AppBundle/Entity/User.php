@@ -71,8 +71,9 @@ class User implements UserInterface, Serializable
     private $dateToken;
 
     /**
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Image", cascade={"remove"} )
-     * @ORM\Column(nullable=true)
+     * @ORM\JoinColumn(name="image_id", nullable=true)
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Image", cascade={"persist", "remove"})
+     * @Assert\Valid()
      */
     private $image;
 
@@ -264,7 +265,7 @@ class User implements UserInterface, Serializable
     /**
      * @param mixed $image
      */
-    public function setImage(Image $image)
+    public function setImage(Image $image = null)
     {
         $this->image = $image;
     }

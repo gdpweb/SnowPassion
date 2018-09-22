@@ -18,11 +18,11 @@ class UserResetType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email', EmailType::class,array(
-                'data'=>''
+            ->add('email', EmailType::class, array(
+                'data' => null
             ))
             ->add('password', PasswordType::class, array(
-                'label'=>"Mot de passe"
+                'label' => "Mot de passe"
 
             ))
             ->add('username', HiddenType::class)
@@ -33,6 +33,7 @@ class UserResetType extends AbstractType
                 )
             ));
     }
+
     /**
      * {@inheritdoc}
      */
@@ -42,6 +43,7 @@ class UserResetType extends AbstractType
             'data_class' => 'AppBundle\Entity\User'
         ));
     }
+
     /**
      * {@inheritdoc}
      */

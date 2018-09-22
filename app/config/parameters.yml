@@ -6,7 +6,7 @@ parameters:
     database_user: root
     database_password: null
     mailer_transport: smtp
-    mailer_host: 'smtp.1und1.de'
-    mailer_user: 'stephanebriere@gdpweb.fr'
-    mailer_password: '10jui1977'
+    mailer_host: smtp.1und1.de
+    mailer_user: stephanebriere@gdpweb.fr
+    mailer_password: 10jui1977
     secret: ThisTokenIsNotSoSecretChangeIt

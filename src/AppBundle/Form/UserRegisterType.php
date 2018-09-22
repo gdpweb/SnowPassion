@@ -19,12 +19,15 @@ class UserRegisterType extends AbstractType
     {
         $builder
             ->add('username', TextType::class, array(
-                'label'=>"Nom d'utilisateur"
+                'label' => "Nom d'utilisateur"
             ))
             ->add('password', PasswordType::class, array(
-                'label'=>"Mot de passe"
+                'label' => "Mot de passe"
             ))
             ->add('email', EmailType::class)
+            ->add('image', ImageType::class, array(
+                'label' => 'Votre photo de profil'
+            ))
             ->add('save', SubmitType::class, array(
                 'label' => 'Valider',
                 'attr' => array(
