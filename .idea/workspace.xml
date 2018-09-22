@@ -1,14 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="27becbe9-a4a6-41c4-baa5-1c40bdf1b078" name="Default Changelist" comment="">
+    <list default="true" id="546ba0fb-6764-481b-9568-8b80c800fdc9" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/Resources/views/default/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/SnowPassion.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/SnowPassion.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/config/config.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/config/parameters.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.htaccess" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/AppCache.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/AppKernel.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/console" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/symfony_requirements" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/phpunit.xml.dist" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/.htaccess" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/var/SymfonyRequirements.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/var/logs/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/var/sessions/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/.htaccess" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/app.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/app_dev.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/apple-touch-icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/assets/css/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/assets/img/about-bg.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/assets/img/avatar_default.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/assets/img/contact-bg.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/assets/img/default.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/assets/img/home-bg.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/assets/img/post-bg.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/assets/img/post-sample-image.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/assets/startbootstrap/img/home-bg.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/config.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/robots.txt" beforeDir="false" />
     </list>
     <ignored path=".idea/" />
     <ignored path=".gitignore" />
@@ -17,6 +41,7 @@
     <ignored path="app/config/config.yml" />
     <ignored path="web/.htaccess" />
     <ignored path="web/robots.txt" />
+    <ignored path="app/config/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,7 +92,7 @@
           <entry key="md" value="11" />
           <entry key="php" value="9166" />
           <entry key="twig" value="1247" />
-          <entry key="txt" value="46" />
+          <entry key="txt" value="60" />
           <entry key="vmoptions" value="8" />
           <entry key="yml" value="683" />
         </counts>
@@ -80,7 +105,7 @@
           <entry key="Less" value="1" />
           <entry key="Markdown" value="11" />
           <entry key="PHP" value="9151" />
-          <entry key="PLAIN_TEXT" value="110" />
+          <entry key="PLAIN_TEXT" value="124" />
           <entry key="Twig" value="1246" />
           <entry key="YAML" value="683" />
         </counts>
@@ -176,9 +201,6 @@
     </option>
     <option name="RESET_MODE" value="KEEP" />
   </component>
-  <component name="GithubDefaultAccount">
-    <option name="defaultAccountId" value="63b21aa4-57b5-4694-adb2-0f1e7f44e0a8" />
-  </component>
   <component name="GithubProjectSettings">
     <option name="CREATE_PULL_REQUEST_DEFAULT_BRANCH" value="master" />
     <option name="CREATE_PULL_REQUEST_DEFAULT_REPO_USER" value="gdpweb" />
@@ -247,60 +269,6 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="NodePackageJsonFileManager">
-    <packageJsonPaths>
-      <path value="$PROJECT_DIR$/web/assets/startbootstrap/package.json" />
-    </packageJsonPaths>
-  </component>
-  <component name="PhpWorkspaceProjectConfiguration">
-    <include_path>
-      <path value="$PROJECT_DIR$/vendor/paragonie/random_compat" />
-      <path value="$PROJECT_DIR$/vendor/fig/link-util" />
-      <path value="$PROJECT_DIR$/vendor/swiftmailer/swiftmailer" />
-      <path value="$PROJECT_DIR$/vendor/jdorn/sql-formatter" />
-      <path value="$PROJECT_DIR$/vendor/composer" />
-      <path value="$PROJECT_DIR$/vendor/monolog/monolog" />
-      <path value="$PROJECT_DIR$/vendor/incenteev/composer-parameter-handler" />
-      <path value="$PROJECT_DIR$/vendor/symfony/phpunit-bridge" />
-      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php70" />
-      <path value="$PROJECT_DIR$/vendor/symfony/monolog-bundle" />
-      <path value="$PROJECT_DIR$/vendor/symfony/symfony" />
-      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-util" />
-      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-mbstring" />
-      <path value="$PROJECT_DIR$/vendor/symfony/swiftmailer-bundle" />
-      <path value="$PROJECT_DIR$/vendor/sensiolabs/security-checker" />
-      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php56" />
-      <path value="$PROJECT_DIR$/vendor/psr/simple-cache" />
-      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-icu" />
-      <path value="$PROJECT_DIR$/vendor/psr/link" />
-      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-ctype" />
-      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-apcu" />
-      <path value="$PROJECT_DIR$/vendor/psr/container" />
-      <path value="$PROJECT_DIR$/vendor/doctrine/lexer" />
-      <path value="$PROJECT_DIR$/vendor/psr/log" />
-      <path value="$PROJECT_DIR$/vendor/doctrine/inflector" />
-      <path value="$PROJECT_DIR$/vendor/psr/cache" />
-      <path value="$PROJECT_DIR$/vendor/doctrine/orm" />
-      <path value="$PROJECT_DIR$/vendor/doctrine/dbal" />
-      <path value="$PROJECT_DIR$/vendor/doctrine/annotations" />
-      <path value="$PROJECT_DIR$/vendor/doctrine/collections" />
-      <path value="$PROJECT_DIR$/vendor/doctrine/instantiator" />
-      <path value="$PROJECT_DIR$/vendor/doctrine/doctrine-bundle" />
-      <path value="$PROJECT_DIR$/vendor/doctrine/common" />
-      <path value="$PROJECT_DIR$/vendor/doctrine/doctrine-cache-bundle" />
-      <path value="$PROJECT_DIR$/vendor/doctrine/cache" />
-      <path value="$PROJECT_DIR$/vendor/sensio/generator-bundle" />
-      <path value="$PROJECT_DIR$/vendor/sensio/framework-extra-bundle" />
-      <path value="$PROJECT_DIR$/vendor/twig/twig" />
-      <path value="$PROJECT_DIR$/vendor/sensio/distribution-bundle" />
-      <path value="$PROJECT_DIR$/vendor/doctrine/persistence" />
-      <path value="$PROJECT_DIR$/vendor/doctrine/doctrine-fixtures-bundle" />
-      <path value="$PROJECT_DIR$/vendor/doctrine/reflection" />
-      <path value="$PROJECT_DIR$/vendor/doctrine/data-fixtures" />
-      <path value="$PROJECT_DIR$/vendor/doctrine/event-manager" />
-      <path value="$PROJECT_DIR$/vendor/squizlabs/php_codesniffer" />
-    </include_path>
-  </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="742" />
     <option name="y" value="155" />
@@ -327,71 +295,14 @@
       </profile-state>
     </entry>
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="SnowPassion" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SnowPassion" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="SnowPassion" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SnowPassion" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="SnowPassion" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SnowPassion" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="config" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="SnowPassion" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SnowPassion" type="462c0819:PsiDirectoryNode" />
-              <item name="bin" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="SnowPassion" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SnowPassion" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="SnowPassion" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SnowPassion" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="AppBundle" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="SnowPassion" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SnowPassion" type="462c0819:PsiDirectoryNode" />
-              <item name="web" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="SnowPassion" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SnowPassion" type="462c0819:PsiDirectoryNode" />
-              <item name="web" type="462c0819:PsiDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="SnowPassion" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SnowPassion" type="462c0819:PsiDirectoryNode" />
-              <item name="web" type="462c0819:PsiDirectoryNode" />
-              <item name="uploads" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="SnowPassion" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="bcb0276e:PhpExternalLibrariesNodePatcher$PatchedExternalLibrariesNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
       <pane id="Scope">
         <subPane subId="Scope 'Revert &quot;Initial commit&quot;'; set:Revert &quot;Initial commit&quot;; class com.intellij.packageDependencies.ChangeListScope">
           <expand>
@@ -446,6 +357,95 @@
           <select />
         </subPane>
       </pane>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="SnowPassion" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SnowPassion" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SnowPassion" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SnowPassion" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SnowPassion" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SnowPassion" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="AppBundle" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SnowPassion" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SnowPassion" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="AppBundle" type="462c0819:PsiDirectoryNode" />
+              <item name="Controller" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SnowPassion" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SnowPassion" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="AppBundle" type="462c0819:PsiDirectoryNode" />
+              <item name="Entity" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SnowPassion" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SnowPassion" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="AppBundle" type="462c0819:PsiDirectoryNode" />
+              <item name="Exception" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SnowPassion" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SnowPassion" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="AppBundle" type="462c0819:PsiDirectoryNode" />
+              <item name="Form" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SnowPassion" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SnowPassion" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="AppBundle" type="462c0819:PsiDirectoryNode" />
+              <item name="Manager" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SnowPassion" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SnowPassion" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="AppBundle" type="462c0819:PsiDirectoryNode" />
+              <item name="Repository" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SnowPassion" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SnowPassion" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="AppBundle" type="462c0819:PsiDirectoryNode" />
+              <item name="Security" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SnowPassion" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SnowPassion" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="AppBundle" type="462c0819:PsiDirectoryNode" />
+              <item name="Service" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SnowPassion" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SnowPassion" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="AppBundle" type="462c0819:PsiDirectoryNode" />
+              <item name="AppBundle.php" type="88303cf5:PhpFileNode" />
+            </path>
+            <path>
+              <item name="SnowPassion" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="bcb0276e:PhpExternalLibrariesNodePatcher$PatchedExternalLibrariesNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -468,7 +468,7 @@
     <property name="SearchEverywhereHistoryKey" value="Doctrine\Common\ClassLoader &#9;null&#9;null" />
     <property name="TODO_SCOPE" value="All Places" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/web/robots.txt" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/config" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -476,18 +476,18 @@
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Ignored.Files" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\wamp64\www\SnowPassion" />
+      <recent name="C:\wamp64\www\SnowPassion\app" />
+      <recent name="C:\wamp64\www\SnowPassion\src\AppBundle\Form" />
+      <recent name="C:\wamp64\www\SnowPassion\src\AppBundle\Resources\views\Tricks" />
+      <recent name="C:\wamp64\www\SnowPassion\src\AppBundle\Controller" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\wamp64\www\SnowPassion\app\Resources\views" />
       <recent name="C:\wamp64\www\SnowPassion\app\Resources" />
       <recent name="C:\wamp64\www\SnowPassion\src\AppBundle\DataFixtures\ORM" />
       <recent name="C:\wamp64\www\SnowPassion\src\AppBundle\DataFixtures" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\wamp64\www\SnowPassion\src\AppBundle\Form" />
-      <recent name="C:\wamp64\www\SnowPassion\src\AppBundle\Resources\views\Tricks" />
-      <recent name="C:\wamp64\www\SnowPassion\src\AppBundle\Controller" />
-      <recent name="C:\wamp64\www\SnowPassion\src\AppBundle\Service" />
-      <recent name="C:\wamp64\www\SnowPassion\src\AppBundle" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -602,11 +602,18 @@
       <option name="project" value="LOCAL" />
       <updated>1537645923204</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Delete config">
+      <created>1537658619539</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1537658619539</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="141243000" />
+    <option name="totallyTimeSpent" value="142146000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -620,7 +627,7 @@
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49268293" visible="true" weight="0.34795764" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49268293" visible="true" weight="0.35325265" />
       <window_info id="Structure" order="1" sideWeight="0.50731707" side_tool="true" weight="0.28971255" />
       <window_info id="Favorites" order="2" sideWeight="0.50487804" side_tool="true" weight="0.26096824" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -632,8 +639,8 @@
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49848714" weight="0.3289689" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.4795764" weight="0.32569557" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" sideWeight="0.4795764" visible="true" weight="0.42880523" />
+      <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.4795764" visible="true" weight="0.32569557" />
+      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.4795764" weight="0.42880523" />
       <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.5204236" side_tool="true" weight="0.42880523" />
       <window_info anchor="bottom" id="Messages" order="12" weight="0.3289689" />
       <window_info anchor="bottom" id="TypeScript" order="13" />
@@ -712,7 +719,8 @@
     <MESSAGE value="Adding a UserCheck and Exception class" />
     <MESSAGE value="Quality tests Codacy and modifications" />
     <MESSAGE value="Changing the method of downloading images" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changing the method of downloading images" />
+    <MESSAGE value="Delete config" />
+    <option name="LAST_COMMIT_MESSAGE" value="Delete config" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/app/AppKernel.php">
@@ -1039,9 +1047,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1326">
           <caret line="102" column="9" lean-forward="true" selection-start-line="102" selection-start-column="9" selection-end-line="102" selection-end-column="9" />
-          <folding>
-            <element signature="e#40#66#0#PHP" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
