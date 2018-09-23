@@ -26,3 +26,8 @@ a img:hover, a img:focus {
     position: relative;
     top: -8px;
 }
+
+.media-object{
+
+    width: 100px;
+}
