@@ -15,8 +15,8 @@ a img:hover, a img:focus {
 }
 
 .img-avatar {
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
     position: relative;
     top: -10px;
@@ -24,5 +24,35 @@ a img:hover, a img:focus {
 
 .span-avatar {
     position: relative;
+    font-size: 18px;
     top: -8px;
+}
+
+.media-object {
+
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.media-heading {
+    margin-bottom: 15px;
+}
+
+.btn {
+
+    padding: 5px 15px;
+}
+
+.alert {
+    font-size: 15px !important;
+    font-weight: bold;
+}
+
+@media (min-width: 768px) {
+    .navbar-nav > li > a {
+        height: 50px;
+        padding: 15px 15px;
+        font-size: 18px;
+        line-height: 20px;
+    }
 }

@@ -1,0 +1,14 @@
+{% block body %}
+    <p>
+        Etes-vous certain de vouloir supprimer la figure de SnowBoard: {{ trick.nom }} ?
+    </p>
+    <form action="{{ path('delete_check', {'id': trick.id}) }}" method="post">
+        <div class="form-group text-center">
+            <a href="{{ path('homepage') }}" class="btn btn-default">
+                <i class="glyphicon glyphicon-chevron-left"></i>
+                Retour à l'accueil
+            </a>
+            <input type="submit" value="Supprimer" class="btn btn-danger"/>
+        </div>
+    </form>
+{% endblock %}

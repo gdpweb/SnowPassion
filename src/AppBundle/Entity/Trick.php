@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * trick
  *
  * @ORM\Table(name="sp_trick")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\trickRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\TrickRepository")
  */
 class Trick
 {
@@ -77,14 +77,37 @@ class Trick
      */
     public $videos;
 
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Comment", mappedBy="trick",cascade={"persist","remove"})
+     */
+
+    public $comments;
+
 
     public function __construct()
     {
         $this->date       = new \Datetime();
         $this->images = new ArrayCollection() ;
         $this->videos = new ArrayCollection() ;
+        $this->comments =new ArrayCollection();
     }
- 
+    public function addComment(comment $comment)
+    {
+        $this->comments[] = $comment;
+
+        return $this;
+    }
+
+    public function removeComment(comment $comment)
+    {
+        $this->comments->removeElement($comment);
+    }
+
+    public function getComments()
+    {
+        return $this->comments;
+    }
+    
     public function addImage(Image $image)
     {
 

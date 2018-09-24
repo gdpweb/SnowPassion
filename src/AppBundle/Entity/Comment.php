@@ -42,8 +42,10 @@ class Comment
     private $auteur;
 
     /**
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Trick", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Trick", inversedBy="comments")
+     * @ORM\JoinColumn(nullable=false)
      */
+
     private $trick;
 
 
