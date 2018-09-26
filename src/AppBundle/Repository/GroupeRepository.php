@@ -10,4 +10,9 @@ namespace AppBundle\Repository;
  */
 class GroupeRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getListGroupes()
+    {
+        return $this
+            ->createQueryBuilder('c');
+    }
 }

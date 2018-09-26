@@ -13,7 +13,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="sp_image")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ImageRepository")
  * @ORM\HasLifecycleCallbacks()
- *
  */
 class Image
 {
@@ -75,11 +74,9 @@ class Image
             $this->tempFilename = $this->id . '.' . $this->ext;
 
             // On réinitialise les valeurs des attributs url et alt
-            $this->url = null;
+            $this->ext = null;
             $this->alt = null;
         }
-
-
     }
 
     /**
@@ -176,6 +173,29 @@ class Image
     }
 
     /**
+     * @ORM\PreRemove()
+     */
+    public function preRemove()
+    {
+
+        $this->tempFilename = $this->getPath() . '/' . $this->id . '.' . $this->ext;
+    }
+
+    /**
+     * @ORM\PostRemove()
+     */
+    public function PostRemove()
+    {
+
+
+        if (file_exists($this->tempFilename)) {
+
+            unlink($this->tempFilename);
+        }
+
+    }
+
+    /**
      * @return mixed
      */
     public function getPath()
@@ -184,7 +204,7 @@ class Image
     }
 
     /**
-     * @param mixed $paths
+     * @param mixed $path
      */
     public function setPath($path)
     {

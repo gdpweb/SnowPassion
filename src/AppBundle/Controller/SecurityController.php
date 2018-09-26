@@ -71,7 +71,7 @@ class SecurityController extends Controller
     }
 
     /**
-     * @Route("/logout", name="logout")
+     * @Route("/connexion/logout", name="logout")
      * @throws \Exception
      */
     public function logoutAction()

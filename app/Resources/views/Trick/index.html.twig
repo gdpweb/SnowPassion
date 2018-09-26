@@ -18,7 +18,9 @@
             {% for trick in tricks %}
                 <div class="media row">
                     <div class="col-md-2">
-                        <img src="{{ asset(trick_directory~'grabs.jpg') }}" class="media-object" alt="">
+                        <img src="{{ asset(trick_directory~(trick.images|first).id~'.'~(trick.images|first).ext) }}"
+                             class="media-object"
+                             alt="{{ (trick.images|first).alt }}">
                     </div>
                     <div class="col-md-9">
                         <h4 class="media-heading">{{ trick.nom }}
@@ -28,15 +30,21 @@
                                 </i>
                             </small>
                             {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                                <span class="fa fa-pencil"></span>
+                                <a href="{{ path('trick_edit', {'id': trick.id}) }}">
+                                    <span class="fa fa-pencil"></span>
+                                </a>
+
                                 {% if is_granted('ROLE_ADMIN') %}
-                                    <a class="delete" data-href="{{ path('delete', {'id': trick.id}) }}">
+                                    <a class="delete" data-href="{{ path('trick_delete', {'id': trick.id}) }}">
                                         <span class="fa fa-remove"></span>
                                     </a>
                                 {% endif %}
                             {% endif %}
                         </h4>
-                        <p>{{ trick.description }} <br><a class="pull-right" href="#">[lire la suite...]</a></p>
+                        <p>{{ trick.description|truncate(150) }}
+                            <a href="{{ path('trick_view', {'id': trick.id}) }}" >[lire la suite...]
+                            </a>
+                        </p>
                     </div>
                 </div>
             {% endfor %}
@@ -45,7 +53,7 @@
         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
             <div class="col-xs-10 col-xs-offset-1">
                 <hr>
-                <a href="{{ path('homepage') }}" class="btn btn-default pull-right">
+                <a href="{{ path('trick_add') }}" class="btn btn-default pull-right">
                     Ajouter une figure
                 </a>
             </div>

@@ -1,0 +1,11 @@
+<h3 class="well">Liste des commentaires</h3>
+{% for comment in comments %}
+    <div class="media thumbnail">
+        <h5 class="text-danger">
+            Commentaire publié
+            le {{ comment.date| localizeddate('none', 'none', null, null, 'd MMMM Y') }}
+            par {{ comment.auteur.username }}
+        </h5>
+        <p>{{ comment.message }}</p>
+    </div>
+{% endfor %}

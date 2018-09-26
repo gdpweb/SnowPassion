@@ -5,6 +5,13 @@
     background-color: white;
     color: black;
 }
+.well-white {
+    border: solid 1px #c8c8c8;
+    padding: 20px;
+    border-radius: 7px;
+    background-color: white;
+    color: black;
+}
 
 body {
     font-size: 14px;
@@ -21,7 +28,37 @@ a img:hover, a img:focus {
     position: relative;
     top: -10px;
 }
+.img-trick{
+    width: 100%;
+}
+#form-trick{
+    margin-top:60px;
+}
+.media-image{
+    padding-bottom:5px;
+    min-height:200px
+}
+.media-video{
+    width :100%;
+    padding-bottom:5px;
+    min-height:185px
+}
+.fa-button{
+    text-align: right;
+    margin-top:5px;
+    padding: 5px 0;
 
+}
+.fa-button>span{
+    border:solid 1px #c8c8c8;
+    border-radius: 4px;
+    background-color: white;
+
+}
+.fa-margin{
+    margin-left: 7px;
+    margin-right: 7px;
+}
 .span-avatar {
     position: relative;
     font-size: 18px;
@@ -47,7 +84,10 @@ a img:hover, a img:focus {
     font-size: 15px !important;
     font-weight: bold;
 }
-
+.trick{
+    position: relative;
+    padding-top: 60px;
+}
 @media (min-width: 768px) {
     .navbar-nav > li > a {
         height: 50px;

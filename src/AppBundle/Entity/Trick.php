@@ -5,12 +5,15 @@ namespace AppBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * trick
  *
  * @ORM\Table(name="sp_trick")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\TrickRepository")
+ * @UniqueEntity(fields={"nom"}, message="Cette figure existe déjà")
+ *
  */
 class Trick
 {
@@ -52,12 +55,12 @@ class Trick
     private $publie;
 
     /**
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\User", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", cascade={"persist"})
      */
     public $auteur;
 
     /**
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Groupe", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Groupe", cascade={"persist"})
      * @Assert\Valid()
      */
     public $groupe;
@@ -86,15 +89,17 @@ class Trick
 
     public function __construct()
     {
-        $this->date       = new \Datetime();
-        $this->images = new ArrayCollection() ;
-        $this->videos = new ArrayCollection() ;
-        $this->comments =new ArrayCollection();
+        $this->date = new \Datetime();
+        $this->images = new ArrayCollection();
+        $this->videos = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
+
     public function addComment(comment $comment)
     {
+        $comment->setAuteur($this->auteur);
+        $comment->setTrick($this);
         $this->comments[] = $comment;
-
         return $this;
     }
 
@@ -107,19 +112,17 @@ class Trick
     {
         return $this->comments;
     }
-    
+
     public function addImage(Image $image)
     {
-
         $this->images[] = $image;
     }
 
     public function removeImage(image $image)
     {
-
         $this->images->removeElement($image);
-    }
 
+    }
 
     public function getImages()
     {
@@ -137,7 +140,6 @@ class Trick
 
         $this->videos->removeElement($video);
     }
-
 
     public function getVideos()
     {
@@ -281,6 +283,5 @@ class Trick
     {
         $this->groupe = $groupe;
     }
-
 
 }
