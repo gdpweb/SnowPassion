@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>{% block title %}SnowPassion{% endblock %}</title>
+    {% block stylesheets %}
+        <!-- Bootstrap Core CSS -->
+        <link href="{{ asset('assets/startbootstrap/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+        <!-- Theme CSS -->
+        <link href="{{ asset('assets/startbootstrap/css/clean-blog.css') }}" rel="stylesheet">
+        <!-- CSS Personnalisé -->
+        <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
+        <!-- Custom Fonts -->
+        <link href="{{ asset('assets/startbootstrap/vendor/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet"
+              type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet'
+              type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
+              rel='stylesheet' type='text/css'>
+    {% endblock %}
+
+</head>
+
+<body>
+
+{{ include('navbar.html.twig') }}
+
+<div class="container-fluid trick">
+    {% for key, messages in app.session.flashbag.all() %}
+        {% for message in messages %}
+            <div class="row">
+                <div class="alert alert-{{ key }}">
+                    {{ message }}
+                </div>
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {% block body %}
+    {% endblock %}
+    <hr>
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                        <li>
+                            <a href="#">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    <p class="copyright text-muted">Copyright SnowPassion &copy; {{ 'now'|date('Y') }}</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">Modal title</h4>
+                </div>
+                <div class="modal-body">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% block javascripts %}
+    <!-- jQuery -->
+    <script src="{{ asset('assets/startbootstrap/vendor/jquery/jquery.min.js') }}"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{{ asset("assets/startbootstrap/vendor/bootstrap/js/bootstrap.min.js") }}"></script>
+
+{% endblock %}
+
+</body>
+</html>
