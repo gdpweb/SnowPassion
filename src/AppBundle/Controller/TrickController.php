@@ -16,7 +16,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class TrickController extends Controller
 {
-
     /**
      * @Route("/", name="homepage")
      * @param EntityManagerInterface $em

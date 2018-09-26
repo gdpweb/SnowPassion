@@ -1,0 +1,15 @@
+{% block body %}
+    <p>
+        Etes-vous certain de vouloir supprimer l'image: {{ image.alt~'.'~image.ext }} ?
+    </p>
+    <form action="{{ path('image_delete_check', {'trick_id':trick.id,'image_id': image.id}) }}" method="post">
+        <div class="form-group text-center">
+            <a href="#" data-dismiss="modal" class="btn btn-default">
+                <i class="glyphicon glyphicon-chevron-left"></i>
+                Annuler
+            </a>
+            <input type="submit" value="Supprimer" class="btn btn-danger"/>
+        </div>
+    </form>
+
+{% endblock %}
