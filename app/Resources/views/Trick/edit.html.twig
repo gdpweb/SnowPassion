@@ -1,0 +1,97 @@
+{% extends "default_trick.html.twig" %}
+
+{% block title %}
+    Edit - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <header class="intro-header"
+                style="background-image: url({{ asset(trick_directory~(trick.images|first).id~'.'~(trick.images|first).ext) }})">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="site-heading">
+                            <h1>{{ trick.nom }}</h1>
+                            <hr class="small">
+                        </div>
+                        <div class="fa-button">
+                        <span>
+                            <i class="fa fa-pencil fa-margin"></i>
+                            <i class="fa fa-trash fa-margin"></i>
+                        </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <hr>
+        <section id="images" class="col-lg-12">
+            {% for image in trick.images|slice(1) %}
+                <div class="col-lg-3 media-image">
+                    <img class="img-trick" src="{{ asset(trick_directory~image.id~'.'~image.ext) }}" alt="no-photo">
+                    <div class="fa-button">
+                        <span>
+                            <i class="fa fa-pencil fa-margin"></i>
+                            <i data-href="{{ path('image_delete', {'trick_id': trick.id,'image_id': image.id}) }}"
+                               class="fa fa-trash fa-margin delete"
+                               title="Supprimer l'image">
+                            </i>
+                        </span>
+                    </div>
+                </div>
+            {% endfor %}
+
+            {% for video in trick.videos %}
+                <div class="col-lg-3">
+                    <iframe class="media-video"
+                            src="{{ video.url }}"
+                            frameborder="0" allow="autoplay" encrypted-media allowfullscreen>
+                    </iframe>
+
+                    <div class="fa-button">
+                        <span>
+                            <i class="fa fa-pencil fa-margin"></i>
+                            <i class="fa fa-trash fa-margin"></i>
+                        </span>
+                    </div>
+                </div>
+            {% endfor %}
+        </section>
+        <section id="form-trick" class="col-lg-8 col-lg-offset-2">
+
+            {{ form_start(form) }}
+
+            {{ form_errors(form) }}
+
+            {{ form_row(form.nom) }}
+
+            {{ form_row(form.description) }}
+
+            {{ form_row(form.groupe) }}
+
+            <div class="form-group text-right">
+
+                <button type="button" class="delete btn btn-danger"
+                        data-href="{{ path('trick_delete', {'id': trick.id}) }}"
+                        title="Supprimer la figure">
+                    Supprimer
+                </button>
+                <button type="submit" class="btn btn-success" value="Valider">Valider</button>
+            </div>
+
+            {{ form_rest(form) }}
+
+        </section>
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script src="{{ asset('assets/js/editTrick.js') }}"></script>
+
+{% endblock %}
