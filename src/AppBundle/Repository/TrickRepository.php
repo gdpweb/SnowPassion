@@ -10,4 +10,11 @@ namespace AppBundle\Repository;
  */
 class TrickRepository extends \Doctrine\ORM\EntityRepository
 {
+
+
+
+    public function getHomepageTricks()
+    {
+
+    }
 }

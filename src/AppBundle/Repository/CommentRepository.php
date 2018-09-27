@@ -2,6 +2,8 @@
 
 namespace AppBundle\Repository;
 
+use Doctrine\ORM\Tools\Pagination\Paginator;
+
 /**
  * CommentRepository
  *
@@ -10,4 +12,18 @@ namespace AppBundle\Repository;
  */
 class CommentRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getComments($trick, $page, $nbPerPage)
+    {
+        $query = $this->createQueryBuilder('a')
+            ->where('a.trick=:trick')
+            ->orderBy('a.date', 'DESC')
+            ->setParameter('trick',$trick)
+            ->getQuery()
+        ;
+        $query
+            ->setFirstResult(($page-1) * $nbPerPage)
+            ->setMaxResults($nbPerPage)
+        ;
+        return new Paginator($query, true);
+    }
 }

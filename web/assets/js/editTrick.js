@@ -9,7 +9,6 @@ $(document).ready(function () {
         } else {
             titre = $(this).attr('title');
         }
-
         $('.modal-title').html(titre);
         const url = $(this).data('href');
         $.ajax({

@@ -19,6 +19,8 @@ class UserManager
      */
     private $em;
 
+    private $path;
+
 
     private $container;
 
@@ -27,12 +29,20 @@ class UserManager
      * @param SPMailer $mailer
      * @param EntityManagerInterface $em
      * @param ContainerInterface $container
+     * @param $image_directory
      */
-    public function __construct(SPMailer $mailer, EntityManagerInterface $em, ContainerInterface $container)
+    public function __construct(SPMailer $mailer, EntityManagerInterface $em, ContainerInterface $container, $image_directory)
     {
         $this->mailer = $mailer;
         $this->em = $em;
         $this->container = $container;
+        $this->path = $image_directory;
+    }
+
+    public function tokenValid($token)
+    {
+
+        return $this->em->getRepository('AppBundle:User')->tokenIsValid($token);
     }
 
     public function activeAccount(User $user)
@@ -67,6 +77,8 @@ class UserManager
      */
     public function registerMail(User $user)
     {
+
+        $user->getImage()->setPath($this->path);
         $this->createToken($user);
 
         $factory = $this->container->get('security.encoder_factory');

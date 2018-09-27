@@ -1,5 +1,5 @@
 <h3 class="well">Liste des commentaires</h3>
-{% for comment in comments %}
+{% for comment in listComments %}
     <div class="media thumbnail">
         <h5 class="text-danger">
             Commentaire publié
@@ -9,3 +9,4 @@
         <p>{{ comment.message }}</p>
     </div>
 {% endfor %}
+

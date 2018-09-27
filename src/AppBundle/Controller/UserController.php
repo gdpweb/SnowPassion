@@ -6,7 +6,6 @@ use AppBundle\Entity\User;
 use AppBundle\Form\UserResetType;
 use AppBundle\Form\UserRegisterType;
 use AppBundle\Manager\UserManager;
-use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,25 +21,19 @@ class UserController extends Controller
      */
     public function registerAction(Request $request, UserManager $userManager)
     {
-        $user = new User();
-        $form = $this->get('form.factory')->create(UserRegisterType::class, $user);
+        $form = $this->createForm(UserRegisterType::class);
+        $form->handleRequest($request);
 
-        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
 
-            $user->getImage()->setPath($this->getParameter('avatar_directory'));
-
-            //envoie d'un mail et du lien avec le token validation
-            $userManager->registerMail($user);
-
+            $userManager->registerMail($form->getData());
             $this->addFlash(
                 'info', 'Votre compte a été créé. 
             Utiliser le lien qui vous a été envoyé par mail pour valider votre inscription.
             Le lien reste actif 20 minutes.'
             );
-
             return $this->redirectToRoute('homepage');
         }
-
         return $this->render('User/register.html.twig', array(
                 'form' => $form->createView()
             )
@@ -51,13 +44,12 @@ class UserController extends Controller
      * @Route("/reset/{token}", name="reset")
      * @param Request $request
      * @param UserManager $userManager
-     * @param EntityManagerInterface $em
      * @param $token
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function resetAction(Request $request, UserManager $userManager, EntityManagerInterface $em, $token)
+    public function resetAction(Request $request, UserManager $userManager, $token)
     {
-        $user = $em->getRepository('AppBundle:User')->tokenIsValid($token);
+        $user = $userManager->tokenValid($token);
 
         if ($user === null) {
             $this->addFlash(
@@ -65,12 +57,12 @@ class UserController extends Controller
             );
             return $this->redirectToRoute('homepage');
         }
+        $form = $this->createForm(UserResetType::class, $user);
+        $form->handleRequest($request);
 
-        $form = $this->get('form.factory')->create(UserResetType::class, $user);
+        if ($form->isSubmitted() && $form->isValid()) {
 
-        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-
-            $userManager->activeAccount($user);
+            $userManager->activeAccount($form->getData());
 
             $this->addFlash(
                 'success', 'Votre mot de passe a été réinitialisé.'
@@ -81,7 +73,6 @@ class UserController extends Controller
                 'form' => $form->createView()
             )
         );
-
     }
 
     /**
@@ -93,19 +84,13 @@ class UserController extends Controller
      */
     public function validateAccountAction(UserManager $userManager, User $user)
     {
-
         if ($user !== null) {
-
             $userManager->activeAccount($user);
-
             $this->addFlash('info', 'Votre compte est activé.');
         }
         if ($user === null) {
-
             $this->addFlash('danger', 'Désolé, Ce lien a expiré, votre compte n\'a pu être activé');
         }
         return $this->redirectToRoute('homepage');
     }
-
-
 }

@@ -17,13 +17,16 @@
 
             {% for trick in tricks %}
                 <div class="media row">
+                    {%  if (trick.images|first) is not empty %}
                     <div class="col-md-2">
                         <img src="{{ asset(trick_directory~(trick.images|first).id~'.'~(trick.images|first).ext) }}"
                              class="media-object"
                              alt="{{ (trick.images|first).alt }}">
                     </div>
+                    {% endif %}
                     <div class="col-md-9">
-                        <h4 class="media-heading">{{ trick.nom }}
+                        <h4 class="media-heading">
+                            <a href="{{ path('trick_view', {'id': trick.id}) }}" >{{ trick.nom }}</a>
                             <small>
                                 <i>
                                     Publié le {{ trick.date| localizeddate('none', 'none', null, null, 'd MMMM Y') }}
@@ -35,7 +38,7 @@
                                 </a>
 
                                 {% if is_granted('ROLE_ADMIN') %}
-                                    <a class="delete" data-href="{{ path('trick_delete', {'id': trick.id}) }}">
+                                    <a class="delete" title="Supprimer la figure?" data-href="{{ path('trick_delete', {'id': trick.id}) }}">
                                         <span class="fa fa-remove"></span>
                                     </a>
                                 {% endif %}
@@ -59,4 +62,11 @@
             </div>
         {% endif %}
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script src="{{ asset('assets/js/editTrick.js') }}"></script>
+
 {% endblock %}

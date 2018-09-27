@@ -2,28 +2,33 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Comment;
 use AppBundle\Entity\Image;
 use AppBundle\Entity\Trick;
 use AppBundle\Form\CommentType;
 use AppBundle\Form\TrickAddType;
 use AppBundle\Form\TrickEditType;
+use AppBundle\Manager\CommentManager;
+use AppBundle\Manager\TrickManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class TrickController extends Controller
 {
+
     /**
      * @Route("/", name="homepage")
      * @param EntityManagerInterface $em
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function indexAction(EntityManagerInterface $em)
-    {
-        $tricks = $em->getRepository('AppBundle:Trick')->findAll();;
+    {   //faire une method dans repository
+        $tricks = $em->getRepository('AppBundle:Trick')->findAll();
+
         return $this->render('Trick/index.html.twig', array(
             'tricks' => $tricks
         ));
@@ -31,96 +36,98 @@ class TrickController extends Controller
 
     /**
      * @Route("/trick/{id}", name="trick_view")
-     * @ParamConverter("trick", class="AppBundle:Trick")
      * @param Request $request
-     * @param EntityManagerInterface $em
+     * @param CommentManager $commentManager
      * @param Trick $trick
-     * @param Image $image
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @return RedirectResponse|Response
      */
-    public function viewAction(Request $request, EntityManagerInterface $em, Trick $trick)
+    public function viewAction(Request $request, CommentManager $commentManager, Trick $trick)
     {
-        $comment = new Comment();
-        $form = $this->get('form.factory')->create(CommentType::class, $comment);
+        $listComments = $commentManager->getComments($trick);
 
-        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+        $nbPages = $commentManager->getNbPages($listComments);
 
-            $comment->setAuteur($this->getUser());
-            $trick->addComment($comment);
+        $form = $this->createForm(CommentType::class);
+        $form->handleRequest($request);
 
-            $em->flush();
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $commentManager->createComment($form->getData(), $trick, $this->getUser());
 
             $this->addFlash(
                 'success', 'Le commentaire a été sauvegardé'
             );
-            return $this->redirectToRoute('trick_view', array('id' => $trick->getId()));
-
+            return $this->redirectToRoute('trick_view', array(
+                'id' => $trick->getId()
+            ));
         }
         return $this->render('Trick/view.html.twig', array(
             'trick' => $trick,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'listComments' => $listComments,
+            'nbPages' => $nbPages
+        ));
+    }
+
+    /**
+     * @Route("/comments/{id}/page/{page}")
+     * @param CommentManager $commentManager
+     * @param Trick $trick
+     * @param $page
+     * @return Response
+     */
+    public function commentsAction(CommentManager $commentManager, Trick $trick, $page)
+    {
+        $listComments = $commentManager->getComments($trick, $page);
+
+        return $this->render('Trick/comments.html.twig', array(
+            'listComments' => $listComments
         ));
     }
 
     /**
      * @Route("/add", name="trick_add")
      * @param Request $request
-     * @param EntityManagerInterface $em
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @param TrickManager $trickManager
+     * @return RedirectResponse|Response
      */
-    public function addAction(Request $request, EntityManagerInterface $em)
+    public function addAction(Request $request, TrickManager $trickManager)
     {
-        $trick = new Trick();
-        $trick->setAuteur($this->getUser());
-        $form = $this->get('form.factory')->create(TrickAddType::class, $trick);
+        $form = $this->createForm(TrickAddType::class);
+        $form->handleRequest($request);
 
-        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
 
-            forEach ($trick->getImages() as $image) {
-                $image->setPath($this->getParameter('trick_directory'));
-            }
-            $trick->setPublie(true);
-            $em->persist($trick);
-            $em->flush();
-
+            $trickManager->createTrick($form->getData(), $this->getUser());
             $this->addFlash(
                 'success', 'La figure a été sauvegardée'
             );
-            return $this->redirectToRoute('trick_edit', array('id' => $trick->getId()));
+            return $this->redirectToRoute('homepage');
         }
-
         return $this->render('Trick/add.html.twig', array(
-            'form' => $form->createView(),
-            'trick' => $trick
+            'form' => $form->createView()
         ));
     }
 
     /**
      * @Route("/edit/{id}", name="trick_edit")
-     * @ParamConverter("trick", class="AppBundle:Trick")
      * @param Request $request
-     * @param EntityManagerInterface $em
+     * @param TrickManager $trickManager
      * @param Trick $trick
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @return RedirectResponse|Response
      */
-    public function editAction(Request $request, EntityManagerInterface $em, Trick $trick)
+    public function editAction(Request $request, TrickManager $trickManager, Trick $trick)
     {
-        $form = $this->get('form.factory')->create(TrickEditType ::class, $trick);
+        $form = $this->createForm(TrickEditType ::class, $trick);
+        $form->handleRequest($request);
 
-        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
 
-            forEach ($trick->getImages() as $image) {
-                $image->setPath($this->getParameter('trick_directory'));
-            }
-            $trick->setPublie(true);
-
-            $em->persist($trick);
-            $em->flush();
-
+            $trickManager->updateTrick($form->getData());
             $this->addFlash(
                 'success', 'La figure a été sauvegardée'
             );
-            return $this->redirectToRoute('trick_edit', array('id' => $trick->getId()));
+            return $this->redirectToRoute('homepage');
         }
         return $this->render('Trick/edit.html.twig', array(
             'form' => $form->createView(),
@@ -130,49 +137,39 @@ class TrickController extends Controller
 
     /**
      * @Route("/admin/delete/{id}", name="trick_delete")
-     * @ParamConverter("trick", class="AppBundle:Trick")
      * @param Trick $trick
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function deleteAction(Trick $trick)
     {
         return $this->render('Trick/delete.html.twig', array(
             'trick' => $trick
         ));
-
     }
 
     /**
      * @Route("/admin/delete/{id}/check", name="trick_delete_check")
-     * @ParamConverter("trick", class="AppBundle:Trick")
      * @param Request $request
-     * @param EntityManagerInterface $em
+     * @param TrickManager $trickManager
      * @param Trick $trick
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return RedirectResponse
      */
-    public function deleteCheckAction(Request $request, EntityManagerInterface $em, Trick $trick)
+    public function deleteCheckAction(Request $request, TrickManager $trickManager, Trick $trick)
     {
         if ($request->isMethod('POST')) {
 
-            forEach ($trick->getImages() as $image) {
-                $image->setPath($this->getParameter('trick_directory'));
-                $em->remove($image);
-            }
-            $em->remove($trick);
-            $em->flush();
+            $trickManager->deleteTrick($trick);
             $this->addFlash('success', 'La figure de snowboard a été supprimé');
         }
-
         return $this->redirectToRoute('homepage');
     }
 
     /**
-     * @Route("/admin/trick/{trick_id}/image/delete/{image_id}", name="image_delete")
-     * @ParamConverter("trick", class="AppBundle:Trick", options={"id" = "trick_id"})
+     * @Route("/admin/trick/{id}/delete/{image_id}", name="image_delete")
      * @ParamConverter("image", class="AppBundle:Image", options={"id" = "image_id"})
      * @param Trick $trick
      * @param Image $image
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function deleteImageAction(Trick $trick, Image $image)
     {
@@ -183,47 +180,25 @@ class TrickController extends Controller
     }
 
     /**
-     * @Route("/admin/trick/{trick_id}/image/delete/check/{image_id}", name="image_delete_check")
-     * @ParamConverter("trick", class="AppBundle:Trick", options={"id" = "trick_id"})
+     * @Route("/admin/trick/{id}/delete/check/{image_id}", name="image_delete_check")
      * @ParamConverter("image", class="AppBundle:Image", options={"id" = "image_id"})
      * @param Request $request
-     * @param EntityManagerInterface $em
+     * @param TrickManager $trickManager
      * @param Trick $trick
      * @param Image $image
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return RedirectResponse
      */
-    public function deleteImageCheckAction(Request $request, EntityManagerInterface $em, Trick $trick, Image $image)
+    public function deleteImageCheckAction(Request $request, TrickManager $trickManager, Trick $trick, Image $image)
     {
         if ($request->isMethod('POST')) {
 
-            $image->setPath($this->getParameter('trick_directory'));
-            $trick->removeImage($image);
-            $em->remove($image);
-            $em->flush();
+            $trickManager->deleteImage($image);
 
             $this->addFlash(
                 'success', 'L\'image a été supprimée'
-
             );
         }
         return $this->redirectToRoute('trick_edit', array('id' => $trick->getId()));
-    }
-
-    /**
-     * @Route("/comments/{id}/limit/{limit}")
-     * @ParamConverter("trick", class="AppBundle:Trick")
-     */
-    public function commentsAction(EntityManagerInterface $em, Trick $trick, $limit = 0)
-    {
-        $comments = $em->getRepository('AppBundle:Comment')->findBy(
-            array('trick' => $trick),
-            array('date' => 'Desc'),
-            $limit,
-            0
-        );
-        return $this->render('Trick/comments.html.twig', array(
-            'comments' => $comments
-        ));
     }
 
 }

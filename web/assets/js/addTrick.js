@@ -1,7 +1,15 @@
 $(document).ready(function () {
 
     $('.delete').click(function () {
-        $('.modal-title').html("Supprimer une figure de SnowBoard");
+
+        let titre;
+
+        if ($(this).attr('title')===null) {
+            titre = 'SnowPassion';
+        } else {
+            titre = $(this).attr('title');
+        }
+        $('.modal-title').html(titre);
         const url = $(this).data('href');
         $.ajax({
             type: 'post',
@@ -16,6 +24,7 @@ $(document).ready(function () {
     let index = {};
 
    initializeMedia('video');
+
    initializeMedia('image');
 
 

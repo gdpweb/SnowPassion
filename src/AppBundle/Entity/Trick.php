@@ -97,8 +97,6 @@ class Trick
 
     public function addComment(comment $comment)
     {
-        $comment->setAuteur($this->auteur);
-        $comment->setTrick($this);
         $this->comments[] = $comment;
         return $this;
     }

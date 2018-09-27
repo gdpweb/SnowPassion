@@ -1,18 +1,23 @@
 $(document).ready(function () {
 
-    let index = 5;
+    $('.btn-comments').click(function () {
 
-    $('#btn-comments').click(function () {
+        $('.pagination').children().removeClass('active');
+        $(this).parent().addClass('active');
 
-        const url = $(this).data('href') + '/' + index;
+        let ele = document.getElementById('commentaires');
+
+        const url = $(this).data('href');
+
         $.ajax({
             type: 'post',
             url: url,
             success: function (data) {
                 $('#commentaires').html(data);
-                index = index + 5;
+                $("HTML, BODY").animate({scrollTop: ele}, 1000);
             }
         });
-    });
 
+
+    });
 });
