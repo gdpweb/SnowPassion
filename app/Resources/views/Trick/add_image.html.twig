@@ -1,0 +1,11 @@
+{% block body %}
+    <form id="form" action="{{ path('add_image', {'id':trick.id}) }}" method="post" enctype="multipart/form-data">
+        <div id="form-container">
+            {{ form_row(form.file) }}
+            {{ form_rest(form) }}
+        </div>
+        <div class="form-group text-center">
+            <input type="submit" value="Ajouter" class="btn btn-success"/>
+        </div>
+    </form>
+{% endblock %}

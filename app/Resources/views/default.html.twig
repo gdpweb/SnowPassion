@@ -40,20 +40,22 @@
 
 <!-- Page Header -->
 <!-- Set your background image for this header on the line below. -->
-<header class="intro-header" style="background-image: url({{ asset('assets/img/default.jpg') }})">
+<div class="intro-header header" style="background-image: url({{ asset('assets/img/default.jpg') }})">
+
     <div class="container">
         <div class="row">
-
-            <div class="site-heading">
+            <div class="site-heading heading">
                 <div class="container-fluid">
                     {% block body %}
                     {% endblock %}
+
                 </div>
 
             </div>
         </div>
     </div>
-</header>
+
+</div>
 
 
 <!-- Footer -->

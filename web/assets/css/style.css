@@ -1,17 +1,3 @@
-.cadre {
-    box-shadow: 8px 8px 12px #aaa;
-    padding: 20px;
-    border-radius: 7px;
-    background-color: white;
-    color: black;
-}
-.well-white {
-    border: solid 1px #c8c8c8;
-    padding: 20px;
-    border-radius: 7px;
-    background-color: white;
-    color: black;
-}
 
 body {
     font-size: 14px;
@@ -21,62 +7,138 @@ a img:hover, a img:focus {
     cursor: pointer;
 }
 
+img {
+    width: 100%;
+}
+
+hr {
+    clear: both;
+    display: block;
+    width: 100%;
+    height: 1px;
+}
+
+.div-badge, #description, #form-trick {
+    margin-top: 30px;
+}
+
+.delete:hover {
+    color: #337ab7;
+}
+
+.margin-top {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.cadre {
+    box-shadow: 8px 8px 12px #aaa;
+    padding: 20px;
+    border-radius: 7px;
+    background-color: white;
+    color: black;
+}
+
+.well-white {
+    border: solid 1px #c8c8c8;
+    padding: 20px;
+    border-radius: 7px;
+    background-color: white;
+    color: black;
+}
+
 .img-avatar {
     width: 35px;
     height: 35px;
     border-radius: 50%;
+    background-size: cover;
+    display: inline-block;
     position: relative;
-    top: -10px;
+    top: -7px;
 }
-.img-trick{
+
+.img-trick {
     width: 100%;
 }
-#form-trick{
-    margin-top:60px;
+
+.media-image {
+    padding-bottom: 5px;
+    min-height: 200px
 }
-.media-image{
-    padding-bottom:5px;
-    min-height:200px
+
+.media-video {
+    width: 100%;
+    padding-bottom: 5px;
+    min-height: 185px
 }
-.media-video{
-    width :100%;
-    padding-bottom:5px;
-    min-height:185px
-}
-.fa-button{
+
+.fa-button {
     text-align: right;
-    margin-top:5px;
+    margin-top: 5px;
     padding: 5px 0;
 
 }
-.fa-button>span{
-    border:solid 1px #c8c8c8;
+
+.fa-button-first-img {
+    position: relative;
+    top: 15px;
+    margin-right: 40px;
+}
+
+.fa-button > span, .fa-button-first-img > span {
+    border: solid 1px #c8c8c8;
     border-radius: 4px;
     background-color: white;
+    font-size: 18px;
+}
 
+.corps {
+    margin-top: 100px;
+    border: solid 1px #8c8c8c;
+    margin-bottom: 30px;
+    padding-bottom: 70px;
 }
-.fa-margin{
-    margin-left: 7px;
-    margin-right: 7px;
+
+.fa-margin {
+    margin-left: 5px;
+    margin-right: 5px;
 }
+
 .span-avatar {
     position: relative;
-    font-size: 18px;
-    top: -8px;
+    top: -18px;
+}
+
+#media {
+    margin-top: 15px;
+}
+
+.media-tricks {
+    border: solid 1px gray;
+    padding: 0;
+    margin: 5px;
 }
 
 .media-object {
-
     width: 100%;
-    margin-bottom: 15px;
+
+}
+
+.div-image {
+    width: 100%;
+    overflow: hidden;
+    margin-bottom: 12px;
+
 }
 
 .media-heading {
     margin-bottom: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    margin-left: 5px;
 }
 
 .btn {
-
     padding: 5px 15px;
 }
 
@@ -84,10 +146,47 @@ a img:hover, a img:focus {
     font-size: 15px !important;
     font-weight: bold;
 }
-.trick{
+
+.trick {
     position: relative;
     padding-top: 60px;
 }
+
+#back-top {
+    position: relative;
+    right: 10px;
+    z-index: 1;
+}
+
+#back-bottom {
+    position: relative;
+    right: 15px;
+    bottom: 15px;
+}
+
+.img-msg {
+    width: 4em;
+    height: 4em;
+    border-radius: 50%;
+    background-size: cover;
+    margin-top: 1em;
+    display: block;
+    float: right;
+}
+
+.badge-lg {
+    font-size: 1em;
+    padding: 9px;
+    margin: 5px;
+}
+
+.msg {
+    position: fixed;
+    top: 50px;
+    width: 100%;
+    z-index: 1031;
+}
+
 @media (min-width: 768px) {
     .navbar-nav > li > a {
         height: 50px;
@@ -96,3 +195,21 @@ a img:hover, a img:focus {
         line-height: 20px;
     }
 }
+
+@media only screen and (min-width: 768px) {
+    .intro-header .site-heading,
+    .intro-header .post-heading,
+    .intro-header .page-heading {
+        padding-bottom: 240px;
+        padding-top: 240px;
+    }
+
+    .header .heading {
+        padding-bottom: 100px;
+        padding-top: 100px;
+    }
+    .div-image {
+        height: 110px;
+    }
+}
+

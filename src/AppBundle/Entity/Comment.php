@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Comment
@@ -25,6 +26,8 @@ class Comment
      * @var string
      *
      * @ORM\Column(name="message", type="string", length=255)
+     * @Assert\Length(min=6,minMessage="Votre message doit contenir au moins 6 caractères")
+     * @Assert\NotNull(message="Le message ne peut être null")
      */
     private $message;
 

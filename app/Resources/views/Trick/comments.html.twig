@@ -1,12 +1,19 @@
-<h3 class="well">Liste des commentaires</h3>
 {% for comment in listComments %}
-    <div class="media thumbnail">
-        <h5 class="text-danger">
-            Commentaire publié
-            le {{ comment.date| localizeddate('none', 'none', null, null, 'd MMMM Y') }}
-            par {{ comment.auteur.username }}
-        </h5>
-        <p>{{ comment.message }}</p>
-    </div>
+
+        <div class="col-xs-2 text-center">
+            <span style="background-image:
+                    url({{ asset(avatar_directory_mini~comment.auteur.image.id~'.'~comment.auteur.image.ext)}})"
+                  class="img-msg">
+            </span>
+        </div>
+        <div class="thumbnail col-xs-10">
+            <h5 class="text-danger">
+                Commentaire publié
+                le {{ comment.date| localizeddate('none', 'none', null, null, 'd MMMM Y') }}
+                par {{ comment.auteur.username }}
+            </h5>
+            <p>{{ comment.message|nl2br }}</p>
+        </div>
+
 {% endfor %}
 

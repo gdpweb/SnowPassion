@@ -6,7 +6,7 @@ $(document).ready(function () {
         $(this).parent().addClass('active');
 
         let ele = document.getElementById('commentaires');
-
+        let ancre = $(ele).offset().top;
         const url = $(this).data('href');
 
         $.ajax({
@@ -14,10 +14,14 @@ $(document).ready(function () {
             url: url,
             success: function (data) {
                 $('#commentaires').html(data);
-                $("HTML, BODY").animate({scrollTop: ele}, 1000);
+                $("HTML, BODY").animate({scrollTop: ancre - 60}, 1000);
             }
         });
-
-
     });
+    $('#media-visible').click(function () {
+
+        $('#media').removeClass('hidden-sm hidden-xs');
+        $(this).addClass('hidden');
+    });
+
 });

@@ -6,6 +6,7 @@ namespace AppBundle\Manager;
 use AppBundle\Entity\Image;
 use AppBundle\Entity\Trick;
 use AppBundle\Entity\User;
+use AppBundle\Entity\Video;
 use Doctrine\ORM\EntityManagerInterface;
 
 
@@ -68,10 +69,20 @@ class TrickManager
         $this->em->flush();
     }
 
-    public function deleteImage(Image $image)
+    public function addImage(Trick $trick,Image $image)
     {
         $image->setPath($this->path);
-        $this->em->remove($image);
+        $trick->addImage($image);
+        $this->em->persist($trick);
         $this->em->flush();
     }
+
+    public function addVideo(Trick $trick,Video $video)
+    {
+        $trick->addVideo($video);
+        $this->em->persist($trick);
+        $this->em->flush();
+    }
+
+
 }

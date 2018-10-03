@@ -32,23 +32,25 @@
 {{ include('navbar.html.twig') }}
 
 <header class="intro-header" style="background-image: url({{ asset('assets/img/default.jpg') }})">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="site-heading">
-                    <h1>SnowPassion</h1>
-                    <hr class="small">
-                    <span class="subheading">Website for snowstriks lovers</span>
-                </div>
-            </div>
-        </div>
+
+    <div class="site-heading">
+        <h1>SnowPassion</h1>
+        <hr class="small">
+        <span class="subheading">Website for snowstriks lovers</span>
     </div>
+    <div class="text-right">
+        <a href="#tricks" id="back-bottom" class="page-scroll">
+            <span class="fa fa-arrow-down fa-3x"></span>
+        </a>
+    </div>
+
+
 </header>
 
-<div class="container-fluid">
+
     {% for key, messages in app.session.flashbag.all() %}
         {% for message in messages %}
-            <div class="row">
+            <div class="msg">
                 <div class="alert alert-{{ key }}">
                     {{ message }}
                 </div>
@@ -110,7 +112,7 @@
             </div>
         </div>
     </div>
-</div>
+
 {% block javascripts %}
 
     <script src="{{ asset('assets/startbootstrap/vendor/jquery/jquery.min.js') }}"></script>
@@ -122,3 +124,4 @@
 </body>
 
 </html>
+

@@ -5,36 +5,40 @@
 {% endblock %}
 
 {% block body %}
-
-    <div class="container">
-        {% if (trick.images|first) is not none %}
-            <header class="intro-header"
-                    style="background-image: url({{ asset(trick_directory~(trick.images|first).id~'.'~(trick.images|first).ext) }})">
-                <div class="container">
+    <div class="col-lg-10 col-lg-offset-1">
+        <div class="corps col-xs-12">
+            {% if (trick.images|first) is not none %}
+                <section class="intro-header header row"
+                         style="background-image:
+                                 url({{ asset(trick_directory~(trick.images|first).id~'.'~(trick.images|first).ext) }})">
+                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                        <div class="fa-button-first-img text-right">
+                <span>
+                    <a href="{{ path('trick_edit',{'id': trick.id}) }}">
+                     <i class="fa fa-pencil fa-margin"></i>
+                    </a>
+                    <i data-href="{{ path('trick_delete',{'id': trick.id}) }}"
+                       class="fa fa-trash fa-margin delete"
+                       title="Supprimer la figure">
+                    </i>
+                </span>
+                        </div>
+                    {% endif %}
                     <div class="row">
-                        <div class="col-lg-12">
-                            <div class="site-heading">
-                                <h1>{{ trick.nom }}</h1>
-                                <hr class="small">
-                            </div>
+                        <div class="site-heading heading">
+                            <h1>{{ trick.nom }}</h1>
+                            <hr class="small">
                         </div>
                     </div>
-                </div>
-            </header>
-        {% endif %}
-        <hr>
-        <section id="description" class="container-fluid">
-            <div class="col-lg-12">
-                <p>{{ trick.description|nl2br }}</p>
-            </div>
-        </section>
-        <hr>
-        <section id="images" class="container-fluid">
-            <div class="col-lg-12">
+                </section>
+            {% endif %}
+
+            <section id="media" class="col-lg-12 hidden-sm hidden-xs">
+
                 {% for image in trick.images|slice(1) %}
                     <div class="col-lg-3 media-image">
-                        <img class="img-trick" src="{{ asset(trick_directory~image.id~'.'~image.ext) }}"
-                             alt="{{ asset(trick_directory~image.id~'.'~image.alt) }}">
+                        <img class="img-trick" src="{{ asset(trick_directory_mini~image.id~'.'~image.ext) }}"
+                             alt="{{ image.alt }}">
                         <div class="fa-button">
                         </div>
                     </div>
@@ -48,44 +52,70 @@
                         </iframe>
                     </div>
                 {% endfor %}
-            </div>
-        </section>
-        <hr>
-        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-            <section id="commenter" class="container-fluid">
-                <h3>Laisser un commentaire</h3>
-                {{ form(form) }}
-            </section>
-            <hr>
-        {% endif %}
-
-        {% if listComments is not empty %}
-
-            <section id="commentaires" class="container-fluid">
-
-                {% include 'Trick\\comments.html.twig' with {'listComments':listComments } %}
 
             </section>
 
-            <div class="text-center">
-                <ul class="pagination">
-                    {% for p in range(1, nbPages) %}
-                        {% if nbPages > 1 %}
-                            <li{% if p == 1 %} class="active"{% endif %}>
-                                <a class="btn-comments"
-                                   data-href="{{ path("app_trick_comments",{'id':trick.id,'page': p}) }}">{{ p }}</a>
-                            </li>
-                        {% endif %}
-                    {% endfor %}
-
-                </ul>
+            <div class="visible-xs visible-sm text-center margin-top">
+                <button id="media-visible" class="btn btn-default">Voir les médias</button>
             </div>
 
-        {% endif %}
-    </div>
+            <section id="description" class="col-lg-10 col-lg-offset-1">
+                <p>{{ trick.description|nl2br }}</p>
+            </section>
+
+                <div class="col-lg-8 col-lg-offset-2 text-center div-badge">
+                    <span class="badge badge-lg">{{ trick.groupe.nom }}</span>
+                    <span class="badge badge-lg">créé le {{ trick.date| localizeddate('none', 'none', null, null, 'd MMMM Y') }}</span>
+                    <span class="badge badge-lg">modifié le {{ trick.date| localizeddate('none', 'none', null, null, 'd MMMM Y') }}</span>
+                </div>
+                <hr class="col-xs-8 col-xs-offset-2">
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+
+                    <form id="commenter" method="post" action="#" class="col-lg-8 col-lg-offset-2">
+
+                        <div class="col-md-8 col-md-offset-1">
+
+                            {{ form_row(form.message) }}
+
+                        </div>
+                        <div class="col-md-3">
+                            <button type="submit" class="btn btn-success">Envoyer</button>
+                        </div>
+                        {{ form_rest(form) }}
+
+                        {{ form_end(form) }}
+                    </form>
+                    <hr class="col-lg-8 col-lg-offset-2">
+
+
+                {% endif %}
+
+                {% if listComments is not empty %}
+                    <div id="commentaires" class="col-lg-7 col-lg-offset-2">
+                        {% include 'Trick\\comments.html.twig' with {'listComments':listComments } %}
+                    </div>
+                    <div class="col-lg-6 col-lg-offset-3 text-center">
+                        <ul class="pagination">
+                            {% for p in range(1, nbPages) %}
+                                {% if nbPages > 1 %}
+                                    <li{% if p == 1 %} class="active"{% endif %}>
+                                        <a class="btn-comments"
+                                           data-href="{{ path("app_trick_comments",{'id':trick.id,'page': p}) }}">{{ p }}</a>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+
+                        </ul>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
+    <script src="{{ asset('assets/js/default.js') }}"></script>
     <script src="{{ asset('assets/js/viewTrick.js') }}"></script>
 {% endblock %}

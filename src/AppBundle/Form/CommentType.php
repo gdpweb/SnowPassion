@@ -20,16 +20,11 @@ class CommentType extends AbstractType
             ->add('message', TextareaType::class, array(
                 'label' => false,
                 'attr'=>array(
-                    'rows'=>5,
+                    'rows'=>2,
                     'placeholder'=>'Saisir votre commentaire'
                 )
             ))
-            ->add('save', SubmitType::class, array(
-                'label' => 'Envoyer',
-                'attr' => array(
-                    'class' => 'btn-success pull-right'
-                )
-            ))
+
         ;
     }/**
      * {@inheritdoc}

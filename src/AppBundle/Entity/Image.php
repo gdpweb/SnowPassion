@@ -43,6 +43,7 @@ class Image
     /**
      * @Assert\File(
      *     maxSize = "1024k",
+     *     maxSizeMessage="Le fichier est trop volumineux. La taille maximale autorisée est de 1024 Ko.",
      *     uploadIniSizeErrorMessage = "Le fichier est trop volumineux. La taille maximale autorisée est de 1024 Ko",
      *     mimeTypes = {
      *          "image/png",
@@ -170,6 +171,41 @@ class Image
 
         $this->file->move($this->getPath(), $this->id . "." . $this->ext);
 
+        $this->resizeThumbnail();
+
+    }
+
+    public function resizeThumbnail($newHeight = 200)
+    {
+
+        $filename = $this->getPath() . '/' . $this->id . "." . $this->ext;
+        $newFilename = $this->getPath() . '/mini/' . $this->id . '.' . $this->ext;
+        list($width, $height) = getimagesize($filename);
+
+        if ($newHeight >= $height) {
+
+            copy($filename, $newFilename);
+            return true;
+
+        }
+
+        $newWidth = $newHeight * 3 / 2;
+        $thumb = imagecreatetruecolor($newWidth, $newHeight);
+
+        switch ($this->ext) {
+            case 'jpg':
+                $source = imagecreatefromjpeg($filename);
+                imagecopyresized($thumb, $source, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+                imagejpeg($thumb, $newFilename );
+                break;
+            case 'png':
+                $source = imagecreatefrompng($filename);
+                imagecopyresized($thumb, $source, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+                imagepng($thumb, $newFilename );
+
+        }
+
+
     }
 
     /**
@@ -178,7 +214,7 @@ class Image
     public function preRemove()
     {
 
-        $this->tempFilename = $this->getPath() . '/' . $this->id . '.' . $this->ext;
+        $this->tempFilename = $this->id . '.' . $this->ext;
     }
 
     /**
@@ -188,9 +224,10 @@ class Image
     {
 
 
-        if (file_exists($this->tempFilename)) {
+        if (file_exists($this->getPath() . '/' . $this->tempFilename)) {
 
-            unlink($this->tempFilename);
+            unlink($this->getPath() . '/' . $this->tempFilename);
+            unlink($this->getPath() . '/mini/' . $this->tempFilename);
         }
 
     }

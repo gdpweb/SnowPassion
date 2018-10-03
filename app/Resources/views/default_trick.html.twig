@@ -31,10 +31,10 @@
 
 {{ include('navbar.html.twig') }}
 
-<div class="container-fluid trick">
+
     {% for key, messages in app.session.flashbag.all() %}
         {% for message in messages %}
-            <div class="row">
+            <div class="msg">
                 <div class="alert alert-{{ key }}">
                     {{ message }}
                 </div>
@@ -93,7 +93,7 @@
             </div>
         </div>
     </div>
-</div>
+
 {% block javascripts %}
     <!-- jQuery -->
     <script src="{{ asset('assets/startbootstrap/vendor/jquery/jquery.min.js') }}"></script>
