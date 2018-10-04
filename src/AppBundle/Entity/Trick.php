@@ -4,8 +4,8 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * trick
@@ -18,53 +18,14 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class Trick
 {
     /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="nom", type="string", length=255, unique=true)
-     */
-    private $nom;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="description", type="text")
-     */
-    private $description;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="date", type="datetime")
-     */
-    private $date;
-
-    /**
-     * @var bool|null
-     *
-     * @ORM\Column(name="publie", type="boolean", nullable=true)
-     */
-    private $publie;
-
-    /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", cascade={"persist"})
      */
     public $auteur;
-
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Groupe", cascade={"persist"})
      * @Assert\Valid()
      */
     public $groupe;
-
     /**
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Image",cascade={"persist","remove"})
      * @ORM\JoinTable(name="sp_trick_image")
@@ -72,20 +33,49 @@ class Trick
      */
 
     public $images;
-
     /**
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Video",cascade={"persist","remove"})
      * @ORM\JoinTable(name="sp_trick_video")
      * @Assert\Valid()
      */
     public $videos;
-
     /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Comment", mappedBy="trick",cascade={"persist","remove"})
      */
 
     public $comments;
-
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nom", type="string", length=255, unique=true)
+     */
+    private $nom;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="text")
+     */
+    private $description;
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date", type="datetime")
+     */
+    private $date;
+    /**
+     * @var bool|null
+     *
+     * @ORM\Column(name="publie", type="boolean", nullable=true)
+     */
+    private $publie;
 
     public function __construct()
     {
@@ -155,6 +145,16 @@ class Trick
     }
 
     /**
+     * Get nom.
+     *
+     * @return string
+     */
+    public function getNom()
+    {
+        return $this->nom;
+    }
+
+    /**
      * Set nom.
      *
      * @param string $nom
@@ -169,13 +169,13 @@ class Trick
     }
 
     /**
-     * Get nom.
+     * Get description.
      *
      * @return string
      */
-    public function getNom()
+    public function getDescription()
     {
-        return $this->nom;
+        return $this->description;
     }
 
     /**
@@ -193,13 +193,13 @@ class Trick
     }
 
     /**
-     * Get description.
+     * Get date.
      *
-     * @return string
+     * @return \DateTime
      */
-    public function getDescription()
+    public function getDate()
     {
-        return $this->description;
+        return $this->date;
     }
 
     /**
@@ -217,13 +217,13 @@ class Trick
     }
 
     /**
-     * Get date.
+     * Get publie.
      *
-     * @return \DateTime
+     * @return bool|null
      */
-    public function getDate()
+    public function getPublie()
     {
-        return $this->date;
+        return $this->publie;
     }
 
     /**
@@ -238,16 +238,6 @@ class Trick
         $this->publie = $publie;
 
         return $this;
-    }
-
-    /**
-     * Get publie.
-     *
-     * @return bool|null
-     */
-    public function getPublie()
-    {
-        return $this->publie;
     }
 
     /**

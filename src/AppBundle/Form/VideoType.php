@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Entity\Video;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -18,24 +19,28 @@ class VideoType extends AbstractType
         $builder->add('url', TextType::class, array(
                 'label' => false,
                 'attr' => array(
-                    'placeholder' => 'Saisir un Url valide',
+                    'placeholder' => 'Coller la balise embed de la video',
                 ))
-
         );
 
-//        $builder->get('url')
-//            ->addModelTransformer(new CallbackTransformer(
-//                function ($iframeToUrl) {
-//                    preg_match("/(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?/im", $iframeToUrl, $matches);
-//                    dump($matches);
-//                    return $matches[0];
-//                },
-//                function ($urlToIframe) {
-//                    // transform the string back to an array
-//                    return $urlToIframe;
-//                }
-//            ))
-//        ;
+        $builder->get('url')
+            ->addModelTransformer(new CallbackTransformer(
+                function ($url) {
+                    return $url;
+                },
+                function ($embedToUrl) {
+                    // transform the embed tag into url
+                    preg_match(
+                        "/(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})\/(embed)\/([\/\w \.-]*)*\/?/im",
+                        $embedToUrl,
+                        $matches
+                    );
+                    if ($matches) {
+                        return $matches[0];
+                    }
+                    return $embedToUrl;
+                }
+            ));
     }
 
     /**
@@ -44,7 +49,7 @@ class VideoType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Video'
+            'data_class' => Video::class
         ));
     }
 

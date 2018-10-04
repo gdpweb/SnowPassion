@@ -75,6 +75,17 @@ class UserManager
     /**
      * @param User $user
      */
+    private function createToken(User $user)
+    {
+        $token = md5(uniqid(rand(), true));
+        $user->setToken($token);
+        $date = new \DateTime();
+        $user->setDateToken($date);
+    }
+
+    /**
+     * @param User $user
+     */
     public function registerMail(User $user)
     {
 
@@ -89,17 +100,6 @@ class UserManager
         $this->em->flush();
 
         $this->mailer->validateUserMail($user);
-    }
-
-    /**
-     * @param User $user
-     */
-    private function createToken(User $user)
-    {
-        $token = md5(uniqid(rand(), true));
-        $user->setToken($token);
-        $date = new \DateTime();
-        $user->setDateToken($date);
     }
 
 

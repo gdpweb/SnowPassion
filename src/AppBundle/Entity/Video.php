@@ -27,8 +27,12 @@ class Video
      *
      * @ORM\Column(name="url", type="string", length=255)
      * @Assert\Url(
-     *     message = "L'url '{{ value }}' n'est pas valide.",
+     *     message = "La balise embed n'est pas valide."
      *     )
+     * @Assert\Regex(
+     *     pattern     = "/(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})\/(embed)\/([\/\w \.-]*)*\/?/im",
+     *     message = "La balise embed n'est pas valide."
+     * )
      */
     private $url;
 
@@ -44,6 +48,16 @@ class Video
     }
 
     /**
+     * Get url.
+     *
+     * @return string
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
      * Set url.
      *
      * @param string $url
@@ -55,15 +69,5 @@ class Video
         $this->url = $url;
 
         return $this;
-    }
-
-    /**
-     * Get url.
-     *
-     * @return string
-     */
-    public function getUrl()
-    {
-        return $this->url;
     }
 }

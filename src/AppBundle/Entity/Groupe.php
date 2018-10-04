@@ -43,6 +43,16 @@ class Groupe
     }
 
     /**
+     * Get nom.
+     *
+     * @return string
+     */
+    public function getNom()
+    {
+        return $this->nom;
+    }
+
+    /**
      * Set nom.
      *
      * @param string $nom
@@ -54,15 +64,5 @@ class Groupe
         $this->nom = $nom;
 
         return $this;
-    }
-
-    /**
-     * Get nom.
-     *
-     * @return string
-     */
-    public function getNom()
-    {
-        return $this->nom;
     }
 }

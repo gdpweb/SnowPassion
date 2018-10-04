@@ -107,6 +107,16 @@ class Image
     }
 
     /**
+     * Get ext
+     *
+     * @return string
+     */
+    public function getExt()
+    {
+        return $this->ext;
+    }
+
+    /**
      * Set ext
      *
      * @param string $ext
@@ -119,16 +129,6 @@ class Image
         $this->ext = $ext;
 
         return $this;
-    }
-
-    /**
-     * Get ext
-     *
-     * @return string
-     */
-    public function getExt()
-    {
-        return $this->ext;
     }
 
     /**
@@ -175,18 +175,35 @@ class Image
 
     }
 
+    /**
+     * @return mixed
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    /**
+     * @param mixed $path
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+    }
+
+    /**
+     * @param int $newHeight
+     * @return bool
+     */
     public function resizeThumbnail($newHeight = 200)
     {
-
         $filename = $this->getPath() . '/' . $this->id . "." . $this->ext;
         $newFilename = $this->getPath() . '/mini/' . $this->id . '.' . $this->ext;
         list($width, $height) = getimagesize($filename);
 
         if ($newHeight >= $height) {
-
             copy($filename, $newFilename);
             return true;
-
         }
 
         $newWidth = $newHeight * 3 / 2;
@@ -196,16 +213,14 @@ class Image
             case 'jpg':
                 $source = imagecreatefromjpeg($filename);
                 imagecopyresized($thumb, $source, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
-                imagejpeg($thumb, $newFilename );
+                imagejpeg($thumb, $newFilename);
                 break;
             case 'png':
                 $source = imagecreatefrompng($filename);
                 imagecopyresized($thumb, $source, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
-                imagepng($thumb, $newFilename );
-
+                imagepng($thumb, $newFilename);
+                break;
         }
-
-
     }
 
     /**
@@ -230,22 +245,6 @@ class Image
             unlink($this->getPath() . '/mini/' . $this->tempFilename);
         }
 
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPath()
-    {
-        return $this->path;
-    }
-
-    /**
-     * @param mixed $path
-     */
-    public function setPath($path)
-    {
-        $this->path = $path;
     }
 
 }

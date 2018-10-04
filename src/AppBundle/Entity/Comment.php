@@ -68,6 +68,16 @@ class Comment
     }
 
     /**
+     * Get message.
+     *
+     * @return string
+     */
+    public function getMessage()
+    {
+        return $this->message;
+    }
+
+    /**
      * Set message.
      *
      * @param string $message
@@ -82,13 +92,13 @@ class Comment
     }
 
     /**
-     * Get message.
+     * Get date.
      *
-     * @return string
+     * @return \DateTime
      */
-    public function getMessage()
+    public function getDate()
     {
-        return $this->message;
+        return $this->date;
     }
 
     /**
@@ -103,16 +113,6 @@ class Comment
         $this->date = $date;
 
         return $this;
-    }
-
-    /**
-     * Get date.
-     *
-     * @return \DateTime
-     */
-    public function getDate()
-    {
-        return $this->date;
     }
 
     /**

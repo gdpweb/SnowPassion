@@ -3,6 +3,7 @@
 namespace AppBundle\Form;
 
 
+use AppBundle\Entity\Trick;
 use AppBundle\Repository\GroupeRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -57,7 +58,7 @@ class TrickAddType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Trick'
+            'data_class' =>Trick::class
         ));
     }
 

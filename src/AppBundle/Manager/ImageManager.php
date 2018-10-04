@@ -18,6 +18,7 @@ class ImageManager
 
     /**
      * @param EntityManagerInterface $em
+     * @param $image_directory
      */
     public function __construct(EntityManagerInterface $em, $image_directory)
     {
@@ -27,7 +28,7 @@ class ImageManager
 
     public function updateImageTrick(Image $image)
     {
-        $image->setPath($this->path.'trick');
+        $image->setPath($this->path . 'trick');
         $this->em->getRepository('AppBundle:Image');
         $this->em->persist($image);
         $this->em->flush();
@@ -36,7 +37,7 @@ class ImageManager
 
     public function deleteImageTrick(Image $image)
     {
-        $image->setPath($this->path.'trick');
+        $image->setPath($this->path . 'trick');
         $this->em->getRepository('AppBundle:Image');
         $this->em->remove($image);
         $this->em->flush();

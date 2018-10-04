@@ -69,7 +69,7 @@ class TrickManager
         $this->em->flush();
     }
 
-    public function addImage(Trick $trick,Image $image)
+    public function addImage(Trick $trick, Image $image)
     {
         $image->setPath($this->path);
         $trick->addImage($image);
@@ -77,7 +77,7 @@ class TrickManager
         $this->em->flush();
     }
 
-    public function addVideo(Trick $trick,Video $video)
+    public function addVideo(Trick $trick, Video $video)
     {
         $trick->addVideo($video);
         $this->em->persist($trick);

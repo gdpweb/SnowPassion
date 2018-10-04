@@ -58,9 +58,8 @@ class TrickController extends Controller
 
             $commentManager->createComment($form->getData(), $trick, $this->getUser());
 
-            $this->addFlash(
-                'success', 'Le commentaire a été sauvegardé'
-            );
+            $this->addFlash('success', 'Le commentaire a été sauvegardé');
+
             return $this->redirectToRoute('trick_view', array(
                 'id' => $trick->getId()
             ));
@@ -179,8 +178,8 @@ class TrickController extends Controller
 
             $trickManager->addImage($trick, $form->getData());
             $this->addFlash('success', 'L\'image a été ajoutée');
-
         }
+
         return $this->render('Trick/add_image.html.twig', array(
             'form' => $form->createView(),
             'trick' => $trick
