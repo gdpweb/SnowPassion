@@ -2,11 +2,9 @@
 
 namespace AppBundle\Manager;
 
-
 use AppBundle\Entity\Image;
 use AppBundle\Service\SPFileSystem;
 use Doctrine\ORM\EntityManagerInterface;
-
 
 class ImageManager
 {
@@ -17,10 +15,9 @@ class ImageManager
 
     private $fileSystem;
 
-
     /**
+     * @param SPFileSystem $fileSystem
      * @param EntityManagerInterface $em
-     * @param $image_directory
      */
     public function __construct(SPFileSystem $fileSystem, EntityManagerInterface $em)
     {
@@ -43,7 +40,8 @@ class ImageManager
 
     }
 
-    public function uploadImageTrick(Image $image){
+    public function uploadImageTrick(Image $image)
+    {
 
         //$this->fileSystem->upload($image->getFile());
 

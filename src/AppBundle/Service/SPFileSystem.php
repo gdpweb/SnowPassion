@@ -32,7 +32,6 @@ class SPFileSystem
         }
     }
 
-
     public function resizeThumbnail($filename, $fileResize, $ext, $newHeight = self::NEW_HEIGHT)
     {
         list($width, $height) = getimagesize($filename);

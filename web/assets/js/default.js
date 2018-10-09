@@ -73,7 +73,7 @@ $(document).ready(function () {
 
     $(".page-scroll").bind(
         "click", function (event) {
-            var anchor = $(this);
+            let anchor = $(this);
             $("html, body").stop().animate(
                 {
                     scrollTop: ($(anchor.attr("href")).offset().top - 0)
@@ -90,7 +90,7 @@ $(document).ready(function () {
         $(this).parent().addClass('active');
 
         let ele = document.getElementById('commentaires');
-        let ancre = $(ele).offset().top;
+        let ancre = $(ele).offset().top - 60;
         const url = $(this).data('href');
 
         $.ajax({
@@ -98,7 +98,7 @@ $(document).ready(function () {
             url: url,
             success: function (data) {
                 $('#commentaires').html(data);
-                $("HTML, BODY").animate({scrollTop: ancre - 60}, 1000);
+                $("HTML, BODY").animate({scrollTop: ancre}, 1000);
             }
         });
     });
@@ -122,7 +122,6 @@ $(document).ready(function () {
         }
 
     });
-
 
 
 });
