@@ -177,6 +177,7 @@ class TrickController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
 
             $trickManager->addImage($trick, $form->getData());
+
             $this->addFlash('success', 'L\'image a été ajoutée');
         }
 
@@ -199,8 +200,7 @@ class TrickController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-            $imageManager->updateImageTrick($form->getData());
+            $imageManager->updateImageTrick($image);
             $this->addFlash('success', 'L\'image a été modifiée');
         }
 
@@ -209,7 +209,6 @@ class TrickController extends Controller
             'image' => $image
         ));
     }
-
 
     /**
      * @Route("/admin/trick/{id}/delete_image/{image_id}", name="image_delete")

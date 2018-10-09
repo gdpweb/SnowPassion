@@ -37,9 +37,7 @@ class TrickManager
      */
     public function createTrick(Trick $trick, User $user)
     {
-        forEach ($trick->getImages() as $image) {
-            $image->setPath($this->path);
-        }
+
         $trick->setAuteur($user);
         $trick->setPublie(true);
         $this->em->persist($trick);
@@ -51,9 +49,6 @@ class TrickManager
      */
     public function updateTrick(Trick $trick)
     {
-        forEach ($trick->getImages() as $image) {
-            $image->setPath($this->path);
-        }
         $this->em->persist($trick);
         $this->em->flush();
     }
@@ -71,7 +66,6 @@ class TrickManager
 
     public function addImage(Trick $trick, Image $image)
     {
-        $image->setPath($this->path);
         $trick->addImage($image);
         $this->em->persist($trick);
         $this->em->flush();
