@@ -31,33 +31,21 @@ class TrickManager
         $this->path = $image_directory;
     }
 
-    /**
-     * @param Trick $trick
-     * @param User $user
-     */
-    public function createTrick(Trick $trick, User $user)
+    public function saveTrick(Trick $trick, $user = null)
     {
-
-        $trick->setAuteur($user);
-        $trick->setPublie(true);
-        $this->em->persist($trick);
+        if($trick->getId()===null){
+            $trick->setAuteur($user);
+            $trick->setPublie(true);
+            $this->em->persist($trick);
+        }
         $this->em->flush();
     }
 
-    /**
-     * @param Trick $trick
-     */
-    public function updateTrick(Trick $trick)
-    {
-        $this->em->persist($trick);
-        $this->em->flush();
-    }
 
     public function deleteTrick(Trick $trick)
     {
 
         forEach ($trick->getImages() as $image) {
-            $image->setPath($this->path);
             $this->em->remove($image);
         }
         $this->em->remove($trick);

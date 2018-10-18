@@ -75,11 +75,9 @@ class SPImageListener implements EventSubscriber
         $filename = $this->targetDirectory . '/' . $entity->getId() . '.' . $entity->getExt();
         $fileResize = $this->targetDirectory . '/mini/' . $entity->getId() . '.' . $entity->getExt();
 
-        if (file_exists($filename)) {
+        $this->fileSystem->remove($filename);
+        $this->fileSystem->remove($fileResize);
 
-            $this->fileSystem->remove($filename);
-            $this->fileSystem->remove($fileResize);
-        }
     }
 
     public function setFileUpload(Image $entity)

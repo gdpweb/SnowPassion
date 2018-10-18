@@ -116,20 +116,5 @@ class Image
         $this->ext = $ext;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getPath()
-    {
-        return $this->path;
-    }
-
-    /**
-     * @param mixed $path
-     */
-    public function setPath($path)
-    {
-        $this->path = $path;
-    }
 }
 

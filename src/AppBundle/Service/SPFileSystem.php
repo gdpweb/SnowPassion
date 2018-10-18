@@ -58,7 +58,9 @@ class SPFileSystem
 
     public function remove($filename)
     {
-        unlink($filename);
+        if (file_exists($filename)) {
+            unlink($filename);
+        }
     }
 
     /**

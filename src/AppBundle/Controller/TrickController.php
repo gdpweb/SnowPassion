@@ -10,6 +10,8 @@ use AppBundle\Form\ImageType;
 use AppBundle\Form\TrickAddType;
 use AppBundle\Form\TrickEditType;
 use AppBundle\Form\VideoType;
+use AppBundle\Handler\CommentHandler;
+use AppBundle\Handler\TrickHandler;
 use AppBundle\Manager\CommentManager;
 use AppBundle\Manager\ImageManager;
 use AppBundle\Manager\TrickManager;
@@ -40,36 +42,20 @@ class TrickController extends Controller
 
     /**
      * @Route("/trick/{id}", name="trick_view")
-     * @param Request $request
-     * @param CommentManager $commentManager
      * @param Trick $trick
+     * @param CommentManager $commentManager
+     * @param CommentHandler $commentHandler
      * @return RedirectResponse|Response
      */
-    public function viewAction(Request $request, CommentManager $commentManager, Trick $trick)
+    public function viewAction(Trick $trick, CommentHandler $commentHandler)
     {
-        $listComments = $commentManager->getComments($trick);
 
-        $nbPages = $commentManager->getNbPages($listComments);
+        $commentHandler->setTrick($trick);
 
-        $form = $this->createForm(CommentType::class);
-        $form->handleRequest($request);
+        $commentHandler->setView('Trick/view.html.twig');
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        return $commentHandler->handle(CommentType::class);
 
-            $commentManager->createComment($form->getData(), $trick, $this->getUser());
-
-            $this->addFlash('success', 'Le commentaire a été sauvegardé');
-
-            return $this->redirectToRoute('trick_view', array(
-                'id' => $trick->getId()
-            ));
-        }
-        return $this->render('Trick/view.html.twig', array(
-            'trick' => $trick,
-            'form' => $form->createView(),
-            'listComments' => $listComments,
-            'nbPages' => $nbPages
-        ));
     }
 
     /**
@@ -90,50 +76,29 @@ class TrickController extends Controller
 
     /**
      * @Route("/add", name="trick_add")
-     * @param Request $request
-     * @param TrickManager $trickManager
+     * @param TrickHandler $trickHandler
      * @return RedirectResponse|Response
      */
-    public function addAction(Request $request, TrickManager $trickManager)
+    public function addAction(TrickHandler $trickHandler)
     {
-        $form = $this->createForm(TrickAddType::class);
-        $form->handleRequest($request);
+        $trickHandler->setView('Trick/add.html.twig');
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        return $trickHandler->handle(TrickAddType::class);
 
-            $trickManager->createTrick($form->getData(), $this->getUser());
-            $this->addFlash('success', 'La figure a été sauvegardée');
-            return $this->redirectToRoute('homepage');
-        }
-        return $this->render('Trick/add.html.twig', array(
-            'form' => $form->createView()
-        ));
     }
 
     /**
      * @Route("/edit/{id}", name="trick_edit")
-     * @param Request $request
-     * @param TrickManager $trickManager
      * @param Trick $trick
+     * @param TrickHandler $trickHandler
      * @return RedirectResponse|Response
      */
-    public function editAction(Request $request, TrickManager $trickManager, Trick $trick)
+    public function editAction(Trick $trick, TrickHandler $trickHandler)
     {
-        $form = $this->createForm(TrickEditType ::class, $trick);
-        $form->handleRequest($request);
+        $trickHandler->setView('Trick/edit.html.twig');
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        return $trickHandler->handle(TrickEditType::class, $trick);
 
-            $trickManager->updateTrick($form->getData());
-            $this->addFlash(
-                'success', 'La figure a été sauvegardée'
-            );
-            return $this->redirectToRoute('homepage');
-        }
-        return $this->render('Trick/edit.html.twig', array(
-            'form' => $form->createView(),
-            'trick' => $trick
-        ));
     }
 
     /**
