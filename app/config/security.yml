@@ -1,0 +1,29 @@
+#app/config/security.yml
+security:
+  encoders:
+
+    AppBundle\Entity\User: bcrypt
+
+  providers:
+    database_users:
+      entity: { class: AppBundle:User, property: username }
+
+  firewalls:
+    dev:
+      pattern: ^/(_(profiler|wdt|error)|css|images|js)/
+      security: false
+
+    main:
+      pattern: ^/
+      anonymous: true
+      form_login:
+        login_path: login
+        check_path: login_check
+        default_target_path: homepage
+        always_use_default_target_path: true
+      logout:
+        path: logout
+        target: homepage
+  access_control:
+  - { path: ^/admin/, roles: ROLE_ADMIN }
+
