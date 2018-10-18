@@ -43,19 +43,14 @@ class TrickController extends Controller
     /**
      * @Route("/trick/{id}", name="trick_view")
      * @param Trick $trick
-     * @param CommentManager $commentManager
      * @param CommentHandler $commentHandler
      * @return RedirectResponse|Response
      */
     public function viewAction(Trick $trick, CommentHandler $commentHandler)
     {
-
         $commentHandler->setTrick($trick);
-
         $commentHandler->setView('Trick/view.html.twig');
-
         return $commentHandler->handle(CommentType::class);
-
     }
 
     /**
@@ -68,7 +63,6 @@ class TrickController extends Controller
     public function commentsAction(CommentManager $commentManager, Trick $trick, $page)
     {
         $listComments = $commentManager->getComments($trick, $page);
-
         return $this->render('Trick/comments.html.twig', array(
             'listComments' => $listComments
         ));
@@ -82,9 +76,7 @@ class TrickController extends Controller
     public function addAction(TrickHandler $trickHandler)
     {
         $trickHandler->setView('Trick/add.html.twig');
-
         return $trickHandler->handle(TrickAddType::class);
-
     }
 
     /**
@@ -96,35 +88,19 @@ class TrickController extends Controller
     public function editAction(Trick $trick, TrickHandler $trickHandler)
     {
         $trickHandler->setView('Trick/edit.html.twig');
-
         return $trickHandler->handle(TrickEditType::class, $trick);
-
     }
 
     /**
      * @Route("/admin/delete/{id}", name="trick_delete")
-     * @param Request $request
-     * @param TrickManager $trickManager
      * @param Trick $trick
+     * @param TrickHandler $trickHandler
      * @return Response
      */
-    public function deleteAction(Request $request, TrickManager $trickManager, Trick $trick)
+    public function deleteAction(Trick $trick, TrickHandler $trickHandler)
     {
-        $form = $this->get('form.factory')->create();
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $trickManager->deleteTrick($trick);
-            $this->addFlash('success', 'La figure de snowboard a été supprimé');
-
-            return $this->redirectToRoute('homepage');
-        }
-
-        return $this->render('Trick/delete.html.twig', array(
-            'trick' => $trick,
-            'form' => $form->createView()
-        ));
+        $trickHandler->setView('Trick/delete.html.twig');
+        return $trickHandler->handle(TrickEditType::class, $trick,'remove');
     }
 
     /**
