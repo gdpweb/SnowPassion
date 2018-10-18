@@ -21,6 +21,44 @@ use Twig\Environment;
 
 class SPHandler
 {
+    /**
+     * @var FormFactoryInterface
+     */
+    private $formFactory;
+    /**
+     * @var RequestStack
+     */
+    private $requestStack;
+    /**
+     * @var RouterInterface
+     */
+    private $router;
+    /**
+     * @var Environment
+     */
+    private $twig;
+    /**
+     * @var FlashBagInterface
+     */
+    private $flashBag;
+
+    /**
+     * @var User
+     */
+    private $user;
+    /**
+     * @var FormInterface
+     */
+    private $form;
+
+    /**
+     * @param FormFactoryInterface $formFactory
+     * @param RequestStack $requestStack
+     * @param RouterInterface $router
+     * @param FlashBagInterface $flashBag
+     * @param Environment $twig
+     * @param TokenStorageInterface $tokenStorage
+     */
     public function __construct(FormFactoryInterface $formFactory, RequestStack $requestStack,
                                 RouterInterface $router, FlashBagInterface $flashBag,
                                 Environment $twig, TokenStorageInterface $tokenStorage)
@@ -30,48 +68,22 @@ class SPHandler
         $this->router = $router;
         $this->flashBag = $flashBag;
         $this->twig = $twig;
-        $this->setAuthor($tokenStorage);
+        $this->setUser($tokenStorage);
     }
 
     /**
-     * @var FormFactoryInterface
-     */
-    public $formFactory;
-    /**
-     * @var RequestStack
-     */
-    public $requestStack;
-    /**
-     * @var RouterInterface
-     */
-    public $router;
-    /**
-     * @var Environment
-     */
-    public $twig;
-    /**
-     * @var FlashBagInterface
-     */
-    public $flashBag;
-
-    /**
-     * @var User
-     */
-    private $author;
-    /**
-     * @var FormInterface
-     */
-    public $form;
-
-    /**
-     * @param $formType
-     * @param $entity
+     * @param null $formType
+     * @param null $entity
      * @return bool
      */
-    public function isSubmitted($formType, $entity)
+    public function isSubmitted($formType = null, $entity = null)
     {
+        if ($formType === null) {
+           $this->form = $this->formFactory->create();
+        } else {
+            $this->form = $this->formFactory->create($formType, $entity);
+        }
 
-        $this->form = $this->formFactory->create($formType, $entity);
         $this->form->handleRequest($this->requestStack->getCurrentRequest());
 
         if ($this->form->isSubmitted() and $this->form->isValid()) {
@@ -80,16 +92,27 @@ class SPHandler
         return false;
     }
 
+    /**
+     * @param $type
+     * @param $message
+     */
     public function setFlash($type, $message)
     {
         $this->flashBag->add($type, $message);
     }
 
+    /**
+     * @param $name
+     * @return string
+     */
     public function generateRoute($name)
     {
         return $this->router->generate($name);
     }
 
+    /**
+     * @return mixed
+     */
     public function formData()
     {
         return $this->form->getData();
@@ -105,6 +128,11 @@ class SPHandler
         return new Response($this->twig->render($view, ["form" => $this->form->createView()] + $datas));
     }
 
+    /**
+     * @param $name
+     * @param array $parameters
+     * @return RedirectResponse
+     */
     public function redirect($name, $parameters = array())
     {
         return new RedirectResponse($this->router->generate($name, $parameters));
@@ -113,14 +141,16 @@ class SPHandler
     /**
      * @param TokenStorageInterface $tokenStorage
      */
-    public function setAuthor(TokenStorageInterface $tokenStorage)
+    public function setUser(TokenStorageInterface $tokenStorage)
     {
-        $this->author = $tokenStorage->getToken()->getUser();
+        $this->user = $tokenStorage->getToken()->getUser();
     }
 
-    public function getAuthor()
+    /**
+     * @return User
+     */
+    public function getUser()
     {
-        return $this->author;
+        return $this->user;
     }
-
 }

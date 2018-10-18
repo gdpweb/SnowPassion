@@ -30,10 +30,11 @@ services:
     public: true
     tags: ['controller.service_arguments']
 
-  AppBundle\EventListener\SPImageListener:
+  AppBundle\EventListener\SPImageSubscriber:
     arguments:
       $target_directory: '%image_directory%'
-
+    tags:
+    - { name: doctrine.event_subscriber, connection: default }
 
   # add more services, or override services that need manual wiring
   # AppBundle\Service\ExampleService:
@@ -42,14 +43,6 @@ services:
   AppBundle\Service\SPMailer:
     arguments:
       $from: '%mailer_user%'
-
-  AppBundle\Manager\TrickManager:
-    arguments:
-      $image_directory: '%image_directory%trick'
-
-  AppBundle\Manager\UserManager:
-    arguments:
-      $image_directory: '%image_directory%avatar'
 
   twig.extension.intl:
     public: true

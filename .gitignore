@@ -1,5 +1,4 @@
 /app/config/parameters.yml
-/node_modules/
 /phpunit.xml
 /var/*
 !/var/cache

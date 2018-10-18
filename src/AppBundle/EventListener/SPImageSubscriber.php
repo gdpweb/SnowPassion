@@ -11,7 +11,7 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
 use AppBundle\Entity\Image;
 
 
-class SPImageListener implements EventSubscriber
+class SPImageSubscriber implements EventSubscriber
 {
     private $fileSystem;
     private $targetDirectory;
@@ -19,7 +19,6 @@ class SPImageListener implements EventSubscriber
     public function __construct(SPFileSystem $fileSystem, $target_directory)
     {
         $this->fileSystem = $fileSystem;
-        $this->fileSystem->setPathDirectory($target_directory);
         $this->targetDirectory = $target_directory;
     }
 
@@ -39,19 +38,38 @@ class SPImageListener implements EventSubscriber
         if (!$entity instanceof Image) {
             return;
         }
+
         $this->setFileUpload($entity);
     }
 
     /**
      * @param PreUpdateEventArgs $args
      */
-    public function preUpdate(PreUpdateEventArgs $args)
+
+    public function postUpdate(PreUpdateEventArgs$args)
     {
         $entity = $args->getEntity();
 
         if (!$entity instanceof Image) {
             return;
         }
+
+        $this->setFileUpload($entity);
+        $this->uploadFile($entity);
+    }
+
+    /**
+     * @param PreUpdateEventArgs $args
+     */
+
+    public function preUpdate(PreUpdateEventArgs $args)
+    {
+        $entity = $args->getEntity();
+
+        if (!$entity instanceof Image) {
+                return;
+        }
+
         $this->setFileUpload($entity);
         $this->uploadFile($entity);
     }
@@ -72,9 +90,9 @@ class SPImageListener implements EventSubscriber
         if (!$entity instanceof Image) {
             return;
         }
-        $filename = $this->targetDirectory . '/' . $entity->getId() . '.' . $entity->getExt();
-        $fileResize = $this->targetDirectory . '/mini/' . $entity->getId() . '.' . $entity->getExt();
 
+        $filename = $this->targetDirectory . $entity->getType() . '/' . $entity->getId() . '.' . $entity->getExt();
+        $fileResize = $this->targetDirectory . $entity->getType() . '/mini/' . $entity->getId() . '.' . $entity->getExt();
         $this->fileSystem->remove($filename);
         $this->fileSystem->remove($fileResize);
 
@@ -84,6 +102,9 @@ class SPImageListener implements EventSubscriber
     {
         $file = $entity->getFile();
         if ($file instanceof UploadedFile) {
+
+            $this->fileSystem->setPathDirectory( $this->targetDirectory . $entity->getType());
+
             $entity->setExt($file->getClientOriginalExtension());
             $entity->setAlt(basename($file->getClientOriginalName(), '.' . $entity->getExt()));
         }
@@ -102,8 +123,9 @@ class SPImageListener implements EventSubscriber
                 $entity->getId() . '.' . $entity->getExt()
             );
         }
-        $filename = $this->targetDirectory . '/' . $entity->getId() . "." . $entity->getExt();
-        $fileResize = $this->targetDirectory . '/mini/' . $entity->getId() . '.' . $entity->getExt();
+        $filename = $this->targetDirectory . $entity->getType() . '/' . $entity->getId() . "." . $entity->getExt();
+        $fileResize = $this->targetDirectory . $entity->getType() . '/mini/' . $entity->getId() . '.' . $entity->getExt();
+
         $this->fileSystem->resizeThumbnail($filename, $fileResize, $entity->getExt());
     }
 }

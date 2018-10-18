@@ -41,6 +41,12 @@ class Image
     private $ext;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="type", type="string", length=255)
+     */
+    private $type;
+    /**
      * @Assert\File(
      *     maxSize = "1024k",
      *     maxSizeMessage="Le fichier est trop volumineux. La taille maximale autorisée est de 1024 Ko.",
@@ -54,8 +60,6 @@ class Image
      * )
      */
     private $file;
-
-    private $path;
 
 
     public function getFile()
@@ -115,6 +119,23 @@ class Image
     {
         $this->ext = $ext;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param mixed $type
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+    }
+
 
 }
 

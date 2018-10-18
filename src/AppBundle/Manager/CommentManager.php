@@ -2,7 +2,6 @@
 
 namespace AppBundle\Manager;
 
-
 use AppBundle\Entity\Comment;
 use AppBundle\Entity\Trick;
 use AppBundle\Entity\User;
@@ -26,16 +25,13 @@ class CommentManager
         $this->em = $em;
     }
 
-
     public function getComments(Trick $trick, $page = 1)
     {
-
         return $this->em->getRepository('AppBundle:Comment')->getComments(
             $trick->getId(),
             $page,
             self::NB_COMMENTS_PAGE
         );
-
     }
 
     public function getNbPages($listComments)
@@ -50,6 +46,4 @@ class CommentManager
         $this->em->persist($comment);
         $this->em->flush();
     }
-
-
 }

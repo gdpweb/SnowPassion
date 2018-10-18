@@ -16,13 +16,16 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 
-class CommentHandler
+class CommentAddHandler
 {
-    public $commentManager;
-    public $comment;
-    public $view;
-    public $datas;
-    public $handler;
+    private $commentManager;
+    private $comment;
+    private $view;
+    private $handler;
+    /**
+     * @var Trick
+     */
+    public $trick;
 
     public function __construct(SPHandler $handler, CommentManager $commentManager)
     {
@@ -31,24 +34,16 @@ class CommentHandler
     }
 
     /**
-     * @var Trick
-     */
-    public $trick;
-
-    /**
      * @return RedirectResponse
      */
     public function onSuccess()
     {
-        $this->commentManager->createComment($this->handler->formData(), $this->trick, $this->handler->getAuthor());
-
+        $this->commentManager->createComment($this->handler->formData(), $this->trick, $this->handler->getUser());
         $this->handler->setFlash('success', 'Le commentaire a été sauvegardé!');
-
         return $this->handler->redirect('trick_view', array(
             'id' => $this->trick->getId()
         ));
     }
-
 
     /**
      * @param $view

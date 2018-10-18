@@ -10,31 +10,34 @@ use AppBundle\Form\ImageType;
 use AppBundle\Form\TrickAddType;
 use AppBundle\Form\TrickEditType;
 use AppBundle\Form\VideoType;
-use AppBundle\Handler\CommentHandler;
-use AppBundle\Handler\TrickHandler;
+use AppBundle\Handler\CommentAddHandler;
+use AppBundle\Handler\ImageAddHandler;
+use AppBundle\Handler\ImageDeleteHandler;
+use AppBundle\Handler\ImageUpdateHandler;
+use AppBundle\Handler\TrickAddHandler;
+use AppBundle\Handler\TrickEditHandler;
+use AppBundle\Handler\TrickDeleteHandler;
+use AppBundle\Handler\VideoAddHandler;
+use AppBundle\Handler\VideoDeleteHandler;
+use AppBundle\Handler\VideoUpdateHandler;
 use AppBundle\Manager\CommentManager;
-use AppBundle\Manager\ImageManager;
-use AppBundle\Manager\TrickManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class TrickController extends Controller
 {
-
     /**
      * @Route("/", name="homepage")
      * @param EntityManagerInterface $em
      * @return Response
      */
     public function indexAction(EntityManagerInterface $em)
-    {   //faire une method dans repository
+    {
         $tricks = $em->getRepository('AppBundle:Trick')->findAll();
-
         return $this->render('Trick/index.html.twig', array(
             'tricks' => $tricks
         ));
@@ -43,10 +46,10 @@ class TrickController extends Controller
     /**
      * @Route("/trick/{id}", name="trick_view")
      * @param Trick $trick
-     * @param CommentHandler $commentHandler
+     * @param CommentAddHandler $commentHandler
      * @return RedirectResponse|Response
      */
-    public function viewAction(Trick $trick, CommentHandler $commentHandler)
+    public function viewAction(Trick $trick, CommentAddHandler $commentHandler)
     {
         $commentHandler->setTrick($trick);
         $commentHandler->setView('Trick/view.html.twig');
@@ -70,10 +73,10 @@ class TrickController extends Controller
 
     /**
      * @Route("/add", name="trick_add")
-     * @param TrickHandler $trickHandler
+     * @param TrickAddHandler $trickHandler
      * @return RedirectResponse|Response
      */
-    public function addAction(TrickHandler $trickHandler)
+    public function addAction(TrickAddHandler $trickHandler)
     {
         $trickHandler->setView('Trick/add.html.twig');
         return $trickHandler->handle(TrickAddType::class);
@@ -82,10 +85,10 @@ class TrickController extends Controller
     /**
      * @Route("/edit/{id}", name="trick_edit")
      * @param Trick $trick
-     * @param TrickHandler $trickHandler
+     * @param TrickEditHandler $trickHandler
      * @return RedirectResponse|Response
      */
-    public function editAction(Trick $trick, TrickHandler $trickHandler)
+    public function editAction(Trick $trick, TrickEditHandler $trickHandler)
     {
         $trickHandler->setView('Trick/edit.html.twig');
         return $trickHandler->handle(TrickEditType::class, $trick);
@@ -94,174 +97,92 @@ class TrickController extends Controller
     /**
      * @Route("/admin/delete/{id}", name="trick_delete")
      * @param Trick $trick
-     * @param TrickHandler $trickHandler
+     * @param TrickDeleteHandler $trickHandler
      * @return Response
      */
-    public function deleteAction(Trick $trick, TrickHandler $trickHandler)
+    public function deleteAction(Trick $trick, TrickDeleteHandler $trickHandler)
     {
         $trickHandler->setView('Trick/delete.html.twig');
-        return $trickHandler->handle(TrickEditType::class, $trick,'remove');
+        return $trickHandler->handle($trick);
     }
 
     /**
      * @Route("/admin/add_image/{id}", name="add_image")
-     * @param Request $request
      * @param Trick $trick
-     * @param TrickManager $trickManager
+     * @param ImageAddHandler $imageHandler
      * @return Response
      */
-    public function addImageAction(Request $request, Trick $trick, TrickManager $trickManager)
+    public function addImageAction(Trick $trick, ImageAddHandler $imageHandler)
     {
-        $form = $this->createForm(ImageType ::class);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $trickManager->addImage($trick, $form->getData());
-
-            $this->addFlash('success', 'L\'image a été ajoutée');
-        }
-
-        return $this->render('Trick/add_image.html.twig', array(
-            'form' => $form->createView(),
-            'trick' => $trick
-        ));
+        $imageHandler->setTrick($trick);
+        $imageHandler->setView('Trick/add_image.html.twig');
+        return $imageHandler->handle(ImageType::class);
     }
 
     /**
      * @Route("/admin/update_image/{id}", name="update_image")
-     * @param Request $request
      * @param Image $image
-     * @param ImageManager $imageManager
+     * @param ImageUpdateHandler $imageHandler
      * @return Response
      */
-    public function updateImageAction(Request $request, Image $image, ImageManager $imageManager)
+    public function updateImageAction(Image $image, ImageUpdateHandler $imageHandler)
     {
-        $form = $this->createForm(ImageType ::class, $image);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $imageManager->updateImageTrick($image);
-            $this->addFlash('success', 'L\'image a été modifiée');
-        }
-
-        return $this->render('Trick/update_image.html.twig', array(
-            'form' => $form->createView(),
-            'image' => $image
-        ));
+        $imageHandler->setView('Trick/update_image.html.twig');
+        return $imageHandler->handle(ImageType::class, $image);
     }
 
     /**
      * @Route("/admin/trick/{id}/delete_image/{image_id}", name="image_delete")
      * @ParamConverter("image", class="AppBundle:Image", options={"id" = "image_id"})
-     * @param Request $request
      * @param Trick $trick
-     * @param ImageManager $imageManager
      * @param Image $image
+     * @param ImageDeleteHandler $imageHandler
      * @return Response
      */
-    public function deleteImageAction(Request $request, Trick $trick, ImageManager $imageManager, Image $image)
+    public function deleteImageAction(Trick $trick, Image $image, ImageDeleteHandler $imageHandler)
     {
-        $form = $this->get('form.factory')->create();
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $imageManager->deleteImageTrick($image);
-            $this->addFlash('success', 'L\'image a été supprimée');
-
-            return $this->redirectToRoute('trick_edit', array('id' => $trick->getId()));
-        }
-        return $this->render('Trick/delete_image.html.twig', array(
-            'trick' => $trick,
-            'image' => $image,
-            'form' => $form->createView()
-        ));
+        $imageHandler->setTrick($trick);
+        $imageHandler->setView('Trick/delete_image.html.twig');
+        return $imageHandler->handle($image);
     }
 
     /**
      * @Route("/admin/add_video/{id}", name="add_video")
-     * @param Request $request
      * @param Trick $trick
-     * @param TrickManager $trickManager
+     * @param VideoAddHandler $videoHandler
      * @return Response
      */
-    public function addVideoAction(Request $request, Trick $trick, TrickManager $trickManager)
+    public function addVideoAction(Trick $trick, VideoAddHandler $videoHandler)
     {
-        $form = $this->createForm(VideoType ::class);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $trickManager->addVideo($trick, $form->getData());
-            $this->addFlash('success', 'La video a été ajoutée');
-
-        }
-        return $this->render('Trick/add_video.html.twig', array(
-            'form' => $form->createView(),
-            'trick' => $trick
-        ));
+        $videoHandler->setTrick($trick);
+        $videoHandler->setView('Trick/add_video.html.twig');
+        return $videoHandler->handle(VideoType ::class);
     }
-
 
     /**
      * @Route("/admin/update_video/{id}", name="update_video")
-     * @param Request $request
-     * @param EntityManagerInterface $em
      * @param Video $video
+     * @param VideoUpdateHandler $videoHandler
      * @return Response
      */
-    public function updateVideoAction(Request $request, EntityManagerInterface $em, Video $video)
+    public function updateVideoAction(Video $video, VideoUpdateHandler $videoHandler)
     {
-        $form = $this->createForm(VideoType ::class, $video);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $em->getRepository('AppBundle:Video');
-            $em->persist($form->getData());
-            $em->flush();
-
-            $this->addFlash('success', 'La video a été modifiée');
-        }
-
-        return $this->render('Trick/update_video.html.twig', array(
-            'form' => $form->createView(),
-            'video' => $video
-        ));
+        $videoHandler->setView('Trick/update_video.html.twig');
+        return $videoHandler->handle(VideoType ::class, $video);
     }
 
     /**
      * @Route("/admin/trick/{id}/delete_video/{video_id}", name="delete_video")
      * @ParamConverter("video", class="AppBundle:Video", options={"id" = "video_id"})
-     * @param Request $request
-     * @param EntityManagerInterface $em
      * @param Trick $trick
      * @param Video $video
+     * @param VideoDeleteHandler $videoHandler
      * @return RedirectResponse|Response
      */
-
-    public function deleteVideoAction(Request $request, EntityManagerInterface $em, Trick $trick, Video $video)
+    public function deleteVideoAction(Trick $trick, Video $video, VideoDeleteHandler $videoHandler)
     {
-        $form = $this->get('form.factory')->create();
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $em->getRepository('AppBundle:Video');
-            $em->remove($video);
-            $em->flush();
-
-            $this->addFlash('success', 'La video a été supprimée');
-
-            return $this->redirectToRoute('trick_edit', array('id' => $trick->getId()));
-        }
-        return $this->render('Trick/delete_video.html.twig', array(
-            'trick' => $trick,
-            'video' => $video,
-            'form' => $form->createView()
-        ));
+        $videoHandler->setTrick($trick);
+        $videoHandler->setView('Trick/delete_video.html.twig');
+        return $videoHandler->handle($video);
     }
-
-
 }

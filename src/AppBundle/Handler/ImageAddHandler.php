@@ -8,20 +8,28 @@
 
 namespace AppBundle\Handler;
 
+use AppBundle\Entity\Trick;
 use AppBundle\Manager\TrickManager;
 use AppBundle\Service\SPHandler;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 
-class TrickHandler
+class ImageAddHandler
 {
-    public $trickManager;
-    public $trick;
-    public $view;
-    public $datas;
-    public $handler;
+    private $trickManager;
+    /**
+     * @var Trick
+     */
+    private $trick;
+    private $view;
+    private $handler;
 
+    /**
+     * ImageAddHandler constructor.
+     * @param SPHandler $handler
+     * @param TrickManager $trickManager
+     */
     public function __construct(SPHandler $handler, TrickManager $trickManager)
     {
         $this->trickManager = $trickManager;
@@ -33,18 +41,12 @@ class TrickHandler
      */
     public function onSuccess()
     {
-        $this->trickManager->saveTrick($this->handler->formData(), $this->handler->getAuthor());
-        $this->handler->setFlash('success', 'La figure a été sauvegardée');
+        $this->trickManager->addImage($this->trick, $this->handler->formData());
+        $this->handler->setFlash('success', 'L\'image a été ajoutée');
 
-        return $this->handler->redirect('homepage');
-    }
-
-    public function remove(){
-
-        $this->trickManager->deleteTrick($this->trick);
-        $this->handler->setFlash('success', 'La figure de snowboard a été supprimé');
-
-        return $this->handler->redirect('homepage');
+        return $this->handler->redirect('trick_edit', array(
+            'id' => $this->trick->getId()
+        ));
     }
 
     /**
@@ -74,16 +76,19 @@ class TrickHandler
      * @return Response
      */
 
-    public function handle($formType, $trick = null, $method = 'onSuccess')
+    public function handle($formType)
     {
-        $this->trick = $trick;
-
-        if ($this->handler->isSubmitted($formType, $this->trick)) {
-
-            if (is_callable([$this, $method])) {
-                return $this->$method();
-            }
+        if ($this->handler->isSubmitted($formType)) {
+            return $this->onSuccess();
         }
         return $this->getView();
+    }
+
+    /**
+     * @param Trick $trick
+     */
+    public function setTrick(Trick $trick)
+    {
+        $this->trick = $trick;
     }
 }

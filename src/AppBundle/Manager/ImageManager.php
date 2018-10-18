@@ -29,22 +29,11 @@ class ImageManager
     {
         $image->setAlt(null);
         $this->em->flush();
-
     }
 
     public function deleteImageTrick(Image $image)
     {
-
         $this->em->remove($image);
         $this->em->flush();
-
     }
-
-    public function uploadImageTrick(Image $image)
-    {
-
-        //$this->fileSystem->upload($image->getFile());
-
-    }
-
 }

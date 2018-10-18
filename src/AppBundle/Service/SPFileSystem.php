@@ -28,7 +28,7 @@ class SPFileSystem
 
         } catch (FileException $e) {
 
-            echo "Exception Found - " . $e->getMessage() . "<br/>";
+            echo "Exception Found - " . $e->getMessage() .$this->pathDirectory. "<br/>";
         }
     }
 
