@@ -16,14 +16,12 @@ class SecurityController extends Controller
     public function loginAction()
     {
         $helper = $this->get('security.authentication_utils');
-
-        return $this->render('Security/login.html.twig',
-            array(
-                // dernier nom d'utilisateur entré par l'utilisateur (le cas échéant)
-                'last_username' => $helper->getLastUsername(),
-                // dernière erreur d'authentification (le cas échéant)
-                'error' => $helper->getLastAuthenticationError(),
-            ));
+        return $this->render('Security/login.html.twig', array(
+            // dernier nom d'utilisateur entré par l'utilisateur (le cas échéant)
+            'last_username' => $helper->getLastUsername(),
+            // dernière erreur d'authentification (le cas échéant)
+            'error' => $helper->getLastAuthenticationError(),
+        ));
     }
 
     /**
@@ -36,12 +34,8 @@ class SecurityController extends Controller
     public function forgotAction(Request $request, EntityManagerInterface $em, UserManager $userManager)
     {
         if ($request->isMethod('POST')) {
-
             $username = $request->get('_username');
-
-            $user = $em->getRepository('AppBundle:User')->findOneBy(
-                array('username' => $username)
-            );
+            $user = $em->getRepository('AppBundle:User')->findOneBy(array('username' => $username));
 
             if (null === $user) {
                 $this->addFlash('danger', 'Ce nom d\'utilisateur n\'hésite pas!');

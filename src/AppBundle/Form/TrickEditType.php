@@ -2,7 +2,6 @@
 
 namespace AppBundle\Form;
 
-
 use AppBundle\Entity\Trick;
 use AppBundle\Repository\GroupeRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -53,6 +52,4 @@ class TrickEditType extends AbstractType
     {
         return 'appbundle_trick';
     }
-
-
 }

@@ -42,7 +42,7 @@ class TrickController extends Controller
 
         return $this->render('Trick/index.html.twig', array(
             'tricks' => $tricks,
-            'limit' => Trick::Nb_TRICKS_PAGE,
+            'limit' => Trick::NB_TRICKS_PAGE,
             'nbTricksMax' => $nbTricksMax
         ));
     }

@@ -17,11 +17,10 @@ class VideoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('url', TextType::class, array(
-                'label' => false,
-                'attr' => array(
-                    'placeholder' => 'Coller la balise embed de la video',
-                ))
-        );
+            'label' => false,
+            'attr' => array(
+                'placeholder' => 'Coller la balise embed de la video',
+            )));
 
         $builder->get('url')
             ->addModelTransformer(new CallbackTransformer(
@@ -60,6 +59,4 @@ class VideoType extends AbstractType
     {
         return 'appbundle_video';
     }
-
-
 }

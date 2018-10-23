@@ -1,4 +1,9 @@
-<?php
+<?php /** @noinspection PhpCSValidationInspection */
+/** @noinspection ALL */
+/** @noinspection ALL */
+/** @noinspection ALL */
+
+/** @noinspection PhpCSValidationInspection */
 
 namespace AppBundle\Repository;
 

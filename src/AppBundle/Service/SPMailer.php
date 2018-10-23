@@ -35,20 +35,17 @@ class SPMailer
             </html>";
 
         $this->to = 'stephanebriere@hotmail.fr';
-
         $this->sendMessage();
-
     }
-
 
     public function validateUserMail(User $user)
     {
         $this->subject = "Création de votre compte";
-        $this->body =
-            "<html>
+        $this->body = "<html>
             <h4>Bonjour " . $user->getUsername() . ",</h4>
             <p>Vous avez demandé la création d'un compte sur le site SnowPassion.</p>
-            <p>Afin de valider votre compte, merci de suivre: <a href='http://127.0.0.1:8000/validate/" . $user->getToken() . "'>ce lien</a></p>
+            <p>Afin de valider votre compte, merci de suivre: 
+            <a href='http://127.0.0.1:8000/validate/" . $user->getToken() . "'>ce lien</a></p>
             <p>Cordialement SnowPassion.</p>
             </html>";
 

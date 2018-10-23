@@ -3,9 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
 use Symfony\Component\Validator\Constraints as Assert;
-
 
 /**
  * Image
@@ -70,7 +68,6 @@ class Image
     public function setFile($file = null)
     {
         $this->file = $file;
-
     }
 
     /**
@@ -135,7 +132,4 @@ class Image
     {
         $this->type = $type;
     }
-
-
 }
-

@@ -25,19 +25,14 @@ class UserController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $userManager->registerMail($form->getData());
-            $this->addFlash(
-                'info', 'Votre compte a été créé. 
+            $this->addFlash('info', 'Votre compte a été créé. 
             Utiliser le lien qui vous a été envoyé par mail pour valider votre inscription.
-            Le lien reste actif 20 minutes.'
-            );
+            Le lien reste actif 20 minutes.');
+
             return $this->redirectToRoute('homepage');
         }
-        return $this->render('User/register.html.twig', array(
-                'form' => $form->createView()
-            )
-        );
+        return $this->render('User/register.html.twig', array('form' => $form->createView()));
     }
 
     /**
@@ -46,33 +41,26 @@ class UserController extends Controller
      * @param UserManager $userManager
      * @param $token
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function resetAction(Request $request, UserManager $userManager, $token)
     {
         $user = $userManager->tokenValid($token);
 
         if ($user === null) {
-            $this->addFlash(
-                'danger', 'Ce lien a expiré'
-            );
+            $this->addFlash('danger', 'Ce lien a expiré');
             return $this->redirectToRoute('homepage');
         }
         $form = $this->createForm(UserResetType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $userManager->activeAccount($form->getData());
-
-            $this->addFlash(
-                'success', 'Votre mot de passe a été réinitialisé.'
-            );
+            $this->addFlash('success', 'Votre mot de passe a été réinitialisé.');
             return $this->redirectToRoute('homepage');
         }
-        return $this->render('User/reset.html.twig', array(
-                'form' => $form->createView()
-            )
-        );
+        return $this->render('User/reset.html.twig', array('form' => $form->createView()));
     }
 
     /**

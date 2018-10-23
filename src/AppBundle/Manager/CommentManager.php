@@ -7,7 +7,6 @@ use AppBundle\Entity\Trick;
 use AppBundle\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 
-
 class CommentManager
 {
     const NB_COMMENTS_PAGE = 5;

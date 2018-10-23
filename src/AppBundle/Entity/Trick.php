@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Trick
 {
-    const Nb_TRICKS_PAGE = 1;
+    const NB_TRICKS_PAGE = 1;
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", cascade={"persist"})
@@ -111,7 +111,6 @@ class Trick
     public function removeImage(image $image)
     {
         $this->images->removeElement($image);
-
     }
 
     public function getImages()
@@ -273,5 +272,4 @@ class Trick
     {
         $this->groupe = $groupe;
     }
-
 }

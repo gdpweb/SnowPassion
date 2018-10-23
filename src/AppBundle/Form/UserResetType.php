@@ -52,6 +52,4 @@ class UserResetType extends AbstractType
     {
         return 'appbundle_user';
     }
-
-
 }

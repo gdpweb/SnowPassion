@@ -13,7 +13,6 @@ use AppBundle\Manager\TrickManager;
 use AppBundle\Service\SPHandler;
 use Symfony\Component\HttpFoundation\Response;
 
-
 class VideoAddHandler
 {
     private $trickManager;
@@ -53,11 +52,8 @@ class VideoAddHandler
      */
     public function getView()
     {
-        return $this->handler->response(
-            $this->view, array(
-                "trick" => $this->trick
-            )
-        );
+        return $this->handler->response($this->view, array(
+            "trick" => $this->trick));
     }
 
     /**

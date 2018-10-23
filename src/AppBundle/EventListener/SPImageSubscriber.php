@@ -10,7 +10,6 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use AppBundle\Entity\Image;
 
-
 class SPImageSubscriber implements EventSubscriber
 {
     private $fileSystem;
@@ -46,7 +45,7 @@ class SPImageSubscriber implements EventSubscriber
      * @param PreUpdateEventArgs $args
      */
 
-    public function postUpdate(PreUpdateEventArgs$args)
+    public function postUpdate(PreUpdateEventArgs $args)
     {
         $entity = $args->getEntity();
 
@@ -67,7 +66,7 @@ class SPImageSubscriber implements EventSubscriber
         $entity = $args->getEntity();
 
         if (!$entity instanceof Image) {
-                return;
+            return;
         }
 
         $this->setFileUpload($entity);
@@ -90,21 +89,18 @@ class SPImageSubscriber implements EventSubscriber
         if (!$entity instanceof Image) {
             return;
         }
-
-        $filename = $this->targetDirectory . $entity->getType() . '/' . $entity->getId() . '.' . $entity->getExt();
-        $fileResize = $this->targetDirectory . $entity->getType() . '/mini/' . $entity->getId() . '.' . $entity->getExt();
+        $directory = $this->targetDirectory . $entity->getType();
+        $filename = $directory . '/' . $entity->getId() . '.' . $entity->getExt();
+        $fileResize = $directory . '/mini/' . $entity->getId() . '.' . $entity->getExt();
         $this->fileSystem->remove($filename);
         $this->fileSystem->remove($fileResize);
-
     }
 
     public function setFileUpload(Image $entity)
     {
         $file = $entity->getFile();
         if ($file instanceof UploadedFile) {
-
-            $this->fileSystem->setPathDirectory( $this->targetDirectory . $entity->getType());
-
+            $this->fileSystem->setPathDirectory($this->targetDirectory . $entity->getType());
             $entity->setExt($file->getClientOriginalExtension());
             $entity->setAlt(basename($file->getClientOriginalName(), '.' . $entity->getExt()));
         }
@@ -123,8 +119,9 @@ class SPImageSubscriber implements EventSubscriber
                 $entity->getId() . '.' . $entity->getExt()
             );
         }
-        $filename = $this->targetDirectory . $entity->getType() . '/' . $entity->getId() . "." . $entity->getExt();
-        $fileResize = $this->targetDirectory . $entity->getType() . '/mini/' . $entity->getId() . '.' . $entity->getExt();
+        $directory = $this->targetDirectory . $entity->getType();
+        $filename = $directory . '/' . $entity->getId() . "." . $entity->getExt();
+        $fileResize = $directory . '/mini/' . $entity->getId() . '.' . $entity->getExt();
 
         $this->fileSystem->resizeThumbnail($filename, $fileResize, $entity->getExt());
     }

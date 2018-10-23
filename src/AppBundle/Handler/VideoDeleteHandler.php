@@ -14,13 +14,13 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
-
 class VideoDeleteHandler
 {
     private $em;
     private $view;
     private $handler;
     private $video;
+
     /**
      * @var Trick
      */
@@ -64,12 +64,10 @@ class VideoDeleteHandler
      */
     public function getView()
     {
-        return $this->handler->response(
-            $this->view, array(
-                'video' => $this->video,
-                'trick' => $this->trick
-            )
-        );
+        return $this->handler->response($this->view, array(
+            'video' => $this->video,
+            'trick' => $this->trick
+        ));
     }
 
     /**

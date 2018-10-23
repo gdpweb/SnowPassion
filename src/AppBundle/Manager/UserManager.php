@@ -2,13 +2,11 @@
 
 namespace AppBundle\Manager;
 
-
 use AppBundle\Entity\User;
 use AppBundle\Service\SPMailer;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
-
 
 class UserManager
 {
@@ -29,8 +27,7 @@ class UserManager
      * @param EncoderFactoryInterface $encoderFactory
      * @param ContainerInterface $container
      */
-    public function __construct(SPMailer $mailer, EntityManagerInterface $em,
-                                EncoderFactoryInterface $encoderFactory,
+    public function __construct(SPMailer $mailer, EntityManagerInterface $em, EncoderFactoryInterface $encoderFactory,
                                 ContainerInterface $container)
     {
         $this->mailer = $mailer;
@@ -39,6 +36,11 @@ class UserManager
         $this->encoderFactory = $encoderFactory;
     }
 
+    /**
+     * @param $token
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
     public function tokenValid($token)
     {
         return $this->em->getRepository('AppBundle:User')->tokenIsValid($token);

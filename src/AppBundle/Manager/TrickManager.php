@@ -23,15 +23,16 @@ class TrickManager
     {
         $this->em = $em;
     }
-    public function getAll(){
 
+    public function getAll()
+    {
         return $this->em->getRepository('AppBundle:Trick')->getAll();
-
     }
+
     public function getListTricks()
     {
         return $this->em->getRepository('AppBundle:Trick')
-            ->getListTricks(Trick::Nb_TRICKS_PAGE);
+            ->getListTricks(Trick::NB_TRICKS_PAGE);
     }
 
     public function countTricks()
@@ -47,7 +48,7 @@ class TrickManager
         if ($trick->getId() === null) {
             $trick->setAuteur($user);
             $trick->setPublie(true);
-            forEach ($trick->getImages() as $image) {
+            foreach ($trick->getImages() as $image) {
                 $image->setType('trick');
             }
             $this->em->persist($trick);

@@ -19,10 +19,9 @@ class ImageType extends AbstractType
             ->add('file', FileType::class, array(
                 'label' => false,
                 'attr' => array(
-                    'accept'=>'image/png, image/jpeg'
+                    'accept' => 'image/png, image/jpeg'
                 )
             ));
-
     }
 
     /**
@@ -42,6 +41,4 @@ class ImageType extends AbstractType
     {
         return 'appbundle_image';
     }
-
-
 }

@@ -21,7 +21,6 @@ class UserChecker implements UserCheckerInterface
         if (!$user instanceof AppUser) {
             return;
         }
-
         // user account is not active, the user may be notified
         if ($user->isActive() == false) {
             throw new AccountActiveException('....');

@@ -14,7 +14,6 @@ use AppBundle\Manager\ImageManager;
 use AppBundle\Service\SPHandler;
 use Symfony\Component\HttpFoundation\Response;
 
-
 class ImageUpdateHandler
 {
     private $imageManager;
@@ -54,11 +53,9 @@ class ImageUpdateHandler
      */
     public function getView()
     {
-        return $this->handler->response(
-            $this->view, array(
-                "image" => $this->image
-            )
-        );
+        return $this->handler->response($this->view, array(
+            "image" => $this->image
+        ));
     }
 
     /**

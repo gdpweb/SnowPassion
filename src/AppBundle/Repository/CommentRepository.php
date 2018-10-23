@@ -17,13 +17,11 @@ class CommentRepository extends \Doctrine\ORM\EntityRepository
         $query = $this->createQueryBuilder('a')
             ->where('a.trick=:trick')
             ->orderBy('a.date', 'DESC')
-            ->setParameter('trick',$trick)
-            ->getQuery()
-        ;
+            ->setParameter('trick', $trick)
+            ->getQuery();
         $query
-            ->setFirstResult(($page-1) * $nbPerPage)
-            ->setMaxResults($nbPerPage)
-        ;
+            ->setFirstResult(($page - 1) * $nbPerPage)
+            ->setMaxResults($nbPerPage);
         return new Paginator($query, true);
     }
 }

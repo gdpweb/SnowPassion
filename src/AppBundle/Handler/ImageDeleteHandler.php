@@ -14,7 +14,6 @@ use AppBundle\Service\SPHandler;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
-
 class ImageDeleteHandler
 {
     private $imageManager;
@@ -40,7 +39,7 @@ class ImageDeleteHandler
         $this->imageManager->deleteImageTrick($this->image);
         $this->handler->setFlash('success', 'L\'image a été supprimée');
 
-        return $this->handler->redirect('trick_edit',array(
+        return $this->handler->redirect('trick_edit', array(
             'id' => $this->trick->getId()
         ));
     }
@@ -58,12 +57,10 @@ class ImageDeleteHandler
      */
     public function getView()
     {
-        return $this->handler->response(
-            $this->view, array(
-                'image' => $this->image,
-                'trick' => $this->trick
-            )
-        );
+        return $this->handler->response($this->view, array(
+            'image' => $this->image,
+            'trick' => $this->trick
+        ));
     }
 
     /**

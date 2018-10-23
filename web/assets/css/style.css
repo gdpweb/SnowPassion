@@ -35,14 +35,6 @@ hr {
     color: black;
 }
 
-.well-white {
-    border: solid 1px #c8c8c8;
-    padding: 20px;
-    border-radius: 7px;
-    background-color: white;
-    color: black;
-}
-
 .img-avatar {
     width: 35px;
     height: 35px;

@@ -8,13 +8,11 @@
 
 namespace AppBundle\Handler;
 
-
 use AppBundle\Entity\Trick;
 use AppBundle\Manager\CommentManager;
 use AppBundle\Service\SPHandler;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
-
 
 class CommentAddHandler
 {
@@ -61,8 +59,7 @@ class CommentAddHandler
         $listComments = $this->commentManager->getComments($this->trick);
         $nbPages = $this->commentManager->getNbPages($listComments);
 
-        return $this->handler->response(
-            $this->view, array(
+        return $this->handler->response($this->view, array(
             "trick" => $this->trick,
             'listComments' => $listComments,
             'nbPages' => $nbPages
@@ -78,9 +75,7 @@ class CommentAddHandler
     public function handle($formType, $comment = null, $method = 'onSuccess')
     {
         $this->comment = $comment;
-
         if ($this->handler->isSubmitted($formType, $this->comment)) {
-
             if (is_callable([$this, $method])) {
                 return $this->$method();
             }

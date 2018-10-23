@@ -25,10 +25,8 @@ class SPFileSystem
     {
         try {
             $file->move($this->pathDirectory, $fileName);
-
         } catch (FileException $e) {
-
-            echo "Exception Found - " . $e->getMessage() .$this->pathDirectory. "<br/>";
+            echo "Exception Found - " . $e->getMessage() . $this->pathDirectory . "<br/>";
         }
     }
 
@@ -78,5 +76,4 @@ class SPFileSystem
     {
         $this->pathDirectory = $pathDirectory;
     }
-
 }

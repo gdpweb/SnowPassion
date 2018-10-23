@@ -10,7 +10,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * User
- *
  * @ORM\Table(name="sp_user")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  * @UniqueEntity(fields="email", message="Cette adresse mail est déjà utilisée par un autre compte")
@@ -163,14 +162,11 @@ class User implements UserInterface, Serializable
         $this->roles[] = $role;
     }
 
-
     public function setRoles(array $roles)
     {
         $mergeRoles = array_merge($this->roles, $roles);
         $this->roles = $mergeRoles;
-        // allows for chaining
         return $this;
-
     }
 
     /**
@@ -230,10 +226,8 @@ class User implements UserInterface, Serializable
         $this->dateToken = $dateToken;
     }
 
-
     public function eraseCredentials()
     {
-
     }
 
     public function serialize()
@@ -269,8 +263,4 @@ class User implements UserInterface, Serializable
     {
         $this->image = $image;
     }
-
-
-
-
 }

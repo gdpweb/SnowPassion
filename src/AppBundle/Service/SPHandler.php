@@ -59,10 +59,10 @@ class SPHandler
      * @param Environment $twig
      * @param TokenStorageInterface $tokenStorage
      */
-    public function __construct(FormFactoryInterface $formFactory, RequestStack $requestStack,
-                                RouterInterface $router, FlashBagInterface $flashBag,
-                                Environment $twig, TokenStorageInterface $tokenStorage)
+    public function __construct(FormFactoryInterface $formFactory, RequestStack $requestStack, RouterInterface $router,
+                                FlashBagInterface $flashBag, Environment $twig, TokenStorageInterface $tokenStorage)
     {
+
         $this->formFactory = $formFactory;
         $this->requestStack = $requestStack;
         $this->router = $router;
@@ -79,7 +79,7 @@ class SPHandler
     public function isSubmitted($formType = null, $entity = null)
     {
         if ($formType === null) {
-           $this->form = $this->formFactory->create();
+            $this->form = $this->formFactory->create();
         } else {
             $this->form = $this->formFactory->create($formType, $entity);
         }

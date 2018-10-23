@@ -35,7 +35,6 @@ class UserRegisterType extends AbstractType
                     'class' => 'btn-success'
                 )
             ));
-
     }
 
     /**
@@ -55,6 +54,4 @@ class UserRegisterType extends AbstractType
     {
         return 'appbundle_user';
     }
-
-
 }

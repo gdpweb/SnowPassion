@@ -13,7 +13,6 @@ use AppBundle\Service\SPHandler;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
-
 class TrickDeleteHandler
 {
     private $trickManager;
@@ -50,11 +49,9 @@ class TrickDeleteHandler
      */
     public function getView()
     {
-        return $this->handler->response(
-            $this->view, array(
-                "trick" => $this->trick
-            )
-        );
+        return $this->handler->response($this->view, array(
+            "trick" => $this->trick
+        ));
     }
 
     /**

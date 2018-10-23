@@ -13,7 +13,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
-
 class VideoUpdateHandler
 {
     private $em;
@@ -53,11 +52,9 @@ class VideoUpdateHandler
      */
     public function getView()
     {
-        return $this->handler->response(
-            $this->view, array(
-                "video" => $this->video
-            )
-        );
+        return $this->handler->response($this->view, array(
+            "video" => $this->video
+        ));
     }
 
     /**
@@ -68,9 +65,8 @@ class VideoUpdateHandler
     public function handle($formType, $video)
     {
         $this->video = $video;
-
-        if ($this->handler->isSubmitted($formType,$video)) {
-           $this->onSuccess();
+        if ($this->handler->isSubmitted($formType, $video)) {
+            $this->onSuccess();
         }
         return $this->getView();
     }
