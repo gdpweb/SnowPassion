@@ -1,0 +1,26 @@
+{% for trick in tricks %}
+    <div class="media-tricks col-md-2">
+        {% if (trick.images|first) is not empty %}
+            <div class="div-image">
+                <img class="media-object"
+                     src="{{ asset(trick_directory_mini~(trick.images|first).id~'.'~(trick.images|first).ext) }}">
+            </div>
+        {% endif %}
+        <div class="media-heading">
+            <a href="{{ path('trick_view', {'id': trick.id}) }}">{{ trick.nom |striptags|truncate(15) }}</a>
+            <span class="pull-right">
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    <a href="{{ path('trick_edit', {'id': trick.id}) }}">
+                        <span class="fa fa-pencil fa-margin"></span>
+                    </a>
+                    {% if is_granted('ROLE_ADMIN') %}
+                    <a class="delete" title="Supprimer la figure?"
+                       data-href="{{ path('trick_delete', {'id': trick.id}) }}">
+                            <span class="fa fa-remove fa-margin"></span>
+                        </a>
+                {% endif %}
+                {% endif %}
+            </span>
+        </div>
+    </div>
+{% endfor %}

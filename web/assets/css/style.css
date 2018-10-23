@@ -106,8 +106,12 @@ hr {
     top: -18px;
 }
 
+#media-index {
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
 #media {
-    margin-top: 15px;
+    margin-top: 20px;
 }
 
 .media-tricks {

@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpCSValidationInspection */
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel;
@@ -51,13 +51,19 @@ class AppKernel extends Kernel
 
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
-        $loader->load(function (ContainerBuilder $container) {
-            $container->setParameter('container.autowiring.strict_mode', true);
-            $container->setParameter('container.dumper.inline_class_loader', true);
+        try {
+            $loader->load(function (ContainerBuilder $container) {
+                $container->setParameter('container.autowiring.strict_mode', true);
+                $container->setParameter('container.dumper.inline_class_loader', true);
 
-            $container->addObjectResource($this);
-        });
-        $loader->load($this->getRootDir().'/config/config_'.$this->getEnvironment().'.yml');
+                $container->addObjectResource($this);
+            });
+        } catch (Exception $e) {
+        }
+        try {
+            $loader->load($this->getRootDir() . '/config/config_' . $this->getEnvironment() . '.yml');
+        } catch (Exception $e) {
+        }
     }
     protected function build(ContainerBuilder $container)
     {

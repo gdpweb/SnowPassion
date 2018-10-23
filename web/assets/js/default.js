@@ -83,7 +83,6 @@ $(document).ready(function () {
         }
     );
 
-
     $('.btn-comments').click(function () {
 
         $('.pagination').children().removeClass('active');
@@ -102,7 +101,16 @@ $(document).ready(function () {
             }
         });
     });
-
+    $('.btn-more-tricks').click(function () {
+        const url = $(this).data('href');
+        $.ajax({
+            type: 'post',
+            url: url,
+            success: function (data) {
+                $('#media-index').html(data);
+            }
+        });
+    });
 
     $('#media-visible').click(function () {
 

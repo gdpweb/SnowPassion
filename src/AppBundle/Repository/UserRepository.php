@@ -11,10 +11,9 @@ namespace AppBundle\Repository;
 class UserRepository extends \Doctrine\ORM\EntityRepository
 {
     /**
-     * @param \Datetime $date
      * @param $token
      * @return mixed
-     * @throws
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function tokenIsValid($token)
     {

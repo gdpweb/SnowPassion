@@ -63,53 +63,49 @@
                 <p>{{ trick.description|nl2br }}</p>
             </section>
 
-                <div class="col-lg-8 col-lg-offset-2 text-center div-badge">
-                    <span class="badge badge-lg">{{ trick.groupe.nom }}</span>
-                    <span class="badge badge-lg">créé le {{ trick.date| localizeddate('none', 'none', null, null, 'd MMMM Y') }}</span>
-                    <span class="badge badge-lg">modifié le {{ trick.date| localizeddate('none', 'none', null, null, 'd MMMM Y') }}</span>
-                </div>
-                <hr class="col-xs-8 col-xs-offset-2">
-                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-
-                    <form id="commenter" method="post" action="#" class="col-lg-8 col-lg-offset-2">
-
-                        <div class="col-md-8 col-md-offset-1">
-
-                            {{ form_row(form.message) }}
-
-                        </div>
-                        <div class="col-md-3">
-                            <button type="submit" class="btn btn-success">Envoyer</button>
-                        </div>
-                        {{ form_rest(form) }}
-
-                        {{ form_end(form) }}
-                    </form>
-                    <hr class="col-lg-8 col-lg-offset-2">
-
-
-                {% endif %}
-
-                {% if listComments is not empty %}
-                    <div id="commentaires" class="col-lg-7 col-lg-offset-2">
-                        {% include 'Trick\\comments.html.twig' with {'listComments':listComments } %}
-                    </div>
-                    <div class="col-lg-6 col-lg-offset-3 text-center">
-                        <ul class="pagination">
-                            {% for p in range(1, nbPages) %}
-                                {% if nbPages > 1 %}
-                                    <li{% if p == 1 %} class="active"{% endif %}>
-                                        <a class="btn-comments"
-                                           data-href="{{ path("app_trick_comments",{'id':trick.id,'page': p}) }}">{{ p }}</a>
-                                    </li>
-                                {% endif %}
-                            {% endfor %}
-
-                        </ul>
-                    </div>
-                {% endif %}
+            <div class="col-lg-8 col-lg-offset-2 text-center div-badge">
+                <span class="badge badge-lg">{{ trick.groupe.nom }}</span>
+                <span class="badge badge-lg">créé le {{ trick.date| localizeddate('none', 'none', null, null, 'd MMMM Y') }}</span>
+                <span class="badge badge-lg">modifié le {{ trick.date| localizeddate('none', 'none', null, null, 'd MMMM Y') }}</span>
             </div>
-        </div>
+            <hr class="col-xs-8 col-xs-offset-2">
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
 
+                <form id="commenter" method="post" action="#" class="col-lg-8 col-lg-offset-2">
+
+                    <div class="col-md-8 col-md-offset-1">
+
+                        {{ form_row(form.message) }}
+
+                    </div>
+                    <div class="col-md-3">
+                        <button type="submit" class="btn btn-success">Envoyer</button>
+                    </div>
+                    {{ form_rest(form) }}
+
+                    {{ form_end(form) }}
+                </form>
+                <hr class="col-lg-8 col-lg-offset-2">
+            {% endif %}
+
+            {% if listComments is not empty %}
+                <div id="commentaires" class="col-lg-7 col-lg-offset-2">
+                    {% include 'Trick/comments.html.twig' with {'tricks':listComments } %}
+                </div>
+                <div class="col-lg-6 col-lg-offset-3 text-center">
+                    <ul class="pagination">
+                        {% for p in range(1, nbPages) %}
+                            {% if nbPages > 1 %}
+                                <li{% if p == 1 %} class="active"{% endif %}>
+                                    <a class="btn-comments"
+                                       data-href="{{ path("app_trick_comments",{'id':trick.id,'page': p}) }}">{{ p }}</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        </div>
+    </div>
 
 {% endblock %}

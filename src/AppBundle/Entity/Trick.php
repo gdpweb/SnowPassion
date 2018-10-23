@@ -17,6 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Trick
 {
+    const Nb_TRICKS_PAGE = 1;
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", cascade={"persist"})

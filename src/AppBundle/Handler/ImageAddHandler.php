@@ -71,8 +71,6 @@ class ImageAddHandler
 
     /**
      * @param $formType
-     * @param null $trick
-     * @param string $method
      * @return Response
      */
 

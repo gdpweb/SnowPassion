@@ -7,46 +7,22 @@
 {% block body %}
 
     <section id="tricks" class="container-fluid">
-        <div id="media" class="col-md-12">
+        <div id="media-index" class="col-md-12">
             {% if tricks is empty %}
                 <i style="font-size:1.8em">Aucune figure disponible</i>
             {% endif %}
 
-            {% for trick in tricks %}
-                <div class="media-tricks col-md-2">
-                    {% if (trick.images|first) is not empty %}
-                        <div class="div-image">
-                            <img class="media-object"
-                                 src="{{ asset(trick_directory_mini~(trick.images|first).id~'.'~(trick.images|first).ext) }}">
-                        </div>
-                    {% endif %}
-                    <div class="media-heading">
-                        <a href="{{ path('trick_view', {'id': trick.id}) }}">{{ trick.nom |striptags|truncate(15) }}</a>
-                        <span class="pull-right">
-                            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                                <a href="{{ path('trick_edit', {'id': trick.id}) }}">
-                                    <span class="fa fa-pencil fa-margin"></span>
-                                </a>
-                                {% if is_granted('ROLE_ADMIN') %}
-                                <a class="delete" title="Supprimer la figure?"
-                                   data-href="{{ path('trick_delete', {'id': trick.id}) }}">
-                                        <span class="fa fa-remove fa-margin"></span>
-                                    </a>
-                            {% endif %}
-                            {% endif %}
-                        </span>
-                    </div>
+            {% include 'Trick/listTricks.html.twig' with {'tricks':tricks } %}
 
-                </div>
-            {% endfor %}
+            {% if nbTricksMax > limit %}
+            <div class="col-lg-12 text-center form-group margin-top">
+                <a class="btn btn-primary btn-more-tricks"
+                   data-href="{{ path("list_tricks") }}">
+                    Afficher plus
+                </a>
+            </div>
         </div>
-
-        <div class="col-lg-12 text-center form-group margin-top">
-            <a href="#" class="btn btn-primary">
-                Plus
-            </a>
-        </div>
-
+        {% endif %}
         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
             <div class="col-md-12 form-group">
                 <a href="{{ path('trick_add') }}" class="btn btn-default">

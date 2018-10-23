@@ -2,7 +2,6 @@
 
 namespace AppBundle\Form;
 
-
 use AppBundle\Entity\Trick;
 use AppBundle\Repository\GroupeRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -22,28 +21,28 @@ class TrickAddType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom',TextType::class)
+            ->add('nom', TextType::class)
             ->add('description', TextareaType::class, array(
-                'attr'=>array(
-                    'rows'=>10
+                'attr' => array(
+                    'rows' => 10
                 )
             ))
             ->add('groupe', EntityType::class, array(
-                'class'         => 'AppBundle\Entity\Groupe',
-                'choice_label'  => 'nom',
-                'multiple'      => false,
-                'query_builder' => function(GroupeRepository $repository) {
+                'class' => 'AppBundle\Entity\Groupe',
+                'choice_label' => 'nom',
+                'multiple' => false,
+                'query_builder' => function (GroupeRepository $repository) {
                     return $repository->getListGroupes();
                 }
             ))
             ->add('images', CollectionType::class, array(
-                'entry_type'   => ImageType::class,
-                'allow_add'    => true,
+                'entry_type' => ImageType::class,
+                'allow_add' => true,
                 'allow_delete' => true
             ))
             ->add('videos', CollectionType::class, array(
-                'entry_type'   => VideoType::class,
-                'allow_add'    => true,
+                'entry_type' => VideoType::class,
+                'allow_add' => true,
                 'allow_delete' => true
             ))
             ->add('save', SubmitType::class, array(
@@ -52,13 +51,15 @@ class TrickAddType extends AbstractType
                     'class' => 'btn-success pull-right'
                 )
             ));
-    }/**
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' =>Trick::class
+            'data_class' => Trick::class
         ));
     }
 
@@ -69,6 +70,4 @@ class TrickAddType extends AbstractType
     {
         return 'appbundle_trick';
     }
-
-
 }

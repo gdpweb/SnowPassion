@@ -21,7 +21,7 @@ use AppBundle\Handler\VideoAddHandler;
 use AppBundle\Handler\VideoDeleteHandler;
 use AppBundle\Handler\VideoUpdateHandler;
 use AppBundle\Manager\CommentManager;
-use Doctrine\ORM\EntityManagerInterface;
+use AppBundle\Manager\TrickManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -32,13 +32,30 @@ class TrickController extends Controller
 {
     /**
      * @Route("/", name="homepage")
-     * @param EntityManagerInterface $em
+     * @param TrickManager $trickManager
      * @return Response
      */
-    public function indexAction(EntityManagerInterface $em)
+    public function indexAction(TrickManager $trickManager)
     {
-        $tricks = $em->getRepository('AppBundle:Trick')->findAll();
+        $tricks = $trickManager->getlistTricks();
+        $nbTricksMax = $trickManager->countTricks();
+
         return $this->render('Trick/index.html.twig', array(
+            'tricks' => $tricks,
+            'limit' => Trick::Nb_TRICKS_PAGE,
+            'nbTricksMax' => $nbTricksMax
+        ));
+    }
+
+    /**
+     * @Route("/listTricks", name="list_tricks")
+     * @param TrickManager $trickManager
+     * @return Response
+     */
+    public function listTricksAction(TrickManager $trickManager)
+    {
+        $tricks = $trickManager->getAll();
+        return $this->render('Trick/listTricks.html.twig', array(
             'tricks' => $tricks
         ));
     }

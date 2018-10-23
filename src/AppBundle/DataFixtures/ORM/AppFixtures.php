@@ -109,7 +109,7 @@ class AppFixtures implements FixtureInterface, ContainerAwareInterface
         foreach ($this->users as $key => $user) {
             $trick = new Trick();
 
-            $trick->setNom('Triks'.$key);
+            $trick->setNom('Tricks'.$key);
             $trick->setDate(new \DateTime());
             $trick->setDescription(
                 'Un grab consiste à attraper la planche avec la main pendant le saut. Le verbe anglais 

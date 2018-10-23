@@ -6,6 +6,7 @@ use AppBundle\Entity\Image;
 use AppBundle\Entity\Trick;
 use AppBundle\Entity\Video;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NonUniqueResultException;
 
 class TrickManager
 {
@@ -21,6 +22,24 @@ class TrickManager
     public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;
+    }
+    public function getAll(){
+
+        return $this->em->getRepository('AppBundle:Trick')->getAll();
+
+    }
+    public function getListTricks()
+    {
+        return $this->em->getRepository('AppBundle:Trick')
+            ->getListTricks(Trick::Nb_TRICKS_PAGE);
+    }
+
+    public function countTricks()
+    {
+        try {
+            return $this->em->getRepository('AppBundle:Trick')->countTricksMax();
+        } catch (NonUniqueResultException $e) {
+        }
     }
 
     public function saveTrick(Trick $trick, $user = null)
