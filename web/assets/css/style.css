@@ -180,19 +180,43 @@ hr {
     margin: 5px;
 }
 
-.msg {
+.msg-flash {
     position: fixed;
     top: 50px;
     width: 100%;
     z-index: 1031;
 }
 
+#bottomNav {
+    padding: 10px;
+}
+
+#bottomNav a {
+    font-size: 24pt;
+    color: #ddd;
+    text-decoration: none;
+}
+
+#bottomNav a:hover {
+    color: #fff;
+}
+@media (max-width: 768px) {
+    nav{
+        display: none;
+    }
+    footer{
+        margin-bottom: 65px;
+    }
+}
 @media (min-width: 768px) {
     .navbar-nav > li > a {
         height: 50px;
         padding: 15px 15px;
         font-size: 18px;
         line-height: 20px;
+    }
+    .navbar-mobile{
+        display: none;
     }
 }
 

@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: brieres
- * Date: 09/10/2018
- * Time: 22:15
- */
 
 namespace AppBundle\Handler;
 
@@ -26,7 +20,7 @@ class ImageAddHandler
 
     /**
      * ImageAddHandler constructor.
-     * @param SPHandler $handler
+     * @param SPHandler    $handler
      * @param TrickManager $trickManager
      */
     public function __construct(SPHandler $handler, TrickManager $trickManager)

@@ -62,7 +62,7 @@ class TrickController extends Controller
 
     /**
      * @Route("/trick/{id}", name="trick_view")
-     * @param Trick $trick
+     * @param Trick             $trick
      * @param CommentAddHandler $commentHandler
      * @return RedirectResponse|Response
      */
@@ -76,8 +76,8 @@ class TrickController extends Controller
     /**
      * @Route("/comments/{id}/page/{page}")
      * @param CommentManager $commentManager
-     * @param Trick $trick
-     * @param $page
+     * @param Trick          $trick
+     * @param                $page
      * @return Response
      */
     public function commentsAction(CommentManager $commentManager, Trick $trick, $page)
@@ -101,7 +101,7 @@ class TrickController extends Controller
 
     /**
      * @Route("/edit/{id}", name="trick_edit")
-     * @param Trick $trick
+     * @param Trick            $trick
      * @param TrickEditHandler $trickHandler
      * @return RedirectResponse|Response
      */
@@ -113,7 +113,7 @@ class TrickController extends Controller
 
     /**
      * @Route("/admin/delete/{id}", name="trick_delete")
-     * @param Trick $trick
+     * @param Trick              $trick
      * @param TrickDeleteHandler $trickHandler
      * @return Response
      */
@@ -125,7 +125,7 @@ class TrickController extends Controller
 
     /**
      * @Route("/admin/add_image/{id}", name="add_image")
-     * @param Trick $trick
+     * @param Trick           $trick
      * @param ImageAddHandler $imageHandler
      * @return Response
      */
@@ -138,7 +138,7 @@ class TrickController extends Controller
 
     /**
      * @Route("/admin/update_image/{id}", name="update_image")
-     * @param Image $image
+     * @param Image              $image
      * @param ImageUpdateHandler $imageHandler
      * @return Response
      */
@@ -150,9 +150,12 @@ class TrickController extends Controller
 
     /**
      * @Route("/admin/trick/{id}/delete_image/{image_id}", name="image_delete")
-     * @ParamConverter("image", class="AppBundle:Image", options={"id" = "image_id"})
-     * @param Trick $trick
-     * @param Image $image
+     * @ParamConverter(
+     *     "image", class="AppBundle:Image",
+     *     options={"id" = "image_id"}
+     *     )
+     * @param Trick              $trick
+     * @param Image              $image
      * @param ImageDeleteHandler $imageHandler
      * @return Response
      */
@@ -165,7 +168,7 @@ class TrickController extends Controller
 
     /**
      * @Route("/admin/add_video/{id}", name="add_video")
-     * @param Trick $trick
+     * @param Trick           $trick
      * @param VideoAddHandler $videoHandler
      * @return Response
      */
@@ -178,7 +181,7 @@ class TrickController extends Controller
 
     /**
      * @Route("/admin/update_video/{id}", name="update_video")
-     * @param Video $video
+     * @param Video              $video
      * @param VideoUpdateHandler $videoHandler
      * @return Response
      */
@@ -190,9 +193,10 @@ class TrickController extends Controller
 
     /**
      * @Route("/admin/trick/{id}/delete_video/{video_id}", name="delete_video")
-     * @ParamConverter("video", class="AppBundle:Video", options={"id" = "video_id"})
-     * @param Trick $trick
-     * @param Video $video
+     * @ParamConverter(
+     *     "video", class="AppBundle:Video", options={"id" = "video_id"})
+     * @param Trick              $trick
+     * @param Video              $video
      * @param VideoDeleteHandler $videoHandler
      * @return RedirectResponse|Response
      */

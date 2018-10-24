@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: brieres
- * Date: 04/10/2018
- * Time: 16:43
- */
 
 namespace AppBundle\Service;
 
@@ -19,7 +13,7 @@ class SPFileSystem
 
     /**
      * @param UploadedFile $file
-     * @param $fileName
+     * @param              $fileName
      */
     public function upload(UploadedFile $file, $fileName)
     {

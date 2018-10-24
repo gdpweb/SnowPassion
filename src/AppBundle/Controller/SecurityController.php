@@ -26,13 +26,16 @@ class SecurityController extends Controller
 
     /**
      * @Route("/forgot", name="forgot")
-     * @param Request $request
+     * @param Request                $request
      * @param EntityManagerInterface $em
-     * @param UserManager $userManager
+     * @param UserManager            $userManager
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function forgotAction(Request $request, EntityManagerInterface $em, UserManager $userManager)
-    {
+    public function forgotAction(
+        Request $request,
+        EntityManagerInterface $em,
+        UserManager $userManager
+    ) {
         if ($request->isMethod('POST')) {
             $username = $request->get('_username');
             $user = $em->getRepository('AppBundle:User')->findOneBy(array('username' => $username));

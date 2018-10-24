@@ -26,7 +26,6 @@ class AppFixtures implements FixtureInterface, ContainerAwareInterface
         $this->loadGroupe($manager);
         $this->loadTrick($manager);
         $this->loadComment($manager);
-
     }
 
     private function loadUsers(ObjectManager $manager)
@@ -82,7 +81,6 @@ class AppFixtures implements FixtureInterface, ContainerAwareInterface
     private function loadGroupe(ObjectManager $manager)
     {
         foreach ($this->users as $key => $user) {
-
             $groupe = new Groupe();
             $groupe->setNom('Groupe' . $key);
             $manager->persist($groupe);
@@ -90,10 +88,10 @@ class AppFixtures implements FixtureInterface, ContainerAwareInterface
             $this->groupes[] = $groupe;
         }
     }
+
     private function loadComment(ObjectManager $manager)
     {
         foreach ($this->users as $key => $user) {
-
             $comment = new Comment();
             $comment->setAuteur($user);
             $comment->setTrick($this->tricks[$key]);
@@ -101,7 +99,7 @@ class AppFixtures implements FixtureInterface, ContainerAwareInterface
             $comment->setDate(new \DateTime());
             $manager->persist($comment);
             $manager->flush();
-            }
+        }
     }
 
     private function loadTrick(ObjectManager $manager)
@@ -109,7 +107,7 @@ class AppFixtures implements FixtureInterface, ContainerAwareInterface
         foreach ($this->users as $key => $user) {
             $trick = new Trick();
 
-            $trick->setNom('Tricks'.$key);
+            $trick->setNom('Tricks' . $key);
             $trick->setDate(new \DateTime());
             $trick->setDescription(
                 'Un grab consiste à attraper la planche avec la main pendant le saut. Le verbe anglais 
@@ -118,7 +116,7 @@ class AppFixtures implements FixtureInterface, ContainerAwareInterface
             );
             $trick->setPublie(true);
 
-            $image= new Image();
+            $image = new Image();
             $image->setAlt($trick->getNom());
             $image->setExt('jpg');
             $trick->addImage($image);
@@ -128,7 +126,7 @@ class AppFixtures implements FixtureInterface, ContainerAwareInterface
 
             $manager->persist($trick);
             $manager->flush();
-            $this->tricks[]=$trick;
+            $this->tricks[] = $trick;
         }
     }
 

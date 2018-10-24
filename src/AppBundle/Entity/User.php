@@ -34,7 +34,10 @@ class User implements UserInterface, Serializable
     private $salt;
     /**
      * @ORM\Column(name="password", type="string", length=255)
-     * @Assert\Length(min=6,minMessage="Votre mot de passe doit contenir au moins 6 caractères")
+     * @Assert\Length(
+     *     min=6,
+     *     minMessage="Votre mot de passe doit contenir au moins 6 caractères"
+     * )
      */
     private $password;
     /**
@@ -71,7 +74,10 @@ class User implements UserInterface, Serializable
 
     /**
      * @ORM\JoinColumn(name="image_id", nullable=true)
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Image", cascade={"persist", "remove"})
+     * @ORM\OneToOne(
+     *     targetEntity="AppBundle\Entity\Image",
+     *     cascade={"persist", "remove"}
+     *     )
      * @Assert\Valid()
      */
     private $image;

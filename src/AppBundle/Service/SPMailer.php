@@ -8,16 +8,18 @@ class SPMailer
 {
     private $mailer;
     private $message;
+    private $url;
     private $to;
     private $subject;
     private $body;
 
 
-    public function __construct($from, \Swift_Mailer $mailer)
+    public function __construct($from, $url, \Swift_Mailer $mailer)
     {
         $this->mailer = $mailer;
         $this->message = new \Swift_Message();
         $this->message->setFrom($from, 'SnowPassion');
+        $this->url = $url;
     }
 
     public function resetUserMailer(User $user)
@@ -28,7 +30,7 @@ class SPMailer
             <h4>Bonjour " . $user->getUsername() . ",</h4>
             <p>Vous avez demandé la réinitialisation de votre mot de passe.</p>
             <p>Merci de suivre: 
-                <a href='http://127.0.0.1:8000/reset/" . $user->getToken() . "'>
+                <a href='" . $this->url . "/reset/" . $user->getToken() . "'>
             ce lien</a>
             </p>
             <p>Cordialement SnowPassion.</p>

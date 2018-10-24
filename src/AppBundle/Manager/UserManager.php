@@ -22,14 +22,17 @@ class UserManager
     private $encoderFactory;
 
     /**
-     * @param SPMailer $mailer
-     * @param EntityManagerInterface $em
+     * @param SPMailer                $mailer
+     * @param EntityManagerInterface  $em
      * @param EncoderFactoryInterface $encoderFactory
-     * @param ContainerInterface $container
+     * @param ContainerInterface      $container
      */
-    public function __construct(SPMailer $mailer, EntityManagerInterface $em, EncoderFactoryInterface $encoderFactory,
-                                ContainerInterface $container)
-    {
+    public function __construct(
+        SPMailer $mailer,
+        EntityManagerInterface $em,
+        EncoderFactoryInterface $encoderFactory,
+        ContainerInterface $container
+    ) {
         $this->mailer = $mailer;
         $this->em = $em;
         $this->container = $container;

@@ -15,7 +15,7 @@ class UserController extends Controller
 {
     /**
      * @Route("/register", name="register")
-     * @param Request $request
+     * @param Request     $request
      * @param UserManager $userManager
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
@@ -37,9 +37,9 @@ class UserController extends Controller
 
     /**
      * @Route("/reset/{token}", name="reset")
-     * @param Request $request
+     * @param Request     $request
      * @param UserManager $userManager
-     * @param $token
+     * @param             $token
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @throws \Doctrine\ORM\NonUniqueResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
@@ -60,13 +60,15 @@ class UserController extends Controller
             $this->addFlash('success', 'Votre mot de passe a été réinitialisé.');
             return $this->redirectToRoute('homepage');
         }
-        return $this->render('User/reset.html.twig', array('form' => $form->createView()));
+        return $this->render('User/reset.html.twig', array(
+            'form' => $form->createView()
+        ));
     }
 
     /**
      * @Route("/validate/{token}", name="validate_account")
      * @param UserManager $userManager
-     * @param User $user
+     * @param User        $user
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @Entity("User", expr="repository.tokenIsValid(token)")
      */
@@ -77,7 +79,10 @@ class UserController extends Controller
             $this->addFlash('info', 'Votre compte est activé.');
         }
         if ($user === null) {
-            $this->addFlash('danger', 'Désolé, Ce lien a expiré, votre compte n\'a pu être activé');
+            $this->addFlash(
+                'danger',
+                'Désolé, Ce lien a expiré, votre compte n\'a pu être activé'
+            );
         }
         return $this->redirectToRoute('homepage');
     }

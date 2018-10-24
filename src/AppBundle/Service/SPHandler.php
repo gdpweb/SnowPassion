@@ -52,15 +52,21 @@ class SPHandler
     private $form;
 
     /**
-     * @param FormFactoryInterface $formFactory
-     * @param RequestStack $requestStack
-     * @param RouterInterface $router
-     * @param FlashBagInterface $flashBag
-     * @param Environment $twig
+     * @param FormFactoryInterface  $formFactory
+     * @param RequestStack          $requestStack
+     * @param RouterInterface       $router
+     * @param FlashBagInterface     $flashBag
+     * @param Environment           $twig
      * @param TokenStorageInterface $tokenStorage
      */
-    public function __construct(FormFactoryInterface $formFactory, RequestStack $requestStack, RouterInterface $router,
-                                FlashBagInterface $flashBag, Environment $twig, TokenStorageInterface $tokenStorage)
+    public function __construct(
+        FormFactoryInterface $formFactory,
+        RequestStack $requestStack,
+        RouterInterface $router,
+        FlashBagInterface $flashBag,
+        Environment $twig,
+        TokenStorageInterface $tokenStorage
+    )
     {
 
         $this->formFactory = $formFactory;
@@ -125,11 +131,14 @@ class SPHandler
      */
     public function response($view, $datas)
     {
-        return new Response($this->twig->render($view, ["form" => $this->form->createView()] + $datas));
+        return new Response($this->twig->render(
+            $view,
+            ["form" => $this->form->createView()] + $datas
+        ));
     }
 
     /**
-     * @param $name
+     * @param       $name
      * @param array $parameters
      * @return RedirectResponse
      */
