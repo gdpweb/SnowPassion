@@ -66,8 +66,7 @@ class SPHandler
         FlashBagInterface $flashBag,
         Environment $twig,
         TokenStorageInterface $tokenStorage
-    )
-    {
+    ) {
 
         $this->formFactory = $formFactory;
         $this->requestStack = $requestStack;

@@ -47,14 +47,17 @@ class Image
     /**
      * @Assert\File(
      *     maxSize = "1024k",
-     *     maxSizeMessage="Le fichier est trop volumineux. La taille maximale autorisée est de 1024 Ko.",
-     *     uploadIniSizeErrorMessage = "Le fichier est trop volumineux. La taille maximale autorisée est de 1024 Ko",
+     *     maxSizeMessage="Le fichier est trop volumineux.
+     * La taille maximale autorisée est de 1024 Ko.",
+     *     uploadIniSizeErrorMessage = "Le fichier est trop volumineux.
+     * La taille maximale autorisée est de 1024 Ko",
      *     mimeTypes = {
      *          "image/png",
      *          "image/jpg",
      *          "image/jpeg"
      *     },
-     *     mimeTypesMessage = "Le format de l'image n'est pas valide, seul les formats png et jpg sont autorisés",
+     *     mimeTypesMessage = "Le format de l'image n'est pas valide,
+     * seul les formats png et jpg sont autorisés",
      * )
      */
     private $file;

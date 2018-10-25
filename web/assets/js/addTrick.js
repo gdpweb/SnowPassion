@@ -1,26 +1,6 @@
 $(document).ready(function () {
 
     let index = {};
-    initializeMedia("video");
-    initializeMedia("image");
-
-    function initializeMedia(mediaType) {
-
-        const container = $("div#appbundle_trick_" + mediaType + "s");
-        index[mediaType] = container.find(":input").length;
-
-        $("#add_" + mediaType).click(function () {
-            addMedia(container, mediaType);
-        });
-
-        if (index[mediaType] === 0) {
-            addMedia(container, mediaType);
-        } else {
-            container.children("div").each(function () {
-                addDeleteLink($(this));
-            });
-        }
-    }
 
     function addMedia(container, mediaType) {
 
@@ -43,4 +23,23 @@ $(document).ready(function () {
             prototype.remove();
         });
     }
+    function initializeMedia(mediaType) {
+
+        const container = $("div#appbundle_trick_" + mediaType + "s");
+        index[mediaType] = container.find(":input").length;
+
+        $("#add_" + mediaType).click(function () {
+            addMedia(container, mediaType);
+        });
+
+        if (index[mediaType] === 0) {
+            addMedia(container, mediaType);
+        } else {
+            container.children("div").each(function () {
+                addDeleteLink($(this));
+            });
+        }
+    }
+    initializeMedia("video");
+    initializeMedia("image");
 });

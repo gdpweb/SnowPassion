@@ -38,10 +38,12 @@ class SecurityController extends Controller
     ) {
         if ($request->isMethod('POST')) {
             $username = $request->get('_username');
-            $user = $em->getRepository('AppBundle:User')->findOneBy(array('username' => $username));
+            $user = $em->getRepository('AppBundle:User')
+                ->findOneBy(array('username' => $username));
 
             if (null === $user) {
-                $this->addFlash('danger', 'Ce nom d\'utilisateur n\'hésite pas!');
+                $this->addFlash('danger',
+                    'Ce nom d\'utilisateur n\'hésite pas!');
                 return $this->redirectToRoute('forgot');
             }
 
@@ -49,7 +51,8 @@ class SecurityController extends Controller
 
             $this->addFlash(
                 'success',
-                'Votre demande a été enregistrée. Consultez vos mails ' . $user->getUsername() . '!'
+                'Votre demande a été enregistrée. Consultez 
+                vos mails ' . $user->getUsername() . '!'
             );
             return $this->redirectToRoute('homepage');
         }

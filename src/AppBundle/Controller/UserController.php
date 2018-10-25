@@ -27,12 +27,14 @@ class UserController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $userManager->registerMail($form->getData());
             $this->addFlash('info', 'Votre compte a été créé. 
-            Utiliser le lien qui vous a été envoyé par mail pour valider votre inscription.
-            Le lien reste actif 20 minutes.');
+            Utiliser le lien qui vous a été envoyé par mail pour valider 
+            votre inscription. Le lien reste actif 20 minutes.');
 
             return $this->redirectToRoute('homepage');
         }
-        return $this->render('User/register.html.twig', array('form' => $form->createView()));
+        return $this->render('User/register.html.twig', array(
+            'form' => $form->createView()
+        ));
     }
 
     /**
@@ -57,7 +59,8 @@ class UserController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $userManager->activeAccount($form->getData());
-            $this->addFlash('success', 'Votre mot de passe a été réinitialisé.');
+            $this->addFlash('success',
+                'Votre mot de passe a été réinitialisé.');
             return $this->redirectToRoute('homepage');
         }
         return $this->render('User/reset.html.twig', array(
@@ -81,7 +84,8 @@ class UserController extends Controller
         if ($user === null) {
             $this->addFlash(
                 'danger',
-                'Désolé, Ce lien a expiré, votre compte n\'a pu être activé'
+                'Désolé, Ce lien a expiré, votre 
+                compte n\'a pu être activé'
             );
         }
         return $this->redirectToRoute('homepage');

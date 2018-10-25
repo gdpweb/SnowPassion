@@ -31,8 +31,7 @@ class SPMailer
             <p>Vous avez demandé la réinitialisation de votre mot de passe.</p>
             <p>Merci de suivre: 
                 <a href='" . $this->url . "/reset/" . $user->getToken() . "'>
-            ce lien</a>
-            </p>
+            ce lien</a></p>
             <p>Cordialement SnowPassion.</p>
             </html>";
 
@@ -45,9 +44,11 @@ class SPMailer
         $this->subject = "Création de votre compte";
         $this->body = "<html>
             <h4>Bonjour " . $user->getUsername() . ",</h4>
-            <p>Vous avez demandé la création d'un compte sur le site SnowPassion.</p>
+            <p>Vous avez demandé la création d'un compte sur le site 
+            SnowPassion.</p>
             <p>Afin de valider votre compte, merci de suivre: 
-            <a href='http://127.0.0.1:8000/validate/" . $user->getToken() . "'>ce lien</a></p>
+            <a href='" . $this->url . "/validate/" . $user->getToken() . "'>
+            ce lien</a></p>
             <p>Cordialement SnowPassion.</p>
             </html>";
 
