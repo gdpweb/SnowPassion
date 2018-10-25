@@ -3,7 +3,6 @@
 namespace AppBundle\Service;
 
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -15,23 +14,19 @@ class SPFileSystem
 
     /**
      * @param File|UploadedFile $file
-     * @param              $fileName
+     * @param                   $fileName
      */
     public function upload($file, $fileName)
     {
-
-        if ($file instanceof UploadedFile){
+        if ($file instanceof UploadedFile) {
             $file->move($this->pathDirectory, $fileName);
-        }
-        if ($file instanceof File){
+        } else {
             $fileSystem = new Filesystem();
             $fileSystem->copy(
-                $file->getPath().'/'.$file->getFilename(),
-                $this->pathDirectory.'/'.$fileName);
+                $file->getPath() . '/' . $file->getFilename(),
+                $this->pathDirectory . '/' . $fileName
+            );
         }
-
-
-
     }
 
     public function resizeThumbnail($filename, $fileResize, $ext, $newHeight = self::NEW_HEIGHT)

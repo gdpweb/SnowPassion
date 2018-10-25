@@ -31,7 +31,6 @@
 
 {{ include('navbar.html.twig') }}
 
-
 {% for key, messages in app.session.flashbag.all() %}
     {% for message in messages %}
         <div class="msg-flash">
