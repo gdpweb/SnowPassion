@@ -1,8 +1,15 @@
-<?php /** @noinspection PhpCSValidationInspection */
+<?php
 
+/*
+ * This file is part of the Symfony package.
+ * (c) Stéphane BRIERE <stephanebriere@gdpweb.fr>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel;
-use Symfony\Component\Config\Loader\LoaderInterface;
 
 class AppKernel extends Kernel
 {
@@ -61,10 +68,11 @@ class AppKernel extends Kernel
         } catch (Exception $e) {
         }
         try {
-            $loader->load($this->getRootDir() . '/config/config_' . $this->getEnvironment() . '.yml');
+            $loader->load($this->getRootDir().'/config/config_'.$this->getEnvironment().'.yml');
         } catch (Exception $e) {
         }
     }
+
     protected function build(ContainerBuilder $container)
     {
         $container->registerForAutoconfiguration(\AppBundle\Service\SPHandler::class)
