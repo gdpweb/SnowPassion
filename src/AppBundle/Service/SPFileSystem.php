@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Symfony package.
+ * (c) Stéphane BRIERE <stephanebriere@gdpweb.fr>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace AppBundle\Service;
 
 use Symfony\Component\Filesystem\Filesystem;
@@ -23,8 +30,8 @@ class SPFileSystem
         } else {
             $fileSystem = new Filesystem();
             $fileSystem->copy(
-                $file->getPath() . '/' . $file->getFilename(),
-                $this->pathDirectory . '/' . $fileName
+                $file->getPath().'/'.$file->getFilename(),
+                $this->pathDirectory.'/'.$fileName
             );
         }
     }
@@ -68,9 +75,6 @@ class SPFileSystem
         return $this->pathDirectory;
     }
 
-    /**
-     * @param mixed $pathDirectory
-     */
     public function setPathDirectory($pathDirectory)
     {
         $this->pathDirectory = $pathDirectory;

@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Symfony package.
+ * (c) Stéphane BRIERE <stephanebriere@gdpweb.fr>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -9,7 +16,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * User
+ * User.
+ *
  * @ORM\Table(name="sp_user")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  * @UniqueEntity(fields="email", message="Cette adresse mail est déjà utilisée par un autre compte")
@@ -57,7 +65,6 @@ class User implements UserInterface, Serializable
      * @var bool
      * @ORM\Column(name="is_active", type="boolean")
      */
-
     private $isActive = false;
 
     /**
@@ -88,6 +95,7 @@ class User implements UserInterface, Serializable
     public function __construct()
     {
         $this->addRole('ROLE_DEFAULT');
+
         return $this;
     }
 
@@ -96,9 +104,6 @@ class User implements UserInterface, Serializable
         return $this->id;
     }
 
-    /**
-     * @param mixed $id
-     */
     public function setId($id)
     {
         $this->id = $id;
@@ -112,9 +117,6 @@ class User implements UserInterface, Serializable
         return $this->username;
     }
 
-    /**
-     * @param mixed $username
-     */
     public function setUsername($username)
     {
         $this->username = $username;
@@ -144,9 +146,6 @@ class User implements UserInterface, Serializable
         return $this->email;
     }
 
-    /**
-     * @param mixed $email
-     */
     public function setEmail($email)
     {
         $this->email = $email;
@@ -162,7 +161,6 @@ class User implements UserInterface, Serializable
     /**
      * @param $role
      */
-
     public function addRole($role)
     {
         $this->roles[] = $role;
@@ -172,6 +170,7 @@ class User implements UserInterface, Serializable
     {
         $mergeRoles = array_merge($this->roles, $roles);
         $this->roles = $mergeRoles;
+
         return $this;
     }
 
@@ -197,6 +196,7 @@ class User implements UserInterface, Serializable
     public function getSalt()
     {
         $this->salt = sha1(uniqid(mt_rand()));
+
         return $this->salt;
     }
 
@@ -224,9 +224,6 @@ class User implements UserInterface, Serializable
         return $this->dateToken;
     }
 
-    /**
-     * @param \DateTime $dateToken
-     */
     public function setDateToken(\DateTime $dateToken)
     {
         $this->dateToken = $dateToken;
@@ -239,11 +236,11 @@ class User implements UserInterface, Serializable
     public function serialize()
     {
         return serialize(
-            array(
+            [
                 $this->id,
                 $this->username,
-                $this->password
-            )
+                $this->password,
+            ]
         );
     }
 

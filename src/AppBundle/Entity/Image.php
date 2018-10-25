@@ -1,12 +1,19 @@
 <?php
 
+/*
+ * This file is part of the Symfony package.
+ * (c) Stéphane BRIERE <stephanebriere@gdpweb.fr>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Image
+ * Image.
  *
  * @ORM\Table(name="sp_image")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ImageRepository")
@@ -14,7 +21,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Image
 {
-
     /**
      * @var int
      *
@@ -62,7 +68,6 @@ class Image
      */
     private $file;
 
-
     public function getFile()
     {
         return $this->file;
@@ -74,7 +79,7 @@ class Image
     }
 
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -100,7 +105,7 @@ class Image
     }
 
     /**
-     * Get ext
+     * Get ext.
      *
      * @return string
      */
@@ -110,11 +115,10 @@ class Image
     }
 
     /**
-     * Set ext
+     * Set ext.
      *
      * @param string $ext
      */
-
     public function setExt($ext)
     {
         $this->ext = $ext;
@@ -128,9 +132,6 @@ class Image
         return $this->type;
     }
 
-    /**
-     * @param mixed $type
-     */
     public function setType($type)
     {
         $this->type = $type;

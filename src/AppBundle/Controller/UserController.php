@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Symfony package.
+ * (c) Stéphane BRIERE <stephanebriere@gdpweb.fr>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\User;
@@ -15,8 +22,7 @@ class UserController extends Controller
 {
     /**
      * @Route("/register", name="register")
-     * @param Request     $request
-     * @param UserManager $userManager
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function registerAction(Request $request, UserManager $userManager)
@@ -32,26 +38,29 @@ class UserController extends Controller
 
             return $this->redirectToRoute('homepage');
         }
-        return $this->render('User/register.html.twig', array(
-            'form' => $form->createView()
-        ));
+
+        return $this->render('User/register.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 
     /**
      * @Route("/reset/{token}", name="reset")
-     * @param Request     $request
-     * @param UserManager $userManager
-     * @param             $token
+     *
+     * @param $token
+     *
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
-     * @throws \Doctrine\ORM\NonUniqueResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function resetAction(Request $request, UserManager $userManager, $token)
     {
         $user = $userManager->tokenValid($token);
 
-        if ($user === null) {
+        if (null === $user) {
             $this->addFlash('danger', 'Ce lien a expiré');
+
             return $this->redirectToRoute('homepage');
         }
         $form = $this->createForm(UserResetType::class, $user);
@@ -61,33 +70,35 @@ class UserController extends Controller
             $userManager->activeAccount($form->getData());
             $this->addFlash('success',
                 'Votre mot de passe a été réinitialisé.');
+
             return $this->redirectToRoute('homepage');
         }
-        return $this->render('User/reset.html.twig', array(
-            'form' => $form->createView()
-        ));
+
+        return $this->render('User/reset.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 
     /**
      * @Route("/validate/{token}", name="validate_account")
-     * @param UserManager $userManager
-     * @param User        $user
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @Entity("User", expr="repository.tokenIsValid(token)")
      */
     public function validateAccountAction(UserManager $userManager, User $user)
     {
-        if ($user !== null) {
+        if (null !== $user) {
             $userManager->activeAccount($user);
             $this->addFlash('info', 'Votre compte est activé.');
         }
-        if ($user === null) {
+        if (null === $user) {
             $this->addFlash(
                 'danger',
                 'Désolé, Ce lien a expiré, votre 
                 compte n\'a pu être activé'
             );
         }
+
         return $this->redirectToRoute('homepage');
     }
 }

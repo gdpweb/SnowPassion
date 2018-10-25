@@ -1,12 +1,19 @@
 <?php
 
+/*
+ * This file is part of the Symfony package.
+ * (c) Stéphane BRIERE <stephanebriere@gdpweb.fr>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Groupe
+ * Groupe.
  *
  * @ORM\Table(name="sp_groupe")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\GroupeRepository")
@@ -30,7 +37,6 @@ class Groupe
      * @Assert\Length(max="40")
      */
     private $nom;
-
 
     /**
      * Get id.

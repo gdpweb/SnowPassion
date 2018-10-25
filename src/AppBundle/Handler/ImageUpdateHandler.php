@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Symfony package.
+ * (c) Stéphane BRIERE <stephanebriere@gdpweb.fr>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace AppBundle\Handler;
 
 use AppBundle\Entity\Image;
@@ -47,14 +54,15 @@ class ImageUpdateHandler
      */
     public function getView()
     {
-        return $this->handler->response($this->view, array(
-            "image" => $this->image
-        ));
+        return $this->handler->response($this->view, [
+            'image' => $this->image,
+        ]);
     }
 
     /**
      * @param $formType
      * @param $image
+     *
      * @return Response
      */
     public function handle($formType, $image)
@@ -64,12 +72,10 @@ class ImageUpdateHandler
         if ($this->handler->isSubmitted($formType, $image)) {
             $this->onSuccess();
         }
+
         return $this->getView();
     }
 
-    /**
-     * @param Trick $trick
-     */
     public function setTrick(Trick $trick)
     {
         $this->trick = $trick;

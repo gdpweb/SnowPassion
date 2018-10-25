@@ -1,9 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: brieres
- * Date: 18/10/2018
- * Time: 22:15
+
+/*
+ * This file is part of the Symfony package.
+ * (c) Stéphane BRIERE <stephanebriere@gdpweb.fr>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace AppBundle\Handler;
@@ -28,8 +29,6 @@ class VideoDeleteHandler
 
     /**
      * VideoUpdateHandler constructor.
-     * @param SPHandler $handler
-     * @param EntityManagerInterface $em
      */
     public function __construct(SPHandler $handler, EntityManagerInterface $em)
     {
@@ -46,9 +45,10 @@ class VideoDeleteHandler
         $this->em->remove($this->video);
         $this->em->flush();
         $this->handler->setFlash('success', 'La video a été supprimée');
-        return $this->handler->redirect('trick_edit', array(
-            'id' => $this->trick->getId()
-        ));
+
+        return $this->handler->redirect('trick_edit', [
+            'id' => $this->trick->getId(),
+        ]);
     }
 
     /**
@@ -64,14 +64,15 @@ class VideoDeleteHandler
      */
     public function getView()
     {
-        return $this->handler->response($this->view, array(
+        return $this->handler->response($this->view, [
             'video' => $this->video,
-            'trick' => $this->trick
-        ));
+            'trick' => $this->trick,
+        ]);
     }
 
     /**
      * @param $video
+     *
      * @return RedirectResponse|Response
      */
     public function handle($video = null)
@@ -81,12 +82,10 @@ class VideoDeleteHandler
         if ($this->handler->isSubmitted(null, $video)) {
             return $this->onSuccess();
         }
+
         return $this->getView();
     }
 
-    /**
-     * @param Trick $trick
-     */
     public function setTrick(Trick $trick)
     {
         $this->trick = $trick;

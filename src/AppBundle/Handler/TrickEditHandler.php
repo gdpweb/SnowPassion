@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Symfony package.
+ * (c) Stéphane BRIERE <stephanebriere@gdpweb.fr>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace AppBundle\Handler;
 
 use AppBundle\Manager\TrickManager;
@@ -27,6 +34,7 @@ class TrickEditHandler
     {
         $this->trickManager->saveTrick($this->handler->formData(), $this->handler->getUser());
         $this->handler->setFlash('success', 'La figure a été sauvegardée');
+
         return $this->handler->redirect('homepage');
     }
 
@@ -43,23 +51,23 @@ class TrickEditHandler
      */
     public function getView()
     {
-        return $this->handler->response($this->view, array(
-            "trick" => $this->trick
-        ));
+        return $this->handler->response($this->view, [
+            'trick' => $this->trick,
+        ]);
     }
 
     /**
      * @param $formType
-     * @param null $trick
+     *
      * @return Response
      */
-
     public function handle($formType, $trick = null)
     {
         $this->trick = $trick;
         if ($this->handler->isSubmitted($formType, $this->trick)) {
             return $this->onSuccess();
         }
+
         return $this->getView();
     }
 }

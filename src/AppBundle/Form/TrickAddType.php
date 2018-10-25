@@ -1,15 +1,22 @@
 <?php
 
+/*
+ * This file is part of the Symfony package.
+ * (c) Stéphane BRIERE <stephanebriere@gdpweb.fr>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace AppBundle\Form;
 
 use AppBundle\Entity\Trick;
 use AppBundle\Repository\GroupeRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -22,35 +29,35 @@ class TrickAddType extends AbstractType
     {
         $builder
             ->add('nom', TextType::class)
-            ->add('description', TextareaType::class, array(
-                'attr' => array(
-                    'rows' => 10
-                )
-            ))
-            ->add('groupe', EntityType::class, array(
+            ->add('description', TextareaType::class, [
+                'attr' => [
+                    'rows' => 10,
+                ],
+            ])
+            ->add('groupe', EntityType::class, [
                 'class' => 'AppBundle\Entity\Groupe',
                 'choice_label' => 'nom',
                 'multiple' => false,
                 'query_builder' => function (GroupeRepository $repository) {
                     return $repository->getListGroupes();
-                }
-            ))
-            ->add('images', CollectionType::class, array(
+                },
+            ])
+            ->add('images', CollectionType::class, [
                 'entry_type' => ImageType::class,
                 'allow_add' => true,
-                'allow_delete' => true
-            ))
-            ->add('videos', CollectionType::class, array(
+                'allow_delete' => true,
+            ])
+            ->add('videos', CollectionType::class, [
                 'entry_type' => VideoType::class,
                 'allow_add' => true,
-                'allow_delete' => true
-            ))
-            ->add('save', SubmitType::class, array(
+                'allow_delete' => true,
+            ])
+            ->add('save', SubmitType::class, [
                 'label' => 'Valider',
-                'attr' => array(
-                    'class' => 'btn-success pull-right'
-                )
-            ));
+                'attr' => [
+                    'class' => 'btn-success pull-right',
+                ],
+            ]);
     }
 
     /**
@@ -58,9 +65,9 @@ class TrickAddType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => Trick::class
-        ));
+        $resolver->setDefaults([
+            'data_class' => Trick::class,
+        ]);
     }
 
     /**

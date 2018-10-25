@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Symfony package.
+ * (c) Stéphane BRIERE <stephanebriere@gdpweb.fr>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace AppBundle\Form;
 
 use AppBundle\Entity\Image;
@@ -16,12 +23,12 @@ class ImageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('file', FileType::class, array(
+            ->add('file', FileType::class, [
                 'label' => false,
-                'attr' => array(
-                    'accept' => 'image/png, image/jpeg'
-                )
-            ));
+                'attr' => [
+                    'accept' => 'image/png, image/jpeg',
+                ],
+            ]);
     }
 
     /**
@@ -29,9 +36,9 @@ class ImageType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => Image::class
-        ));
+        $resolver->setDefaults([
+            'data_class' => Image::class,
+        ]);
     }
 
     /**

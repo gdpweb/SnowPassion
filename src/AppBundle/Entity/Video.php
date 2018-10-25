@@ -1,12 +1,19 @@
 <?php
 
+/*
+ * This file is part of the Symfony package.
+ * (c) Stéphane BRIERE <stephanebriere@gdpweb.fr>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Video
+ * Video.
  *
  * @ORM\Table(name="sp_video")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\VideoRepository")
@@ -35,7 +42,6 @@ class Video
      * )
      */
     private $url;
-
 
     /**
      * Get id.

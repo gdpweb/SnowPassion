@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Symfony package.
+ * (c) Stéphane BRIERE <stephanebriere@gdpweb.fr>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace AppBundle\Manager;
 
 use AppBundle\Entity\User;
@@ -21,12 +28,6 @@ class UserManager
     private $container;
     private $encoderFactory;
 
-    /**
-     * @param SPMailer                $mailer
-     * @param EntityManagerInterface  $em
-     * @param EncoderFactoryInterface $encoderFactory
-     * @param ContainerInterface      $container
-     */
     public function __construct(
         SPMailer $mailer,
         EntityManagerInterface $em,
@@ -41,8 +42,10 @@ class UserManager
 
     /**
      * @param $token
-     * @return mixed
+     *
      * @throws \Doctrine\ORM\NonUniqueResultException
+     *
+     * @return mixed
      */
     public function tokenValid($token)
     {
@@ -61,9 +64,6 @@ class UserManager
         $this->em->flush();
     }
 
-    /**
-     * @param User $user
-     */
     public function resetMail(User $user)
     {
         $this->createToken($user);
@@ -72,9 +72,6 @@ class UserManager
         $this->mailer->resetUserMailer($user);
     }
 
-    /**
-     * @param User $user
-     */
     private function createToken(User $user)
     {
         $token = md5(uniqid(rand(), true));
@@ -83,9 +80,6 @@ class UserManager
         $user->setDateToken($date);
     }
 
-    /**
-     * @param User $user
-     */
     public function registerMail(User $user)
     {
         $user->getImage()->setType('avatar');
@@ -100,11 +94,13 @@ class UserManager
 
     /**
      * @param EncoderFactoryInterface $encoderFactory
+     *
      * @return UserManager
      */
     public function setEncoderFactory($encoderFactory)
     {
         $this->encoderFactory = $encoderFactory;
+
         return $this;
     }
 }

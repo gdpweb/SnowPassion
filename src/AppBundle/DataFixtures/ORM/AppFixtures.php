@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Symfony package.
+ * (c) Stéphane BRIERE <stephanebriere@gdpweb.fr>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace AppBundle\DataFixtures\ORM;
 
 use AppBundle\Entity\Groupe;
@@ -26,11 +33,11 @@ class AppFixtures implements FixtureInterface, ContainerAwareInterface
     {
         $factory = $this->container->get('security.encoder_factory');
         $appPath = $this->container->getParameter('kernel.project_dir');
-        $infoUsers = array(
+        $infoUsers = [
             ['admin', ['ROLE_ADMIN'], 'admin@gdpweb.fr', 'avatar-1.png', 'png'],
             ['default', ['ROLE_ADMIN'], 'default@gdpweb.fr', 'avatar-2.png', 'png'],
-            ['auteur', ['ROLE_ADMIN'], 'auteur@gdpweb.fr', 'avatar-3.png', 'png']
-        );
+            ['auteur', ['ROLE_ADMIN'], 'auteur@gdpweb.fr', 'avatar-3.png', 'png'],
+        ];
 
         foreach ($infoUsers as $infoUser) {
             $user = new User();
@@ -42,7 +49,7 @@ class AppFixtures implements FixtureInterface, ContainerAwareInterface
             $user->setIsActive(true);
 
             $image = new Image();
-            $image->setFile(new File($appPath . '/src/AppBundle/DataFixtures/img/' . $infoUser[3]));
+            $image->setFile(new File($appPath.'/src/AppBundle/DataFixtures/img/'.$infoUser[3]));
             $image->setAlt($user->getUsername());
             $image->setExt($infoUser[4]);
             $image->setType('avatar');
@@ -54,8 +61,8 @@ class AppFixtures implements FixtureInterface, ContainerAwareInterface
 
     private function loadGroupe(ObjectManager $manager)
     {
-        $infoGroupes = array('Les grabs', 'Les rotations', 'Les flips', 'Les rotations désaxées',
-            'Les slides', 'Les one foot tricks', 'Old school');
+        $infoGroupes = ['Les grabs', 'Les rotations', 'Les flips', 'Les rotations désaxées',
+            'Les slides', 'Les one foot tricks', 'Old school', ];
         foreach ($infoGroupes as $infoGroupe) {
             $groupe = new Groupe();
             $groupe->setNom($infoGroupe);

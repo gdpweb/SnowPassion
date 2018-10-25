@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Symfony package.
+ * (c) Stéphane BRIERE <stephanebriere@gdpweb.fr>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace AppBundle\Manager;
 
 use AppBundle\Entity\Comment;
@@ -16,9 +23,6 @@ class CommentManager
      */
     private $em;
 
-    /**
-     * @param EntityManagerInterface $em
-     */
     public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;
@@ -35,7 +39,7 @@ class CommentManager
 
     public function getNbPages($listComments)
     {
-        return ceil(count($listComments) / self::NB_COMMENTS_PAGE);
+        return ceil(\count($listComments) / self::NB_COMMENTS_PAGE);
     }
 
     public function createComment(Comment $comment, Trick $trick, User $user)

@@ -1,9 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: brieres
- * Date: 09/10/2018
- * Time: 22:15
+
+/*
+ * This file is part of the Symfony package.
+ * (c) Stéphane BRIERE <stephanebriere@gdpweb.fr>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace AppBundle\Handler;
@@ -22,8 +23,6 @@ class VideoUpdateHandler
 
     /**
      * VideoUpdateHandler constructor.
-     * @param SPHandler $handler
-     * @param EntityManagerInterface $em
      */
     public function __construct(SPHandler $handler, EntityManagerInterface $em)
     {
@@ -52,14 +51,15 @@ class VideoUpdateHandler
      */
     public function getView()
     {
-        return $this->handler->response($this->view, array(
-            "video" => $this->video
-        ));
+        return $this->handler->response($this->view, [
+            'video' => $this->video,
+        ]);
     }
 
     /**
      * @param $formType
      * @param $video
+     *
      * @return RedirectResponse|Response
      */
     public function handle($formType, $video)
@@ -68,6 +68,7 @@ class VideoUpdateHandler
         if ($this->handler->isSubmitted($formType, $video)) {
             $this->onSuccess();
         }
+
         return $this->getView();
     }
 }

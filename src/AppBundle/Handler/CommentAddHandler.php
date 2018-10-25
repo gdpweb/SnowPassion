@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Symfony package.
+ * (c) Stéphane BRIERE <stephanebriere@gdpweb.fr>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace AppBundle\Handler;
 
 use AppBundle\Entity\Trick;
@@ -39,9 +46,10 @@ class CommentAddHandler
             'success',
             'Le commentaire a été sauvegardé!'
         );
-        return $this->handler->redirect('trick_view', array(
-            'id' => $this->trick->getId()
-        ));
+
+        return $this->handler->redirect('trick_view', [
+            'id' => $this->trick->getId(),
+        ]);
     }
 
     /**
@@ -60,33 +68,31 @@ class CommentAddHandler
         $listComments = $this->commentManager->getComments($this->trick);
         $nbPages = $this->commentManager->getNbPages($listComments);
 
-        return $this->handler->response($this->view, array(
-            "trick" => $this->trick,
+        return $this->handler->response($this->view, [
+            'trick' => $this->trick,
             'listComments' => $listComments,
-            'nbPages' => $nbPages
-        ));
+            'nbPages' => $nbPages,
+        ]);
     }
 
     /**
      * @param        $formType
-     * @param null   $comment
      * @param string $method
+     *
      * @return Response
      */
     public function handle($formType, $comment = null, $method = 'onSuccess')
     {
         $this->comment = $comment;
         if ($this->handler->isSubmitted($formType, $this->comment)) {
-            if (is_callable([$this, $method])) {
+            if (\is_callable([$this, $method])) {
                 return $this->$method();
             }
         }
+
         return $this->getView();
     }
 
-    /**
-     * @param Trick $trick
-     */
     public function setTrick(Trick $trick)
     {
         $this->trick = $trick;

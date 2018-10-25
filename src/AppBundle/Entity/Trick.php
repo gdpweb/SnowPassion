@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Symfony package.
+ * (c) Stéphane BRIERE <stephanebriere@gdpweb.fr>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -8,12 +15,11 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * trick
+ * trick.
  *
  * @ORM\Table(name="sp_trick")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\TrickRepository")
  * @UniqueEntity(fields={"nom"}, message="Cette figure existe déjà")
- *
  */
 class Trick
 {
@@ -33,7 +39,6 @@ class Trick
      * @ORM\JoinTable(name="sp_trick_image")
      * @Assert\Valid()
      */
-
     public $images;
     /**
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Video",cascade={"persist","remove"})
@@ -44,7 +49,6 @@ class Trick
     /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Comment", mappedBy="trick",cascade={"persist","remove"})
      */
-
     public $comments;
     /**
      * @var int
@@ -90,6 +94,7 @@ class Trick
     public function addComment(comment $comment)
     {
         $this->comments[] = $comment;
+
         return $this;
     }
 
@@ -120,13 +125,11 @@ class Trick
 
     public function addVideo(Video $video)
     {
-
         $this->videos[] = $video;
     }
 
     public function removeVideo(video $video)
     {
-
         $this->videos->removeElement($video);
     }
 
@@ -206,7 +209,6 @@ class Trick
     /**
      * Set date.
      *
-     * @param \DateTime $date
      *
      * @return trick
      */

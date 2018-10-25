@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Symfony package.
+ * (c) Stéphane BRIERE <stephanebriere@gdpweb.fr>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace AppBundle\Manager;
 
 use AppBundle\Entity\Image;
@@ -15,10 +22,6 @@ class ImageManager
 
     private $fileSystem;
 
-    /**
-     * @param SPFileSystem $fileSystem
-     * @param EntityManagerInterface $em
-     */
     public function __construct(SPFileSystem $fileSystem, EntityManagerInterface $em)
     {
         $this->em = $em;

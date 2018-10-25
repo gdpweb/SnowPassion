@@ -1,12 +1,19 @@
 <?php
 
+/*
+ * This file is part of the Symfony package.
+ * (c) Stéphane BRIERE <stephanebriere@gdpweb.fr>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Comment
+ * Comment.
  *
  * @ORM\Table(name="sp_comment")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\CommentRepository")
@@ -41,7 +48,6 @@ class Comment
      */
     private $date;
 
-
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", cascade={"persist"})
      */
@@ -51,7 +57,6 @@ class Comment
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Trick", inversedBy="comments")
      * @ORM\JoinColumn(nullable=false)
      */
-
     private $trick;
 
     public function __construct()
@@ -64,7 +69,6 @@ class Comment
      *
      * @return int
      */
-
     public function getId()
     {
         return $this->id;
@@ -107,7 +111,6 @@ class Comment
     /**
      * Set date.
      *
-     * @param \DateTime $date
      *
      * @return Comment
      */

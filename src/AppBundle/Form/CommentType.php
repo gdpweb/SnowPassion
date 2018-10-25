@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Symfony package.
+ * (c) Stéphane BRIERE <stephanebriere@gdpweb.fr>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace AppBundle\Form;
 
 use AppBundle\Entity\Comment;
@@ -16,13 +23,13 @@ class CommentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('message', TextareaType::class, array(
+            ->add('message', TextareaType::class, [
                 'label' => false,
-                'attr' => array(
+                'attr' => [
                     'rows' => 2,
-                    'placeholder' => 'Saisir votre commentaire'
-                )
-            ));
+                    'placeholder' => 'Saisir votre commentaire',
+                ],
+            ]);
     }
 
     /**
@@ -30,9 +37,9 @@ class CommentType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => Comment::class
-        ));
+        $resolver->setDefaults([
+            'data_class' => Comment::class,
+        ]);
     }
 
     /**

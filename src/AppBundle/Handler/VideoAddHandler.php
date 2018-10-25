@@ -1,9 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: brieres
- * Date: 09/10/2018
- * Time: 22:15
+
+/*
+ * This file is part of the Symfony package.
+ * (c) Stéphane BRIERE <stephanebriere@gdpweb.fr>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace AppBundle\Handler;
@@ -23,10 +24,6 @@ class VideoAddHandler
     private $view;
     private $handler;
 
-    /**
-     * @param SPHandler $handler
-     * @param TrickManager $trickManager
-     */
     public function __construct(SPHandler $handler, TrickManager $trickManager)
     {
         $this->trickManager = $trickManager;
@@ -52,12 +49,13 @@ class VideoAddHandler
      */
     public function getView()
     {
-        return $this->handler->response($this->view, array(
-            "trick" => $this->trick));
+        return $this->handler->response($this->view, [
+            'trick' => $this->trick, ]);
     }
 
     /**
      * @param $formType
+     *
      * @return Response
      */
     public function handle($formType)
@@ -65,12 +63,10 @@ class VideoAddHandler
         if ($this->handler->isSubmitted($formType)) {
             $this->onSuccess();
         }
+
         return $this->getView();
     }
 
-    /**
-     * @param Trick $trick
-     */
     public function setTrick(Trick $trick)
     {
         $this->trick = $trick;

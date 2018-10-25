@@ -1,9 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: brieres
- * Date: 10/10/2018
- * Time: 18:10
+
+/*
+ * This file is part of the Symfony package.
+ * (c) Stéphane BRIERE <stephanebriere@gdpweb.fr>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace AppBundle\Service;
@@ -51,14 +52,6 @@ class SPHandler
      */
     private $form;
 
-    /**
-     * @param FormFactoryInterface  $formFactory
-     * @param RequestStack          $requestStack
-     * @param RouterInterface       $router
-     * @param FlashBagInterface     $flashBag
-     * @param Environment           $twig
-     * @param TokenStorageInterface $tokenStorage
-     */
     public function __construct(
         FormFactoryInterface $formFactory,
         RequestStack $requestStack,
@@ -67,7 +60,6 @@ class SPHandler
         Environment $twig,
         TokenStorageInterface $tokenStorage
     ) {
-
         $this->formFactory = $formFactory;
         $this->requestStack = $requestStack;
         $this->router = $router;
@@ -77,15 +69,14 @@ class SPHandler
     }
 
     /**
-     * @param null $formType
-     * @param null $entity
      * @return bool
      */
     public function isSubmitted($formType = null, $entity = null)
     {
-        if ($formType === null) {
+        if (null === $formType) {
             $this->form = $this->formFactory->create();
-        } if ($formType !== null) {
+        }
+        if (null !== $formType) {
             $this->form = $this->formFactory->create($formType, $entity);
         }
 
@@ -94,6 +85,7 @@ class SPHandler
         if ($this->form->isSubmitted() and $this->form->isValid()) {
             return true;
         }
+
         return false;
     }
 
@@ -108,6 +100,7 @@ class SPHandler
 
     /**
      * @param $name
+     *
      * @return string
      */
     public function generateRoute($name)
@@ -126,29 +119,28 @@ class SPHandler
     /**
      * @param $view
      * @param $datas
+     *
      * @return Response
      */
     public function response($view, $datas)
     {
         return new Response($this->twig->render(
             $view,
-            ["form" => $this->form->createView()] + $datas
+            ['form' => $this->form->createView()] + $datas
         ));
     }
 
     /**
      * @param       $name
      * @param array $parameters
+     *
      * @return RedirectResponse
      */
-    public function redirect($name, $parameters = array())
+    public function redirect($name, $parameters = [])
     {
         return new RedirectResponse($this->router->generate($name, $parameters));
     }
 
-    /**
-     * @param TokenStorageInterface $tokenStorage
-     */
     public function setUser(TokenStorageInterface $tokenStorage)
     {
         $this->user = $tokenStorage->getToken()->getUser();

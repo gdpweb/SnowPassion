@@ -1,9 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: brieres
- * Date: 18/10/2018
- * Time: 22:15
+
+/*
+ * This file is part of the Symfony package.
+ * (c) Stéphane BRIERE <stephanebriere@gdpweb.fr>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace AppBundle\Handler;
@@ -39,9 +40,9 @@ class ImageDeleteHandler
         $this->imageManager->deleteImageTrick($this->image);
         $this->handler->setFlash('success', 'L\'image a été supprimée');
 
-        return $this->handler->redirect('trick_edit', array(
-            'id' => $this->trick->getId()
-        ));
+        return $this->handler->redirect('trick_edit', [
+            'id' => $this->trick->getId(),
+        ]);
     }
 
     /**
@@ -57,17 +58,15 @@ class ImageDeleteHandler
      */
     public function getView()
     {
-        return $this->handler->response($this->view, array(
+        return $this->handler->response($this->view, [
             'image' => $this->image,
-            'trick' => $this->trick
-        ));
+            'trick' => $this->trick,
+        ]);
     }
 
     /**
-     * @param null $image
      * @return Response
      */
-
     public function handle($image = null)
     {
         $this->image = $image;
@@ -75,12 +74,10 @@ class ImageDeleteHandler
         if ($this->handler->isSubmitted(null, $this->image)) {
             return $this->onSuccess();
         }
+
         return $this->getView();
     }
 
-    /**
-     * @param Trick $trick
-     */
     public function setTrick(Trick $trick)
     {
         $this->trick = $trick;

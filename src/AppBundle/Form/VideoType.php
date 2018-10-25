@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Symfony package.
+ * (c) Stéphane BRIERE <stephanebriere@gdpweb.fr>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace AppBundle\Form;
 
 use AppBundle\Entity\Video;
@@ -16,11 +23,11 @@ class VideoType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('url', TextType::class, array(
+        $builder->add('url', TextType::class, [
             'label' => false,
-            'attr' => array(
+            'attr' => [
                 'placeholder' => 'Coller la balise embed de la video',
-            )));
+            ], ]);
 
         $builder->get('url')
             ->addModelTransformer(new CallbackTransformer(
@@ -37,6 +44,7 @@ class VideoType extends AbstractType
                     if ($matches) {
                         return $matches[0];
                     }
+
                     return $embedToUrl;
                 }
             ));
@@ -47,9 +55,9 @@ class VideoType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => Video::class
-        ));
+        $resolver->setDefaults([
+            'data_class' => Video::class,
+        ]);
     }
 
     /**
