@@ -85,7 +85,7 @@ class SPHandler
     {
         if ($formType === null) {
             $this->form = $this->formFactory->create();
-        } else {
+        } if ($formType !== null) {
             $this->form = $this->formFactory->create($formType, $entity);
         }
 

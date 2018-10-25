@@ -7,29 +7,35 @@
 {% block body %}
     <div class="col-lg-10 col-lg-offset-1">
     <div class="corps col-xs-12">
-        {% if (trick.images|first) is not empty %}
-            <div class="intro-header header row"
-                 style="background-image: url({{ asset(trick_directory~(trick.images|first).id~'.'~(trick.images|first).ext) }})">
-                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                    <div class="fa-button-first-img text-right">
-                        <span>
-                             <i data-href="{{ path('update_image',{'id': (trick.images|first).id}) }}"
-                                class="fa fa-pencil fa-margin update"
-                                title="Modifier l'image :{{ (trick.images|first).alt~'.'~(trick.images|first).ext }}">
-                             </i>
 
-                            <i data-href="{{ path('image_delete',{'id': trick.id,'image_id':(trick.images|first).id}) }}"
-                               class="fa fa-trash fa-margin delete"
-                               title="Supprimer l'image">
-                            </i>
-                        </span>
-                    </div>
-                {% endif %}
-                <div class="site-heading heading">
-                    <h1>{{ trick.nom }}</h1>
-                    <hr class="small">
+        <div class="intro-header header row"
+                {% if (trick.images|first) is not empty %}
+            style="background-image:
+                    url({{ asset(trick_directory~(trick.images|first).id~'.'~(trick.images|first).ext) }})"
+        {% else %}
+            style="background-image:url({{ asset('assets/img/default-image.jpg') }}"
+                {% endif %}>
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            {% if (trick.images|first) is not empty %}
+                <div class="fa-button-first-img text-right">
+                    <span>
+                         <i data-href="{{ path('update_image',{'id': (trick.images|first).id}) }}"
+                            class="fa fa-pencil fa-margin update"
+                            title="Modifier l'image :{{ (trick.images|first).alt~'.'~(trick.images|first).ext }}">
+                         </i>
+
+                        <i data-href="{{ path('image_delete',{'id': trick.id,'image_id':(trick.images|first).id}) }}"
+                           class="fa fa-trash fa-margin delete"
+                           title="Supprimer l'image">
+                        </i>
+                    </span>
                 </div>
+            {% endif %}
+            <div class="site-heading heading">
+                <h1>{{ trick.nom }}</h1>
+                <hr class="small">
             </div>
+        </div>
         {% endif %}
         <div id="media" class="col-lg-12">
             {% for image in trick.images|slice(1) %}

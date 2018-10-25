@@ -18,6 +18,28 @@ $(document).ready(function () {
             }
         });
     });
+
+    function submitForm(url, dataForm) {
+        $.ajax({
+            type: "post",
+            url: url,
+            data: new FormData(dataForm),
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: function (data) {
+                let result = $(data).find("#form-container");
+                let error = $(data).find(".has-error");
+
+                if (error.length) {
+                    $("#form-container").html(result).addClass("has-error");
+                } else {
+                    window.location.reload();
+                }
+            }
+        });
+    }
+
     $(".add,.update").click(function () {
         let titre;
         if ($(this).attr("title") === null) {
@@ -42,26 +64,6 @@ $(document).ready(function () {
         });
     });
 
-    function submitForm(url, dataForm) {
-        $.ajax({
-            type: "post",
-            url: url,
-            data: new FormData(dataForm),
-            contentType: false,
-            cache: false,
-            processData: false,
-            success: function (data) {
-                let result = $(data).find("#form-container");
-                let error = $(data).find(".has-error");
-
-                if (error.length) {
-                    $("#form-container").html(result).addClass("has-error");
-                } else {
-                    window.location.reload();
-                }
-            }
-        });
-    }
 
     $(".msg-flash").delay(2000).fadeOut(1000, function () {
         $(this).remove();

@@ -23,10 +23,9 @@
                     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                         {% if app.user.image is not null %}
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <span class="img-avatar"
-                                      style="background-image:
-                                              url({{ asset(avatar_directory_mini~app.user.image.id~'.'~app.user.image.ext) }})">
-                                </span>
+                                <img class="img-avatar"
+                                     src="{{ asset(avatar_directory_mini~app.user.image.id~'.'~app.user.image.ext) }}"
+                                     alt="{{ app.user.image.alt }}">
                                 <span class="span-avatar">{{ app.user.username }}</span>
                             </a>
                         {% else %}
@@ -39,10 +38,9 @@
                         {% endif %}
                     {% else %}
                         <a href="{{ path('login') }}">
-                            <span class="img-avatar"
-                                  style="background-image:
-                                          url({{ asset('assets/img/avatar_default.png') }})">
-                                </span>
+                            <img class="img-avatar"
+                                 src="{{ asset('assets/img/avatar_default.png')}}"
+                                 alt="default">
                             <span class="span-avatar">Connexion</span>
                         </a>
                     {% endif %}
@@ -53,10 +51,6 @@
                                     <span><i class="fa fa-sign-out"></i> Déconnexion</span>
                                 </a>
                             </li>
-                            <li class="divider"></li>
-                            <li><a href="#">
-                                    <span><i class="fa fa-cog"></i> Mon compte</span>
-                                </a></li>
                         </ul>
                     {% endif %}
                 </li>

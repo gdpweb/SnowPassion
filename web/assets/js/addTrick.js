@@ -2,6 +2,14 @@ $(document).ready(function () {
 
     let index = {};
 
+    function addDeleteLink(prototype) {
+        const deleteLink = $("<input type='button' class='btn btn-danger' value='Supprimer'/>");
+        prototype.append(deleteLink);
+        deleteLink.click(function () {
+            prototype.remove();
+        });
+    }
+
     function addMedia(container, mediaType) {
 
         const titreMedia = mediaType.substr(0, 1).toUpperCase() + mediaType.substr(1, mediaType.length).toLowerCase();
@@ -16,13 +24,6 @@ $(document).ready(function () {
         index[mediaType]++;
     }
 
-    function addDeleteLink(prototype) {
-        const deleteLink = $("<input type='button' class='btn btn-danger' value='Supprimer'/>");
-        prototype.append(deleteLink);
-        deleteLink.click(function () {
-            prototype.remove();
-        });
-    }
     function initializeMedia(mediaType) {
 
         const container = $("div#appbundle_trick_" + mediaType + "s");
@@ -40,6 +41,7 @@ $(document).ready(function () {
             });
         }
     }
+
     initializeMedia("video");
     initializeMedia("image");
 });

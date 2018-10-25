@@ -32,8 +32,7 @@ class UserManager
         EntityManagerInterface $em,
         EncoderFactoryInterface $encoderFactory,
         ContainerInterface $container
-    )
-    {
+    ) {
         $this->mailer = $mailer;
         $this->em = $em;
         $this->container = $container;

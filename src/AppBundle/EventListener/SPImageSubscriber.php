@@ -6,6 +6,7 @@ use AppBundle\Service\SPFileSystem;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use AppBundle\Entity\Image;
@@ -104,6 +105,9 @@ class SPImageSubscriber implements EventSubscriber
             $entity->setExt($file->getClientOriginalExtension());
             $entity->setAlt(basename($file->getClientOriginalName(), '.' . $entity->getExt()));
         }
+        if ($file instanceof File) {
+            $this->fileSystem->setPathDirectory($this->targetDirectory . $entity->getType());
+        }
     }
 
     public function uploadFile($entity)
@@ -113,12 +117,14 @@ class SPImageSubscriber implements EventSubscriber
             return;
         }
         $file = $entity->getFile();
-        if ($file instanceof UploadedFile) {
+
+        if ($file instanceof UploadedFile | $file instanceof File) {
             $this->fileSystem->upload(
                 $file,
                 $entity->getId() . '.' . $entity->getExt()
             );
         }
+
         $directory = $this->targetDirectory . $entity->getType();
         $filename = $directory . '/' . $entity->getId() . "." . $entity->getExt();
         $fileResize = $directory . '/mini/' . $entity->getId() . '.' . $entity->getExt();

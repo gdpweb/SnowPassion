@@ -5,11 +5,11 @@
 {% endblock %}
 
 {% block body %}
-
     <section id="tricks" class="container-fluid">
         <div id="media-index" class="col-md-12">
             {% if tricks is empty %}
                 <i style="font-size:1.8em">Aucune figure disponible</i>
+                <hr>
             {% endif %}
 
             {% include 'Trick/listTricks.html.twig' with {'tricks':tricks } %}
