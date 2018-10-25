@@ -27,11 +27,11 @@
 
 </head>
 
-<body>
+<body id="body">
 
 {{ include('navbar.html.twig') }}
 
-<header class="intro-header" style="background-image: url({{ asset('assets/img/default.jpg') }})">
+<header id="header" class="intro-header" style="background-image: url({{ asset('assets/img/default.jpg') }})">
 
     <div class="site-heading">
         <h1>SnowPassion</h1>
@@ -43,10 +43,7 @@
             <span class="fa fa-arrow-down fa-3x"></span>
         </a>
     </div>
-
-
 </header>
-
 
 {% for key, messages in app.session.flashbag.all() %}
     {% for message in messages %}

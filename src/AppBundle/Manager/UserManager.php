@@ -32,7 +32,8 @@ class UserManager
         EntityManagerInterface $em,
         EncoderFactoryInterface $encoderFactory,
         ContainerInterface $container
-    ) {
+    )
+    {
         $this->mailer = $mailer;
         $this->em = $em;
         $this->container = $container;
@@ -46,13 +47,15 @@ class UserManager
      */
     public function tokenValid($token)
     {
-        return $this->em->getRepository('AppBundle:User')->tokenIsValid($token);
+        return $this->em->getRepository('AppBundle:User')
+            ->tokenIsValid($token);
     }
 
     public function activeAccount(User $user)
     {
         $user->setIsActive(true);
-        $password = $this->encoderFactory->getEncoder($user)->encodePassword($user->getPassword(), $user->getSalt());
+        $password = $this->encoderFactory->getEncoder($user)
+            ->encodePassword($user->getPassword(), $user->getSalt());
         $user->setPassword($password);
         $user->setToken(null);
         $this->em->persist($user);
@@ -88,7 +91,8 @@ class UserManager
     {
         $user->getImage()->setType('avatar');
         $this->createToken($user);
-        $password = $this->encoderFactory->getEncoder($user)->encodePassword($user->getPassword(), $user->getSalt());
+        $password = $this->encoderFactory->getEncoder($user)
+            ->encodePassword($user->getPassword(), $user->getSalt());
         $user->setPassword($password);
         $this->em->persist($user);
         $this->em->flush();

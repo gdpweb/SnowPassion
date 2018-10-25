@@ -17,7 +17,18 @@ hr {
     width: 100%;
     height: 1px;
 }
+.navbar-brand{
+    padding: 5px 0 5px 15px;
+}
 
+.navbar-inverse {
+    background-color: #0a6b6ac9;
+    border:none;
+
+}
+.navbar-inverse .navbar-brand,.navbar-inverse .navbar-nav>li>a{
+    color: #e2e2e2;
+}
 .div-badge, #description, #form-trick {
     margin-top: 30px;
 }
@@ -66,7 +77,12 @@ hr {
     padding: 5px 0;
 
 }
-
+.fa-arrow-down,.fa-arrow-up{
+    color:#46817f;
+}
+#back-top{
+    display: none;
+}
 .fa-button-first-img {
     position: relative;
     top: 15px;
@@ -140,6 +156,13 @@ hr {
 
 .btn {
     padding: 5px 15px;
+}
+.btn-primary,.badge {
+    background-color: #458382;
+    border-color: #086262;
+}
+.btn-primary:hover{
+    background-color: #086262;
 }
 
 .alert {

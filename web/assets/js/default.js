@@ -67,7 +67,7 @@ $(document).ready(function () {
         $(this).remove();
     });
 
-    $(".page-scroll").bind(
+    $(".page-scroll,.navbar-link").bind(
         "click", function (event) {
             let anchor = $(this);
             $("html, body").stop().animate(

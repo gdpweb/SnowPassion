@@ -17,7 +17,7 @@ $(document).ready(function () {
     }
 
     function addDeleteLink(prototype) {
-        const deleteLink = $('<input type="button" class="btn btn-danger" value="Supprimer"/>');
+        const deleteLink = $("<input type='button' class='btn btn-danger' value='Supprimer'/>");
         prototype.append(deleteLink);
         deleteLink.click(function () {
             prototype.remove();

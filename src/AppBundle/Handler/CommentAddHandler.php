@@ -30,8 +30,15 @@ class CommentAddHandler
      */
     public function onSuccess()
     {
-        $this->commentManager->createComment($this->handler->formData(), $this->trick, $this->handler->getUser());
-        $this->handler->setFlash('success', 'Le commentaire a été sauvegardé!');
+        $this->commentManager->createComment(
+            $this->handler->formData(),
+            $this->trick,
+            $this->handler->getUser()
+        );
+        $this->handler->setFlash(
+            'success',
+            'Le commentaire a été sauvegardé!'
+        );
         return $this->handler->redirect('trick_view', array(
             'id' => $this->trick->getId()
         ));
@@ -61,8 +68,8 @@ class CommentAddHandler
     }
 
     /**
-     * @param $formType
-     * @param null $comment
+     * @param        $formType
+     * @param null   $comment
      * @param string $method
      * @return Response
      */
