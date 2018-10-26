@@ -67,9 +67,18 @@ class SPFileSystem
         }
     }
 
-    /**
-     * @return mixed
-     */
+    public function removeAllFiles($directory)
+    {
+        $iterator = new \DirectoryIterator($directory);
+        foreach ($iterator as $fileInfo) {
+            if (!$fileInfo->isDot()) {
+                if ($fileInfo->isFile()) {
+                    unlink($directory.$fileInfo->getFileName());
+                }
+            }
+        }
+    }
+
     public function getPathDirectory()
     {
         return $this->pathDirectory;

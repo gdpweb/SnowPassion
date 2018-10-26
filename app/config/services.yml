@@ -45,6 +45,7 @@ services:
       $from: '%mailer_user%'
       $url: '%kernel.project_dir%'
 
+
   twig.extension.intl:
     public: true
     class: Twig_Extensions_Extension_Intl

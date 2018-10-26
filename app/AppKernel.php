@@ -62,7 +62,6 @@ class AppKernel extends Kernel
             $loader->load(function (ContainerBuilder $container) {
                 $container->setParameter('container.autowiring.strict_mode', true);
                 $container->setParameter('container.dumper.inline_class_loader', true);
-
                 $container->addObjectResource($this);
             });
         } catch (Exception $e) {

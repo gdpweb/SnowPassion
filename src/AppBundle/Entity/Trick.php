@@ -23,7 +23,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Trick
 {
-    const NB_TRICKS_PAGE = 1;
+    const NB_TRICKS_PAGE = 15;
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", cascade={"persist"})
@@ -243,9 +243,6 @@ class Trick
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
     public function getAuteur()
     {
         return $this->auteur;
@@ -259,9 +256,6 @@ class Trick
         $this->auteur = $auteur;
     }
 
-    /**
-     * @return mixed
-     */
     public function getGroupe()
     {
         return $this->groupe;

@@ -121,7 +121,9 @@ hr {
 #media {
     margin-top: 20px;
 }
-
+.media-box {
+    padding: 0;
+}
 .media-tricks {
     border: solid 1px gray;
     padding: 0;

@@ -1,21 +1,22 @@
 {% for trick in tricks %}
-    <div class="media-tricks col-md-2">
+    <div class="col-md-2 media-box">
+        <div class="media-tricks">
+            <div class="div-image">
+                {% if trick.images|first is not empty %}
+                    <img class="media-object"
+                         src="{{ asset(trick_directory_mini~(trick.images|first).id~'.'~(trick.images|first).ext) }}"
+                         alt="{{ (trick.images|first).alt }}">
+                {% else %}
+                    <img class="media-object"
+                         src="{{ asset('assets/img/default-image-mini.jpg') }}"
+                         alt="image-default">
+                {% endif %}
+            </div>
 
-        <div class="div-image">
-            {% if trick.images|first is not empty %}
-                <img class="media-object"
-                     src="{{ asset(trick_directory_mini~(trick.images|first).id~'.'~(trick.images|first).ext) }}"
-                     alt="{{ (trick.images|first).alt }}">
-            {% else %}
-                <img class="media-object"
-                     src="{{ asset('assets/img/default-image-mini.jpg') }}"
-                     alt="image-default">
-            {% endif %}
-        </div>
 
-        <div class="media-heading">
-            <a href="{{ path('trick_view', {'id': trick.id}) }}">{{ trick.nom |striptags|truncate(15) }}</a>
-            <span class="pull-right">
+            <div class="media-heading">
+                <a href="{{ path('trick_view', {'id': trick.id}) }}">{{ trick.nom |striptags|truncate(15) }}</a>
+                <span class="pull-right">
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                     <a href="{{ path('trick_edit', {'id': trick.id}) }}">
                         <span class="fa fa-pencil fa-margin"></span>
@@ -26,6 +27,7 @@
                         </a>
                 {% endif %}
             </span>
+            </div>
         </div>
     </div>
 {% endfor %}
