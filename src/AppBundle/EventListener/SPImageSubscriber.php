@@ -33,8 +33,9 @@ class SPImageSubscriber implements EventSubscriber
     {
         return [
             Events::prePersist,
-            Events::preUpdate,
             Events::postPersist,
+            Events::preUpdate,
+            Events::postUpdate,
             Events::preRemove,
         ];
     }
@@ -49,15 +50,9 @@ class SPImageSubscriber implements EventSubscriber
         $this->setFileUpload($entity);
     }
 
-    public function postUpdate(PreUpdateEventArgs $args)
+    public function postPersist(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
-
-        if (!$entity instanceof Image) {
-            return;
-        }
-
-        $this->setFileUpload($entity);
         $this->uploadFile($entity);
     }
 
@@ -68,14 +63,16 @@ class SPImageSubscriber implements EventSubscriber
         if (!$entity instanceof Image) {
             return;
         }
-
         $this->setFileUpload($entity);
-        $this->uploadFile($entity);
     }
 
-    public function postPersist(LifecycleEventArgs $args)
+    public function postUpdate(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
+
+        if (!$entity instanceof Image) {
+            return;
+        }
         $this->uploadFile($entity);
     }
 
