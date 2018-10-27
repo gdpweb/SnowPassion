@@ -16,9 +16,7 @@
                     {% else %}
                         <a class="navbar-link" href="{{ path('homepage') }}#tricks">Tricks</a>
                     {% endif %}
-
                 </li>
-
                 <li class="dropdown">
                     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                         {% if app.user.image is not null %}
@@ -39,7 +37,7 @@
                     {% else %}
                         <a href="{{ path('login') }}">
                             <img class="img-avatar"
-                                 src="{{ asset('assets/img/avatar_default.png')}}"
+                                 src="{{ asset('assets/img/avatar_default.png') }}"
                                  alt="default">
                             <span class="span-avatar">Connexion</span>
                         </a>
@@ -54,6 +52,11 @@
                         </ul>
                     {% endif %}
                 </li>
+                {% if not is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    <li>
+                        <a href="{{ path('register') }}">Créer un compte</a>
+                    </li>
+                {% endif %}
             </ul>
         </div>
     </div>

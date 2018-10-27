@@ -69,7 +69,7 @@ class TrickController extends Controller
     }
 
     /**
-     * @Route("/trick/{id}", name="trick_view")
+     * @Route("/trick/{slug}", name="trick_view")
      *
      * @return RedirectResponse|Response
      */
@@ -110,7 +110,7 @@ class TrickController extends Controller
     }
 
     /**
-     * @Route("/edit/{id}", name="trick_edit")
+     * @Route("/edit/{slug}", name="trick_edit")
      *
      * @return RedirectResponse|Response
      */

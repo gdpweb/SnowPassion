@@ -48,7 +48,7 @@ class CommentAddHandler
         );
 
         return $this->handler->redirect('trick_view', [
-            'id' => $this->trick->getId(),
+            'slug' => $this->trick->getSlug(),
         ]);
     }
 

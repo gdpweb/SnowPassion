@@ -19,7 +19,6 @@
                 </div>
             {% endfor %}
         {% endfor %}
-
         <form action="{{ path('login_check') }}" method="POST">
             <div class="form-group text-center">
                 <label for="username">Nom d'utilisateur</label>
@@ -30,19 +29,16 @@
                 <label for="password">Mot de passe</label>
                 <input class="form-control" type="password" id="password" name="_password"/>
             </div>
-            <div class="form-group text-left">
-                <a href="{{ path('forgot') }}">Mot de passe oublié?</a>
-            </div>
-            <hr>
             <div class="form-group text-center">
                 <button class="btn btn-success" type="submit">Valider</button>
             </div>
-
-            <div class="form-group text-left">
-                <a href="{{ path('register') }}">Créer un compte</a>
-            </div>
         </form>
-
+        <hr>
+        <div class="form-group text-center">
+            <a href="{{ path('forgot') }}">Mot de passe oublié?</a>
+        </div>
+        <div class="form-group text-center">
+            <a href="{{ path('register') }}">Créer un compte</a>
+        </div>
     </div>
-
 {% endblock %}

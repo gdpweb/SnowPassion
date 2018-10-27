@@ -1,5 +1,5 @@
 {% for trick in tricks %}
-    <div class="col-md-2 media-box">
+    <div class="col-lg-2 col-md-3 col-sm-4 media-box">
         <div class="media-tricks">
             <div class="div-image">
                 {% if trick.images|first is not empty %}
@@ -12,13 +12,11 @@
                          alt="image-default">
                 {% endif %}
             </div>
-
-
             <div class="media-heading">
-                <a href="{{ path('trick_view', {'id': trick.id}) }}">{{ trick.nom |striptags|truncate(15) }}</a>
+                <a href="{{ path('trick_view', {'slug': trick.slug}) }}">{{ trick.nom |striptags|truncate(15) }}</a>
                 <span class="pull-right">
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                    <a href="{{ path('trick_edit', {'id': trick.id}) }}">
+                    <a href="{{ path('trick_edit', {'slug': trick.slug}) }}">
                         <span class="fa fa-pencil fa-margin"></span>
                     </a>
                     <a class="delete" title="Supprimer la figure?"

@@ -13,12 +13,14 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * trick.
  *
  * @ORM\Table(name="sp_trick")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\TrickRepository")
+ * @ORM\HasLifecycleCallbacks()
  * @UniqueEntity(fields={"nom"}, message="Cette figure existe déjà")
  */
 class Trick
@@ -77,11 +79,20 @@ class Trick
      */
     private $date;
     /**
+     * @ORM\Column(name="updated_at", type="datetime", nullable=true)
+     */
+    private $updatedAt;
+    /**
      * @var bool|null
      *
      * @ORM\Column(name="publie", type="boolean", nullable=true)
      */
     private $publie;
+    /**
+     * @Gedmo\Slug(fields={"nom"})
+     * @ORM\Column(name="slug", type="string", length=255, unique=true)
+     */
+    private $slug;
 
     public function __construct()
     {
@@ -89,6 +100,14 @@ class Trick
         $this->images = new ArrayCollection();
         $this->videos = new ArrayCollection();
         $this->comments = new ArrayCollection();
+    }
+
+    /**
+     * @ORM\PreUpdate
+     */
+    public function updateDate()
+    {
+        $this->setUpdatedAt(new \Datetime());
     }
 
     public function addComment(comment $comment)
@@ -268,4 +287,37 @@ class Trick
     {
         $this->groupe = $groupe;
     }
+
+    /**
+     * @param \DateTime $updatedAt
+     */
+    public function setUpdatedAt(\Datetime $updatedAt = null)
+    {
+        $this->updatedAt = $updatedAt;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param string $slug
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
 }

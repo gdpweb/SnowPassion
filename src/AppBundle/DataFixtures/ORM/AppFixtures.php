@@ -9,6 +9,7 @@
 
 namespace AppBundle\DataFixtures\ORM;
 
+use AppBundle\Entity\Comment;
 use AppBundle\Entity\Groupe;
 use AppBundle\Entity\Image;
 use AppBundle\Entity\Trick;
@@ -48,6 +49,7 @@ class AppFixtures extends AbstractFixture implements FixtureInterface, Container
         $this->loadImageTrick($manager);
         $this->loadVideoTrick($manager);
         $this->loadTrick($manager);
+        $this->loadComment($manager);
     }
 
     private function removeAllFiles()
@@ -61,18 +63,19 @@ class AppFixtures extends AbstractFixture implements FixtureInterface, Container
     private function loadImageAvatar(ObjectManager $manager)
     {
         $infoImages = [
-            ['avatar-1', 'admin', 'png'],
-            ['avatar-2', 'default', 'png'],
-            ['avatar-3', 'auteur', 'png'],
+            ['avatar-1', 'admin'],
+            ['avatar-2', 'utilisateur1'],
+            ['avatar-3', 'utilisateur2'],
+            ['avatar-4', 'utilisateur3'],
         ];
         $imagePath = '/src/AppBundle/DataFixtures/img/';
         foreach ($infoImages as $infoImage) {
             $image = new Image();
             $image->setFile(
-                new File($this->appPath.$imagePath.$infoImage[0].'.'.$infoImage[2])
+                new File($this->appPath.$imagePath.$infoImage[0].'.jpg')
             );
             $image->setAlt($infoImage[1]);
-            $image->setExt($infoImage[2]);
+            $image->setExt('jpg');
             $image->setType('avatar');
             $manager->persist($image);
             $this->addReference($infoImage[0], $image);
@@ -84,8 +87,9 @@ class AppFixtures extends AbstractFixture implements FixtureInterface, Container
     {
         $infoUsers = [
             ['admin', ['ROLE_ADMIN'], 'admin@gdpweb.fr', 'avatar-1'],
-            ['default', ['ROLE_ADMIN'], 'default@gdpweb.fr', 'avatar-2'],
-            ['auteur', ['ROLE_ADMIN'], 'auteur@gdpweb.fr', 'avatar-3'],
+            ['utilisateur1', ['ROLE_USER'], 'utilisateur2@gdpweb.fr', 'avatar-2'],
+            ['utilisateur2', ['ROLE_USER'], 'utilisateur3@gdpweb.fr', 'avatar-3'],
+            ['utilisateur3', ['ROLE_USER'], 'utilisateur4@gdpweb.fr', 'avatar-4'],
         ];
         foreach ($infoUsers as $infoUser) {
             $user = new User();
@@ -126,30 +130,28 @@ class AppFixtures extends AbstractFixture implements FixtureInterface, Container
     private function loadImageTrick(ObjectManager $manager)
     {
         $infoImages = [
-            ['img-trick-1', 'jpg'], ['img-trick-11', 'jpg'], ['img-trick-12', 'jpg'],
-            ['img-trick-13', 'jpg'],
-            ['img-trick-2', 'jpg'], ['img-trick-21', 'jpg'], ['img-trick-22', 'jpg'],
-            ['img-trick-3', 'jpg'], ['img-trick-31', 'jpg'], ['img-trick-32', 'jpg'],
-            ['img-trick-4', 'jpg'], ['img-trick-41', 'jpg'], ['img-trick-42', 'jpg'],
-            ['img-trick-5', 'jpg'], ['img-trick-51', 'jpg'], ['img-trick-52', 'jpg'],
-            ['img-trick-6', 'jpg'], ['img-trick-61', 'jpg'], ['img-trick-62', 'jpg'],
-            ['img-trick-63', 'jpg'],
-            ['img-trick-7', 'jpg'], ['img-trick-71', 'jpg'], ['img-trick-72', 'jpg'],
-            ['img-trick-8', 'jpg'], ['img-trick-81', 'jpg'], ['img-trick-82', 'jpg'],
-            ['img-trick-9', 'jpg'], ['img-trick-91', 'jpg'], ['img-trick-92', 'jpg'],
-            ['img-trick-10', 'jpg'], ['img-trick-101', 'jpg'], ['img-trick-102', 'jpg'],
+            'img-trick-1', 'img-trick-11', 'img-trick-12', 'img-trick-13',
+            'img-trick-2', 'img-trick-21', 'img-trick-22',
+            'img-trick-3', 'img-trick-31', 'img-trick-32',
+            'img-trick-4', 'img-trick-41', 'img-trick-42',
+            'img-trick-5', 'img-trick-51', 'img-trick-52',
+            'img-trick-6', 'img-trick-61', 'img-trick-62', 'img-trick-63',
+            'img-trick-7', 'img-trick-71', 'img-trick-72',
+            'img-trick-8', 'img-trick-81', 'img-trick-82',
+            'img-trick-9', 'img-trick-91', 'img-trick-92',
+            'img-trick-10', 'img-trick-101', 'img-trick-102',
         ];
         $imagePath = '/src/AppBundle/DataFixtures/img/';
         foreach ($infoImages as $infoImage) {
             $image = new Image();
             $image->setFile(
-                new File($this->appPath.$imagePath.$infoImage[0].'.'.$infoImage[1])
+                new File($this->appPath.$imagePath.$infoImage.'.jpg')
             );
-            $image->setAlt($infoImage[0]);
-            $image->setExt($infoImage[1]);
+            $image->setAlt($infoImage);
+            $image->setExt('jpg');
             $image->setType('trick');
             $manager->persist($image);
-            $this->addReference($infoImage[0], $image);
+            $this->addReference($infoImage, $image);
         }
         $manager->flush();
     }
@@ -184,21 +186,21 @@ class AppFixtures extends AbstractFixture implements FixtureInterface, Container
             ['Mute',
                 'Pendant le saut, saisir la carre frontside de la planche entre les deux 
                 pieds avec la main avant',
-                'admin', ['img-trick-1', 'img-trick-11', 'img-trick-12', 'img-trick-13'], 'video-1',
-                'groupe1', ],
+                'utilisateur1', ['img-trick-1', 'img-trick-11', 'img-trick-12', 'img-trick-13'],
+                'video-1', 'groupe1', ],
             ['Style week',
                 'Pendant le saut, saisir la carre backside de la planche, entre les deux pieds, 
                 avec la main avant',
                 'admin', ['img-trick-2', 'img-trick-21', 'img-trick-22'], 'video-2', 'groupe1', ],
             ['Seat belt',
                 'Pendant le saut, saisir la carre frontside à l\'arrière avec la main avant ',
-                'admin', ['img-trick-3', 'img-trick-31', 'img-trick-32'], 'video-3', 'groupe1', ],
+                'utilisateur2', ['img-trick-3', 'img-trick-31', 'img-trick-32'], 'video-3', 'groupe1', ],
             ['Tail grab',
                 'Saisie de la partie arrière de la planche, avec la main arrière',
                 'admin', ['img-trick-4', 'img-trick-41', 'img-trick-42'], 'video-4', 'groupe1', ],
             ['Big foot',
                 'On réalise trois tours complets, uniquement des rotations horizontales.',
-                'admin', ['img-trick-5', 'img-trick-51', 'img-trick-52'], 'video-5', 'groupe2', ],
+                'utilisateur3', ['img-trick-5', 'img-trick-51', 'img-trick-52'], 'video-5', 'groupe2', ],
             ['Front flips',
                 'Le Front flips est une rotation verticale vers l\'avant.',
                 'admin', ['img-trick-6', 'img-trick-61', 'img-trick-62', 'img-trick-63'], 'video-6',
@@ -206,18 +208,19 @@ class AppFixtures extends AbstractFixture implements FixtureInterface, Container
             ['Corkscrew',
                 'Rotation initialement horizontale mais lancée avec un mouvement des épaules 
                 particulier qui désaxe la rotation',
-                'admin', ['img-trick-7', 'img-trick-71', 'img-trick-72'], 'video-7', 'groupe4', ],
+                'utilisateur2', ['img-trick-7', 'img-trick-71', 'img-trick-72'], 'video-7', 'groupe4', ],
             ['Nose slide',
                 'On slide avec l\'avant de la planche sur la barre',
                 'admin', ['img-trick-8', 'img-trick-81', 'img-trick-82'], 'video-8', 'groupe5', ],
             ['Backside Air',
                 'S\'il ne devait rester qu\'un trick dans le snowboard, ce serait peut être celui là. 
                 L\'occasion de commencer cette nouvelle saison des trick tips sur une bonne note ! ',
-                'admin', ['img-trick-9', 'img-trick-91', 'img-trick-92'], 'video-9', 'groupe7', ],
+                'utilisateur2', ['img-trick-9', 'img-trick-91', 'img-trick-92'], 'video-9', 'groupe7', ],
             ['Tail slide',
                 'On slide avec l\'arrière de la planche sur la barre',
                 'admin', ['img-trick-10', 'img-trick-101', 'img-trick-102'], 'video-10', 'groupe5', ],
         ];
+
         foreach ($infoTricks as $infoTrick) {
             $trick = new Trick();
             $trick->setNom($infoTrick[0]);
@@ -235,6 +238,48 @@ class AppFixtures extends AbstractFixture implements FixtureInterface, Container
             $trick->setDate(new \DateTime());
             $trick->setPublie('1');
             $manager->persist($trick);
+            $this->addReference($infoTrick[0], $trick);
+        }
+        $manager->flush();
+    }
+
+    private function loadComment(ObjectManager $manager)
+    {
+        $comments = [
+            ['utilisateur1', 'Merci, pour cet article.'],
+            ['utilisateur2', 'Super les photos!'],
+            ['utilisateur3', 'Je débute, merci pour l\'article'],
+            ['admin', 'Bonjour, il manque des informations et des photos!'],
+            ['utilisateur1', 'Merci pour ces conseils très clairs et très utiles.'],
+            ['utilisateur3', 'Bon article!'],
+            ['utilisateur2', 'En tant que débutant, je suis très content de trouver des informations 
+            sur le snow trick'],
+            ['utilisateur3', 'Je viens de me mettre au snowboard cette année, je vais essayer cette 
+            figure rapidement'],
+            ['utilisateur2', 'Cette figure est ma préféré, merci pour la vidéo'],
+            ['utilisateur1', 'Bonjour, bonne sensation, simple agréable à réaliser'],
+        ];
+        $infoComments = [
+            ['Mute', $comments],
+            ['Style week', [$comments[1], $comments[2]]],
+            ['Seat belt', [$comments[2]]],
+            ['Tail grab', [$comments[3]]],
+            ['Big foot', [$comments[4]]],
+            ['Big foot', [$comments[5]]],
+            ['Front flips', [$comments[6]]],
+            ['Corkscrew', [$comments[7]]],
+            ['Nose slide', [$comments[8]]],
+            ['Backside Air', [$comments[9]]],
+        ];
+
+        foreach ($infoComments as $infoComment) {
+            foreach ($infoComment[1] as $message) {
+                $comment = new Comment();
+                $comment->setTrick($this->getReference($infoComment[0]));
+                $comment->setMessage($message[1]);
+                $comment->setAuteur($this->getReference($message[0]));
+                $manager->persist($comment);
+            }
         }
         $manager->flush();
     }

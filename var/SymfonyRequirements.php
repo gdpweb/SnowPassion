@@ -2,7 +2,9 @@
 
 /*
  * This file is part of the Symfony package.
- * (c) Stéphane BRIERE <stephanebriere@gdpweb.fr>
+ *
+ * (c) Fabien Potencier <fabien@symfony.com>
+ *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -42,8 +44,7 @@ class Requirement
      * @param bool        $fulfilled   Whether the requirement is fulfilled
      * @param string      $testMessage The message for testing the requirement
      * @param string      $helpHtml    The help text formatted in HTML for resolving the problem
-     * @param string|null $helpText    The help text (
-     *                                 when null, it will be inferred from $helpHtml, i.e. stripped from HTML tags)
+     * @param string|null $helpText    The help text (when null, it will be inferred from $helpHtml, i.e. stripped from HTML tags)
      * @param bool        $optional    Whether this is only an optional recommendation not a mandatory requirement
      */
     public function __construct($fulfilled, $testMessage, $helpHtml, $helpText = null, $optional = false)
@@ -153,7 +154,7 @@ class PhpIniRequirement extends Requirement
                 );
             }
 
-            $fulfilled = $evaluation === $cfgValue;
+            $fulfilled = $evaluation == $cfgValue;
         }
 
         parent::__construct($fulfilled || ($approveCfgAbsence && false === $cfgValue), $testMessage, $helpHtml, $helpText, $optional);
@@ -170,7 +171,7 @@ class RequirementCollection implements IteratorAggregate
     /**
      * @var Requirement[]
      */
-    private $requirements = [];
+    private $requirements = array();
 
     /**
      * Gets the current RequirementCollection as an Iterator.
@@ -259,7 +260,7 @@ class RequirementCollection implements IteratorAggregate
      *
      * @param RequirementCollection $collection A RequirementCollection instance
      */
-    public function addCollection(self $collection)
+    public function addCollection(RequirementCollection $collection)
     {
         $this->requirements = array_merge($this->requirements, $collection->all());
     }
@@ -281,7 +282,7 @@ class RequirementCollection implements IteratorAggregate
      */
     public function getRequirements()
     {
-        $array = [];
+        $array = array();
         foreach ($this->requirements as $req) {
             if (!$req->isOptional()) {
                 $array[] = $req;
@@ -298,7 +299,7 @@ class RequirementCollection implements IteratorAggregate
      */
     public function getFailedRequirements()
     {
-        $array = [];
+        $array = array();
         foreach ($this->requirements as $req) {
             if (!$req->isFulfilled() && !$req->isOptional()) {
                 $array[] = $req;
@@ -315,7 +316,7 @@ class RequirementCollection implements IteratorAggregate
      */
     public function getRecommendations()
     {
-        $array = [];
+        $array = array();
         foreach ($this->requirements as $req) {
             if ($req->isOptional()) {
                 $array[] = $req;
@@ -332,7 +333,7 @@ class RequirementCollection implements IteratorAggregate
      */
     public function getFailedRecommendations()
     {
-        $array = [];
+        $array = array();
         foreach ($this->requirements as $req) {
             if (!$req->isFulfilled() && $req->isOptional()) {
                 $array[] = $req;
@@ -419,7 +420,7 @@ class SymfonyRequirements extends RequirementCollection
             is_dir(__DIR__.'/../vendor/composer'),
             'Vendor libraries must be installed',
             'Vendor libraries are missing. Install composer following instructions from <a href="http://getcomposer.org/">http://getcomposer.org/</a>. '.
-            'Then run "<strong>php composer.phar install</strong>" to install them.'
+                'Then run "<strong>php composer.phar install</strong>" to install them.'
         );
 
         $cacheDir = is_dir(__DIR__.'/../var/cache') ? __DIR__.'/../var/cache' : __DIR__.'/cache';
@@ -714,7 +715,8 @@ class SymfonyRequirements extends RequirementCollection
             ||
             (extension_loaded('xcache') && ini_get('xcache.cacher'))
             ||
-            (extension_loaded('wincache') && ini_get('wincache.ocenabled'));
+            (extension_loaded('wincache') && ini_get('wincache.ocenabled'))
+        ;
 
         $this->addRecommendation(
             $accelerator,
@@ -722,7 +724,7 @@ class SymfonyRequirements extends RequirementCollection
             'Install and/or enable a <strong>PHP accelerator</strong> (highly recommended).'
         );
 
-        if ('WIN' === mb_strtoupper(mb_substr(PHP_OS, 0, 3))) {
+        if ('WIN' === strtoupper(substr(PHP_OS, 0, 3))) {
             $this->addRecommendation(
                 $this->getRealpathCacheSize() >= 5 * 1024 * 1024,
                 'realpath_cache_size should be at least 5M in php.ini',
@@ -767,8 +769,8 @@ class SymfonyRequirements extends RequirementCollection
         $size = trim($size);
         $unit = '';
         if (!ctype_digit($size)) {
-            $unit = mb_strtolower(mb_substr($size, -1, 1));
-            $size = (int) mb_substr($size, 0, -1);
+            $unit = strtolower(substr($size, -1, 1));
+            $size = (int) substr($size, 0, -1);
         }
         switch ($unit) {
             case 'g':
