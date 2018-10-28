@@ -228,7 +228,6 @@ class Trick
     /**
      * Set date.
      *
-     *
      * @return trick
      */
     public function setDate(\DateTime $date)
