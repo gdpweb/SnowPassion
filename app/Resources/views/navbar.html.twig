@@ -1,0 +1,95 @@
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-link navbar-brand col-xs-5" href="#body">
+                <img src="{{ asset('assets/img/logo-small.png') }}" alt="snowpassion-logo">
+            </a>
+        </div>
+        <div class="collapse navbar-collapse" id="example-navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="{{ path('homepage') }}"><i class="fa fa-home"></i> Accueil</a>
+                </li>
+                <li>
+                    {% if app.request.get('_route') == 'homepage' %}
+                        <a class="navbar-link" href="#tricks">Tricks</a>
+                    {% else %}
+                        <a class="navbar-link" href="{{ path('homepage') }}#tricks">Tricks</a>
+                    {% endif %}
+                </li>
+                <li class="dropdown">
+                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                        {% if app.user.image is not null %}
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <img class="img-avatar"
+                                     src="{{ asset(avatar_directory_mini~app.user.image.id~'.'~app.user.image.ext) }}"
+                                     alt="{{ app.user.image.alt }}">
+                                <span class="span-avatar">{{ app.user.username }}</span>
+                            </a>
+                        {% else %}
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <img class="img-avatar"
+                                     src="{{ asset('assets/img/avatar_default.png') }}"
+                                     alt="default">
+                                <span class="span-avatar">Déconnexion</span>
+                            </a>
+                        {% endif %}
+                    {% else %}
+                        <a href="{{ path('login') }}">
+                            <img class="img-avatar"
+                                 src="{{ asset('assets/img/avatar_default.png') }}"
+                                 alt="default">
+                            <span class="span-avatar">Connexion</span>
+                        </a>
+                    {% endif %}
+                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="{{ path('logout') }}">
+                                    <span><i class="fa fa-sign-out"></i> Déconnexion</span>
+                                </a>
+                            </li>
+                        </ul>
+                    {% endif %}
+                </li>
+                {% if not is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    <li>
+                        <a href="{{ path('register') }}">Créer un compte</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="navbar-mobile col-xs-12 navbar-inverse navbar-fixed-bottom">
+    <div class="row" id="bottomNav">
+        <div class="col-xs-4 text-center">
+            <a href="{{ path('homepage') }}">
+                <i class="fa fa-home"></i>
+            </a>
+        </div>
+        <div class="col-xs-4 text-center">
+            {% if app.request.get('_route') == 'homepage' %}
+                <a class="navbar-link" href="#tricks"><i class="fa fa-bookmark"></i></a>
+            {% else %}
+                <a class="navbar-link" href="{{ path('homepage') }}#tricks"><i class="fa fa-bookmark"></i></a>
+            {% endif %}
+
+        </div>
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            <div class="col-xs-4 text-center">
+                <a href="{{ path('logout') }}">
+                    <i class="fa fa-sign-out"></i>
+                </a>
+            </div>
+        {% else %}
+            <div class="col-xs-4 text-center">
+                <a href="{{ path('login') }}">
+                    <i class="fa fa-sign-in"></i>
+                </a>
+            </div>
+        {% endif %}
+
+    </div>
+</div>

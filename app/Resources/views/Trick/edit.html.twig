@@ -1,0 +1,123 @@
+{% extends "default_trick.html.twig" %}
+
+{% block title %}
+    Edit - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <div class="col-lg-10 col-lg-offset-1">
+        <div class="corps col-xs-12">
+            <div class="intro-header header row"
+                    {% if (trick.images|first) is not empty %}
+                style="background-image:
+                        url({{ asset(trick_directory~(trick.images|first).id~'.'~(trick.images|first).ext) }})"
+            {% else %}
+                style="background-image:url({{ asset('assets/img/default-image.jpg') }}"
+                    {% endif %}>
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                {% if (trick.images|first) is not empty %}
+                    <div class="fa-button-first-img text-right">
+                    <span>
+                         <i data-href="{{ path('update_image',{'id': (trick.images|first).id}) }}"
+                            class="fa fa-pencil fa-margin update"
+                            title="Modifier l'image :{{ (trick.images|first).alt~'.'~(trick.images|first).ext }}">
+                         </i>
+
+                        <i data-href="{{ path('image_delete',{'id': trick.id,'image_id':(trick.images|first).id}) }}"
+                           class="fa fa-trash fa-margin delete"
+                           title="Supprimer l'image">
+                        </i>
+                    </span>
+                    </div>
+                {% endif %}
+                <div class="site-heading heading">
+                    <h1>{{ trick.nom }}</h1>
+                    <hr class="small">
+                </div>
+            </div>
+            {% endif %}
+            <div id="media" class="col-lg-12  hidden-sm hidden-xs">
+                {% for image in trick.images|slice(1) %}
+                    <div class="col-lg-3 media-image">
+                        <img class="img-trick" src="{{ asset(trick_directory~image.id~'.'~image.ext) }}"
+                             alt="{{ image.alt }}">
+                        <div class="fa-button">
+                        <span>
+                            <i data-href="{{ path('update_image',{'id': image.id}) }}"
+                               class="fa fa-pencil fa-margin update"
+                               title="Modifier l'image :{{ image.alt~'.'~image.ext }}">
+                            </i>
+                            <i data-href="{{ path('image_delete', {'id': trick.id,'image_id': image.id}) }}"
+                               class="fa fa-trash fa-margin delete"
+                               title="Supprimer l'image">
+                            </i>
+                        </span>
+                        </div>
+                    </div>
+                {% endfor %}
+
+                {% for video in trick.videos %}
+                    <div class="col-lg-3">
+                        <iframe class="media-video"
+                                src="{{ video.url }}"
+                                frameborder="0" allow="autoplay" encrypted-media allowfullscreen>
+                        </iframe>
+                        <div class="fa-button">
+                        <span>
+                            <i data-href="{{ path('update_video',{'id': video.id}) }}"
+                               class="fa fa-pencil fa-margin update"
+                               title="Modifier la video">
+                            </i>
+                            <i data-href="{{ path('delete_video',{'id': trick.id,'video_id': video.id}) }}"
+                               class="fa fa-trash fa-margin delete"
+                               title="Supprimer la video">
+                            </i>
+                        </span>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="visible-xs visible-sm text-center margin-top">
+                <button id="media-visible" class="btn btn-default">Voir les médias</button>
+            </div>
+            <div class="btn-media-group col-lg-12">
+                <div class="form-group">
+                    <button data-href="{{ path('add_image',{'id':trick.id}) }}"
+                            title="Ajouter une image"
+                            class="btn btn-primary add">Ajouter une image
+                    </button>
+                    <button data-href="{{ path('add_video',{'id':trick.id}) }}"
+                            title="Ajouter une vidéo"
+                            class="btn btn-success add">Ajouter une video
+                    </button>
+                </div>
+            </div>
+            <div id="form-trick" class="col-lg-8 col-lg-offset-2">
+
+                {{ form_start(form) }}
+
+                {{ form_errors(form) }}
+
+                {{ form_row(form.nom) }}
+
+                {{ form_row(form.description) }}
+
+                {{ form_row(form.groupe) }}
+
+                <div class="btn-action-group">
+                    <div class="form-group">
+                        <button type="button" class="delete btn btn-danger"
+                                data-href="{{ path('trick_delete', {'id': trick.id}) }}"
+                                title="Supprimer la figure">Supprimer
+                        </button>
+                        <button type="submit" class="btn btn-success" value="Valider">Valider</button>
+                    </div>
+
+                </div>
+                {{ form_rest(form) }}
+
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

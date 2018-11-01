@@ -1,0 +1,15 @@
+{% for comment in listComments %}
+    <div class="col-xs-2 text-center">
+        <img src="{{ asset(avatar_directory_mini~comment.auteur.image.id~'.'~comment.auteur.image.ext) }}"
+             class="img-msg">
+    </div>
+    <div class="thumbnail col-xs-10">
+        <h5 class="text-danger">
+            Commentaire posté
+            le {{ comment.date| localizeddate('none', 'none', null, null, 'd MMMM Y') }}
+            par {{ comment.auteur.username }}
+        </h5>
+        <p>{{ comment.message|nl2br }}</p>
+    </div>
+{% endfor %}
+

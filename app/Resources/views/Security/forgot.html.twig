@@ -1,0 +1,35 @@
+{% extends "default.html.twig" %}
+
+{% block title %}
+    Forgot - {{ parent() }}
+{% endblock %}
+
+
+{% block body %}
+    <div class="col-md-6 col-md-offset-3 cadre">
+
+        <h3>Mot de passe oublié ?</h3>
+        <hr>
+        <p>Remplissez le formulaire ci-dessous et nous vous enverrons par email
+        les informations pour vous créer un nouveau mot de passe</p>
+
+        {% for key, messages in app.session.flashbag.all() %}
+            {% for message in messages %}
+                <div class="alert alert-{{ key }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+        <form action="{{ path('forgot') }}" method="POST">
+            <div class="form-group text-center">
+                <label for="username">Nom d'utilisateur</label>
+                <input class="form-control" type="text" id="username" name="_username" value=""/>
+            </div>
+            <hr>
+            <div class="form-group text-center">
+                <button class="btn btn-success" type="submit">Valider</button>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}

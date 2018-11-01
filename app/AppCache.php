@@ -7,10 +7,8 @@
  * file that was distributed with this source code.
  */
 
-namespace AppBundle;
+use Symfony\Bundle\FrameworkBundle\HttpCache\HttpCache;
 
-use Symfony\Component\HttpKernel\Bundle\Bundle;
-
-class AppBundle extends Bundle
+class AppCache extends HttpCache
 {
 }

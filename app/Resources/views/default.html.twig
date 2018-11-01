@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 
 <head>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,13 +13,18 @@
     {% block stylesheets %}
         <!-- Bootstrap Core CSS -->
         <link href="{{ asset('assets/startbootstrap/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+
         <!-- Theme CSS -->
         <link href="{{ asset('assets/startbootstrap/css/clean-blog.css') }}" rel="stylesheet">
-        <!-- CSS Personnalisé -->
-        <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
+
         <!-- Custom Fonts -->
         <link href="{{ asset('assets/startbootstrap/vendor/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet"
               type="text/css">
+
+        <!--Custom style-->
+        <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet"
+              type="text/css">
+
         <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet'
               type='text/css'>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
@@ -29,48 +35,39 @@
 
 <body id="body">
 
+<!-- Navigation -->
 {{ include('navbar.html.twig') }}
 
-<header id="header" class="intro-header" style="background-image: url({{ asset('assets/img/default.jpg') }})">
+<!-- Page Header -->
+<!-- Set your background image for this header on the line below. -->
+<div id="header" class="intro-header header" style="background-image: url({{ asset('assets/img/default.jpg') }})">
 
-    <div class="site-heading">
-        <h1>SnowPassion</h1>
-        <hr class="small">
-        <span class="subheading">Website for snowstriks lovers</span>
-    </div>
-    <div class="text-right">
-        <a href="#tricks" id="back-bottom" class="page-scroll">
-            <span class="fa fa-arrow-down fa-3x"></span>
-        </a>
-    </div>
-</header>
+    <div class="container">
+        <div class="row">
+            <div class="site-heading heading">
+                <div class="container-fluid">
+                    {% block body %}
+                    {% endblock %}
 
-{% for key, messages in app.session.flashbag.all() %}
-    {% for message in messages %}
-        <div class="msg-flash">
-            <div class="alert alert-{{ key }}">
-                {{ message }}
+                </div>
+
             </div>
         </div>
-    {% endfor %}
-{% endfor %}
+    </div>
 
-{% block body %}
-{% endblock %}
+</div>
 
 {{ include('footer.html.twig') }}
 
-
 {% block javascripts %}
 
+    <!-- jQuery -->
     <script src="{{ asset('assets/startbootstrap/vendor/jquery/jquery.min.js') }}"></script>
 
+    <!-- Bootstrap Core JavaScript -->
     <script src="{{ asset("assets/startbootstrap/vendor/bootstrap/js/bootstrap.min.js") }}"></script>
 
-    <script src="{{ asset('assets/js/default.js') }}"></script>
 {% endblock %}
-
 </body>
 
 </html>
-

@@ -1,0 +1,31 @@
+{% for trick in tricks %}
+    <div class="col-lg-2 col-md-3 col-sm-4 media-box">
+        <div class="media-tricks">
+            <div class="div-image">
+                {% if trick.images|first is not empty %}
+                    <img class="media-object"
+                         src="{{ asset(trick_directory_mini~(trick.images|first).id~'.'~(trick.images|first).ext) }}"
+                         alt="{{ (trick.images|first).alt }}">
+                {% else %}
+                    <img class="media-object"
+                         src="{{ asset('assets/img/default-image-mini.jpg') }}"
+                         alt="image-default">
+                {% endif %}
+            </div>
+            <div class="media-heading">
+                <a href="{{ path('trick_view', {'slug': trick.slug}) }}">{{ trick.nom |striptags|truncate(15) }}</a>
+                <span class="pull-right">
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    <a href="{{ path('trick_edit', {'slug': trick.slug}) }}">
+                        <span class="fa fa-pencil fa-margin"></span>
+                    </a>
+                    <a class="delete" title="Supprimer la figure?"
+                       data-href="{{ path('trick_delete', {'id': trick.id}) }}">
+                            <span class="fa fa-remove fa-margin"></span>
+                        </a>
+                {% endif %}
+            </span>
+            </div>
+        </div>
+    </div>
+{% endfor %}

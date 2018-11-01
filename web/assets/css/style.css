@@ -1,0 +1,292 @@
+
+body {
+    font-size: 14px;
+}
+
+a img:hover, a img:focus {
+    cursor: pointer;
+}
+
+img {
+    width: 100%;
+}
+
+hr {
+    clear: both;
+    height: 1px;
+}
+
+.navbar-brand {
+    padding: 5px 0 5px 15px;
+}
+
+.navbar-inverse {
+    background-color: #0a6b6ac9;
+    border: none;
+
+}
+
+.navbar-inverse .navbar-brand, .navbar-inverse .navbar-nav > li > a {
+    color: #e2e2e2;
+}
+
+.div-badge, #description, #form-trick {
+    margin-top: 30px;
+}
+
+.margin-top {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.cadre {
+    box-shadow: 8px 8px 12px #aaa;
+    padding: 20px;
+    border-radius: 7px;
+    background-color: white;
+    color: black;
+}
+
+.img-avatar {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-size: cover;
+    display: inline-block;
+    position: relative;
+    top: -7px;
+}
+
+.img-trick {
+    width: 100%;
+}
+
+.media-image {
+    padding-bottom: 5px;
+    min-height: 200px
+}
+
+.media-video {
+    width: 100%;
+    padding-bottom: 5px;
+    min-height: 185px
+}
+
+.fa-button {
+    text-align: right;
+    margin-top: 5px;
+    padding: 5px 0;
+
+}
+
+.fa-arrow-down, .fa-arrow-up {
+    color: #46817f;
+}
+
+#back-top {
+    display: none;
+}
+
+.fa-button-first-img {
+    position: relative;
+    top: 15px;
+    margin-right: 40px;
+}
+
+.fa-button > span, .fa-button-first-img > span {
+    border: solid 1px #c8c8c8;
+    border-radius: 4px;
+    background-color: white;
+    font-size: 18px;
+}
+
+.corps {
+    margin-top: 100px;
+    border: solid 1px #8c8c8c;
+    margin-bottom: 30px;
+    padding-bottom: 70px;
+}
+
+.fa-margin {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.span-avatar {
+    position: relative;
+    font-size: 17px;
+    top: -6px;
+}
+
+#media-index, .btn-add-trick {
+    margin-top: 25px;
+}
+
+.btn-add-trick {
+    padding-left: 35px;
+}
+
+#media {
+    margin-top: 20px;
+}
+
+.media-box {
+    padding: 0;
+}
+
+.media-tricks {
+    border: solid 1px gray;
+    padding: 0;
+    margin: 5px;
+}
+
+.media-object {
+    width: 100%;
+
+}
+
+.div-image {
+    width: 100%;
+    overflow: hidden;
+    margin-bottom: 12px;
+
+}
+
+.btn-media-group {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.btn-action-group{
+    text-align: right;
+}
+
+.media-heading {
+    margin-bottom: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+.btn {
+    padding: 5px 15px;
+}
+
+.btn-primary, .badge {
+    background-color: #458382;
+    border-color: #086262;
+}
+
+.btn-primary:hover {
+    background-color: #086262;
+}
+
+.alert {
+    font-size: 15px !important;
+    font-weight: bold;
+}
+
+.trick {
+    position: relative;
+    padding-top: 60px;
+}
+
+#back-top {
+    position: relative;
+    right: 10px;
+    z-index: 1;
+}
+
+#back-bottom {
+    position: relative;
+    right: 15px;
+    bottom: 15px;
+}
+
+.img-msg {
+    width: 4em;
+    height: 4em;
+    border-radius: 50%;
+    background-size: cover;
+    margin-top: 1em;
+    display: block;
+    float: right;
+}
+
+.badge-lg {
+    font-size: 1em;
+    padding: 9px;
+    margin: 5px;
+}
+
+.msg-flash {
+    position: fixed;
+    top: 50px;
+    width: 100%;
+    z-index: 1031;
+}
+
+#bottomNav {
+    padding: 10px;
+}
+
+#bottomNav a {
+    font-size: 24pt;
+    color: #ddd;
+    text-decoration: none;
+}
+
+#bottomNav a:hover {
+    color: #fff;
+}
+
+@media (max-width: 768px) {
+    nav {
+        display: none;
+    }
+
+    footer {
+        margin-bottom: 65px;
+    }
+
+    button{
+        margin-bottom:10px !important;
+    }
+    .media-video {
+        min-height: 205px
+    }
+    .btn-action-group,.btn-media-group{
+        text-align: center;
+    }
+}
+
+@media (min-width: 768px) {
+    .navbar-nav > li > a {
+        height: 50px;
+        padding: 15px 15px;
+        font-size: 18px;
+        line-height: 20px;
+    }
+
+    .navbar-mobile {
+        display: none;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .intro-header .site-heading,
+    .intro-header .post-heading,
+    .intro-header .page-heading {
+        padding-bottom: 240px;
+        padding-top: 240px;
+    }
+
+    .header .heading {
+        padding-bottom: 100px;
+        padding-top: 100px;
+    }
+
+    .div-image {
+        height: 110px;
+    }
+}
+

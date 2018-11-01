@@ -1,0 +1,13 @@
+{% extends "Default.html.twig" %}
+
+{% block title %}
+    Reset - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <div class="col-md-6 col-md-offset-3 cadre">
+        <h3>Réinitialisation</h3>
+        <hr>
+        {{ form(form) }}
+    </div>
+{% endblock %}

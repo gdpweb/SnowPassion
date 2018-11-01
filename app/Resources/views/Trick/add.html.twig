@@ -1,0 +1,49 @@
+{% extends "default_trick.html.twig" %}
+
+{% block title %}
+    Add - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+
+    <div class="container trick">
+        <h2>Ajouter une nouvelle figure</h2>
+        <section id="form-trick" class="col-lg-8 col-lg-offset-2">
+            {{ form_start(form) }}
+
+            {{ form_errors(form) }}
+
+            {{ form_row(form.nom) }}
+
+            {{ form_row(form.description) }}
+
+            {{ form_row(form.groupe) }}
+
+            <div class="well">
+                {{ form_row(form.images) }}
+                <input type="button" id="add_image" class="btn btn-default" value="Ajouter une image"/>
+            </div>
+
+            <div class="well">
+                {{ form_row(form.videos) }}
+                <input type="button" id="add_video" class="btn btn-default" value="Ajouter une video"/>
+            </div>
+
+            {{ form_row(form.save) }}
+
+            {{ form_rest(form) }}
+
+            {{ form_end(form) }}
+
+        </section>
+
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script src="{{ asset('assets/js/addTrick.js') }}"></script>
+
+{% endblock %}
