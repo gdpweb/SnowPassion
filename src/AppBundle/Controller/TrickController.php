@@ -98,7 +98,7 @@ class TrickController extends Controller
     }
 
     /**
-     * @Route("/add", name="trick_add")
+     * @Route("/admin/add", name="trick_add")
      *
      * @return RedirectResponse|Response
      */
@@ -110,7 +110,7 @@ class TrickController extends Controller
     }
 
     /**
-     * @Route("/edit/{slug}", name="trick_edit")
+     * @Route("/admin/edit/{slug}", name="trick_edit")
      *
      * @return RedirectResponse|Response
      */
@@ -122,7 +122,7 @@ class TrickController extends Controller
     }
 
     /**
-     * @Route("/admin/delete/{id}", name="trick_delete")
+     * @Route("/admin/delete/{slug}", name="trick_delete")
      *
      * @return Response
      */

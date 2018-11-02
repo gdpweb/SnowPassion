@@ -20,7 +20,7 @@
                         <span class="fa fa-pencil fa-margin"></span>
                     </a>
                     <a class="delete" title="Supprimer la figure?"
-                       data-href="{{ path('trick_delete', {'id': trick.id}) }}">
+                       data-href="{{ path('trick_delete', {'slug': trick.slug}) }}">
                             <span class="fa fa-remove fa-margin"></span>
                         </a>
                 {% endif %}
