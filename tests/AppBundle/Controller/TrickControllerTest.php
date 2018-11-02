@@ -1,9 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: brieres
- * Date: 28/10/2018
- * Time: 10:01
+
+/*
+ * This file is part of the Symfony package.
+ * (c) Stéphane BRIERE <stephanebriere@gdpweb.fr>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Tests\AppBundle\Controller;
@@ -34,15 +35,15 @@ class TrickControllerTest extends WebTestCase
     public function testPageIsSuccessful($url, $expected)
     {
         $this->client->request('GET', $url);
-        $this->assertEquals($expected, $this->client->getResponse()->getStatusCode());
+        $this->assertSame($expected, $this->client->getResponse()->getStatusCode());
     }
 
     public function urlProvider()
     {
-        return array(
-            array('/', 200),
-            array('/trick/mute', 200)
-        );
+        return [
+            ['/', 200],
+            ['/trick/mute', 200],
+        ];
     }
 
     public function testEditAction()
@@ -56,13 +57,12 @@ class TrickControllerTest extends WebTestCase
     {
         $this->logIn();
         $crawler = $this->client->request('GET', '/admin/add');
-        $imagePath = __DIR__ . '/../../../src/AppBundle/DataFixtures/img/avatar-1.jpg';
+        $imagePath = __DIR__.'/../../../src/AppBundle/DataFixtures/img/avatar-1.jpg';
         $photo = new UploadedFile($imagePath,
             'photo.jpg',
             'image/jpeg',
             null
         );
-
 
         $form = $crawler->selectButton('Valider')->form();
         $values = $form->getPhpValues();
@@ -95,7 +95,7 @@ class TrickControllerTest extends WebTestCase
         /** @var User $user */
         $user = $userManager->findOneBy(['email' => 'admin@gdpweb.fr']);
         $token = new UsernamePasswordToken($user, $user->getPassword(), $firewall, $user->getRoles());
-        $session->set('_security_' . $firewall, serialize($token));
+        $session->set('_security_'.$firewall, serialize($token));
         $session->save();
 
         $cookie = new Cookie($session->getName(), $session->getId());

@@ -1,13 +1,13 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: brieres
- * Date: 01/11/2018
- * Time: 18:37
+
+/*
+ * This file is part of the Symfony package.
+ * (c) Stéphane BRIERE <stephanebriere@gdpweb.fr>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Tests\AppBundle\Controller;
-
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -29,14 +29,14 @@ class SecurityControllerTest extends WebTestCase
     public function testPageIsSuccessful($url, $expected)
     {
         $this->client->request('GET', $url);
-        $this->assertEquals($expected, $this->client->getResponse()->getStatusCode());
+        $this->assertSame($expected, $this->client->getResponse()->getStatusCode());
     }
 
     public function urlProvider()
     {
-        return array(
-            array('/login', 200),
-            array('/forgot', 200)
-        );
+        return [
+            ['/login', 200],
+            ['/forgot', 200],
+        ];
     }
 }
