@@ -78,11 +78,8 @@ class SecurityController extends Controller
 
     /**
      * @Route("/connexion/logout", name="logout")
-     *
-     * @throws \Exception
      */
     public function logoutAction()
     {
-        throw new \Exception('Action impossible!');
     }
 }

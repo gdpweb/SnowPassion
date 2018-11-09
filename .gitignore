@@ -7,6 +7,6 @@
 .idea/
 .idea
 phpunit.xml.dist
-/web/test-coverage/*
+/web/tests/*
 /bin/
 composer.lock

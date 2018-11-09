@@ -82,13 +82,13 @@ class TrickController extends Controller
     }
 
     /**
-     * @Route("/comments/{id}/page/{page}")
+     * @Route("/comments/{slug}/page/{page}", name="trick_list_comments")
      *
      * @param $page
      *
      * @return Response
      */
-    public function commentsAction(CommentManager $commentManager, Trick $trick, $page)
+    public function listCommentsAction(CommentManager $commentManager, Trick $trick, $page)
     {
         $listComments = $commentManager->getComments($trick, $page);
 
@@ -134,7 +134,7 @@ class TrickController extends Controller
     }
 
     /**
-     * @Route("/admin/add_image/{id}", name="add_image")
+     * @Route("/admin/add_image/{slug}", name="add_image")
      *
      * @return Response
      */
@@ -159,7 +159,7 @@ class TrickController extends Controller
     }
 
     /**
-     * @Route("/admin/trick/{id}/delete_image/{image_id}", name="image_delete")
+     * @Route("/admin/trick/{slug}/delete_image/{image_id}", name="image_delete")
      * @ParamConverter(
      *     "image", class="AppBundle:Image",
      *     options={"id" = "image_id"}
@@ -176,7 +176,7 @@ class TrickController extends Controller
     }
 
     /**
-     * @Route("/admin/add_video/{id}", name="add_video")
+     * @Route("/admin/add_video/{slug}", name="add_video")
      *
      * @return Response
      */
@@ -201,7 +201,7 @@ class TrickController extends Controller
     }
 
     /**
-     * @Route("/admin/trick/{id}/delete_video/{video_id}", name="delete_video")
+     * @Route("/admin/trick/{slug}/delete_video/{video_id}", name="delete_video")
      * @ParamConverter(
      *     "video", class="AppBundle:Video", options={"id" = "video_id"})
      *

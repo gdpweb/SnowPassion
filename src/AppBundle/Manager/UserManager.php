@@ -44,8 +44,6 @@ class UserManager
      * @param $token
      *
      * @throws \Doctrine\ORM\NonUniqueResultException
-     *
-     * @return mixed
      */
     public function tokenValid($token)
     {

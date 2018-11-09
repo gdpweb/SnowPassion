@@ -39,4 +39,34 @@ class SecurityControllerTest extends WebTestCase
             ['/forgot', 200],
         ];
     }
+
+    public function testLoginAction()
+    {
+        $crawler = $this->client->request('GET', '/login');
+        $form = $crawler->selectButton('Valider')->form();
+        $form['_username'] = 'admin56';
+        $form['_password'] = 'admin56';
+        $this->client->submit($form);
+        $this->assertTrue($this->client->getResponse()->isRedirection());
+    }
+
+    public function testForgotAction()
+    {
+        $crawler = $this->client->request('GET', '/forgot');
+        $form = $crawler->selectButton('Valider')->form();
+
+        $form['_username'] = 'admin56';
+        $this->client->submit($form);
+        $this->assertTrue($this->client->getResponse()->isRedirect('/'));
+
+        $form['_username'] = 'notexist';
+        $this->client->submit($form);
+        $this->assertTrue($this->client->getResponse()->isRedirect('/forgot'));
+    }
+
+    public function testLogoutAction()
+    {
+        $this->client->request('GET', '/connexion/logout');
+        $this->assertTrue($this->client->getResponse()->isRedirect('http://localhost/'));
+    }
 }

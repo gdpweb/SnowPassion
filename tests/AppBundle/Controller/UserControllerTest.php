@@ -9,9 +9,10 @@
 
 namespace Tests\AppBundle\Controller;
 
+use AppBundle\Entity\User;
+use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\HttpFoundation\Response;
 
 class UserControllerTest extends WebTestCase
 {
@@ -19,10 +20,21 @@ class UserControllerTest extends WebTestCase
      * @var \Symfony\Bundle\FrameworkBundle\Client
      */
     private $client = null;
+    /**
+     * @var EntityManager
+     */
+    private $em;
+    private $newUser;
+    /**
+     * @var User
+     */
+    protected $user;
 
     public function setUp()
     {
         $this->client = static::createClient();
+        $this->em = $this->client->getContainer()->get('doctrine.orm.entity_manager');
+        $this->newUser = uniqid();
     }
 
     /**
@@ -43,25 +55,43 @@ class UserControllerTest extends WebTestCase
         ];
     }
 
-    public function testRegisterAction()
+    public function testRegisterValidateAction()
     {
-        $this->client->followRedirects();
         $crawler = $this->client->request('GET', '/register');
-        $imagePath = __DIR__.'/../../../src/AppBundle/DataFixtures/img/avatar-1.jpg';
-        $photo = new UploadedFile($imagePath,
-            'photo.jpg',
+        $srcFile = __DIR__.'/../../../src/AppBundle/DataFixtures/img/avatar-1.jpg';
+
+        $photo = new UploadedFile($srcFile,
+            'avatar-1.jpg',
             'image/jpeg',
             null
         );
 
         $form = $crawler->selectButton('Valider')->form();
-        $nbAlea = rand(1, 99999);
-        $form['appbundle_user[username]'] = 'User '.$nbAlea;
-        $form['appbundle_user[password]'] = 'motdepasse';
-        $form['appbundle_user[email]'] = 'mail'.$nbAlea.'@gdpweb.fr';
+        $form['appbundle_user[username]'] = $this->newUser;
+        $form['appbundle_user[password]'] = $this->newUser;
+        $form['appbundle_user[email]'] = $this->newUser.'@gdpweb.fr';
         $form['appbundle_user[image][file]'] = $photo;
         $this->client->submit($form);
-        // echo $this->client->getResponse();
-        $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
+        $userManager = $this->em->getRepository('AppBundle:User');
+
+        $this->user = $userManager->findOneBy(['username' => $this->newUser]);
+        $this->assertTrue($this->client->getResponse()->isRedirect('/'));
+        $tokenUser = $this->user->getToken();
+        $this->client->request('GET', '/validate/'.$tokenUser);
+        $this->assertTrue($this->client->getResponse()->isRedirect());
+    }
+
+    public function testResetAction()
+    {
+        $userManager = $this->em->getRepository('AppBundle:User');
+        /** @var User $user */
+        $user = $userManager->findOneBy(['username' => 'admin56']);
+        $tokenUser = $user->getToken();
+        $crawler = $this->client->request('GET', '/reset/'.$tokenUser);
+        $form = $crawler->selectButton('Réinitialiser')->form();
+        $form['appbundle_user[email]'] = 'admin56@gdpweb.fr';
+        $form['appbundle_user[password]'] = 'admin56';
+        $this->client->submit($form);
+        $this->assertTrue($this->client->getResponse()->isRedirect('/'));
     }
 }
