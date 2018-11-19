@@ -14,22 +14,16 @@ use AppBundle\Manager\UserManager;
 use AppBundle\Service\SPMailer;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Container\ContainerInterface;
-use Symfony\Bundle\FrameworkBundle\Tests\TestCase;
-use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use Symfony\Component\Validator\Constraints\DateTime;
 
 class UserManagerTest extends KernelTestCase
 {
-
     private $em;
 
     private $container;
 
     private $encoderFactory;
-    /**
-     * @var SPMailer $mailer
-     */
+
     private $mailer;
 
     private $user;
@@ -55,7 +49,7 @@ class UserManagerTest extends KernelTestCase
     public function testCreateToken()
     {
         $this->userManager->activeAccount($this->user);
-        $this->assertEquals(null, $this->user->getToken());
+        $this->assertNull($this->user->getToken());
     }
 
     public function testResetMail()
@@ -63,5 +57,4 @@ class UserManagerTest extends KernelTestCase
         $result = $this->userManager->resetMail($this->user);
         $this->assertTrue($result instanceof User);
     }
-
 }

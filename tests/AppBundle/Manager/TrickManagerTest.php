@@ -37,7 +37,6 @@ class TrickManagerTest extends KernelTestCase
      */
     private $trickManagerMock;
 
-
     /**
      * {@inheritdoc}
      */
@@ -57,19 +56,19 @@ class TrickManagerTest extends KernelTestCase
     public function testGetAll()
     {
         $tricks = $this->trickManager->getAll();
-        $this->assertTrue(\count($tricks) == 10);
+        $this->assertTrue(10 === \count($tricks));
     }
 
     public function testGetListTricks()
     {
         $tricks = $this->trickManager->getListTricks();
-        $this->assertTrue(\count($tricks) == 10);
+        $this->assertTrue(10 === \count($tricks));
     }
 
     public function testCountTricks()
     {
         $tricks = $this->trickManager->countTricks();
-        $this->assertTrue($tricks == 10);
+        $this->assertTrue(10 === $tricks);
     }
 
     public function testSaveTrick()
@@ -78,26 +77,23 @@ class TrickManagerTest extends KernelTestCase
         $user->method('getUsername')->willReturn('admin56');
         $trick = new Trick();
         $this->trickManagerMock->saveTrick($trick, $user);
-        $this->assertEquals('admin56', $trick->getAuteur()->getUsername());
-
+        $this->assertSame('admin56', $trick->getAuteur()->getUsername());
     }
 
     public function testAddImage()
     {
-
         $image = $this->createMock(Image::class);
         $trick = new Trick();
         $this->trickManagerMock->addImage($trick, $image);
-        $this->assertEquals($image, $trick->getImages()->first());
+        $this->assertSame($image, $trick->getImages()->first());
     }
 
     public function testAddVideo()
     {
-
         $video = $this->createMock(Video::class);
         $trick = new Trick();
         $this->trickManagerMock->addVideo($trick, $video);
-        $this->assertEquals($video, $trick->getVideos()->first());
+        $this->assertSame($video, $trick->getVideos()->first());
     }
 
     /**

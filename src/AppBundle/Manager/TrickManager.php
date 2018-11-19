@@ -41,7 +41,6 @@ class TrickManager
     }
 
     /**
-     * @return mixed
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function countTricks()
@@ -60,8 +59,6 @@ class TrickManager
             $this->em->persist($trick);
         }
         $this->em->flush();
-
-
     }
 
     public function deleteTrick(Trick $trick)

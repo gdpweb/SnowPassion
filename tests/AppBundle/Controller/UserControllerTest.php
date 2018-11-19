@@ -9,12 +9,9 @@
 
 namespace Tests\AppBundle\Controller;
 
-use AppBundle\Controller\UserController;
 use AppBundle\Entity\User;
-use AppBundle\Manager\UserManager;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\BrowserKit\Request;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class UserControllerTest extends WebTestCase
@@ -92,6 +89,5 @@ class UserControllerTest extends WebTestCase
         $tokenUser = $user->getToken();
         $this->client->request('GET', '/reset/'.$tokenUser);
         $this->assertTrue($this->client->getResponse()->isRedirect('/'));
-
     }
 }
