@@ -9,11 +9,9 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\User;
 use AppBundle\Form\UserRegisterType;
 use AppBundle\Form\UserResetType;
 use AppBundle\Manager\UserManager;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -82,11 +80,14 @@ class UserController extends Controller
     /**
      * @Route("/validate/{token}", name="validate_account")
      *
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     * @Entity("User", expr="repository.tokenIsValid(token)")
      */
-    public function validateAccountAction(UserManager $userManager, User $user)
+    public function validateAccountAction(UserManager $userManager, $token)
     {
+        $user = $userManager->tokenValid($token);
+
         if (null !== $user) {
             $userManager->activeAccount($user);
             $this->addFlash('info', 'Votre compte est activé.');
@@ -97,6 +98,8 @@ class UserController extends Controller
                 'Désolé, Ce lien a expiré, votre 
                 compte n\'a pu être activé'
             );
+
+            return $this->redirectToRoute('homepage');
         }
 
         return $this->redirectToRoute('homepage');

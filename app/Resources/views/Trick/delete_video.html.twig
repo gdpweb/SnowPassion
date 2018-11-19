@@ -2,7 +2,7 @@
     <p>
         Etes-vous certain de vouloir supprimer la video ?
     </p>
-    <form action="{{ path('delete_video', {'id':trick.id,'video_id': video.id}) }}" method="post">
+    <form action="{{ path('delete_video', {'slug':trick.slug,'video_id': video.id}) }}" method="post">
         <div class="form-group text-center">
             <a href="#" data-dismiss="modal" class="btn btn-default">
                 <i class="glyphicon glyphicon-chevron-left"></i>

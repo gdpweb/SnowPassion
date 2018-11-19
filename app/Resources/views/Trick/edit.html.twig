@@ -23,7 +23,7 @@
                             title="Modifier l'image :{{ (trick.images|first).alt~'.'~(trick.images|first).ext }}">
                          </i>
 
-                        <i data-href="{{ path('image_delete',{'id': trick.id,'image_id':(trick.images|first).id}) }}"
+                        <i data-href="{{ path('image_delete',{'slug': trick.slug,'image_id':(trick.images|first).id}) }}"
                            class="fa fa-trash fa-margin delete"
                            title="Supprimer l'image">
                         </i>
@@ -47,7 +47,7 @@
                                class="fa fa-pencil fa-margin update"
                                title="Modifier l'image :{{ image.alt~'.'~image.ext }}">
                             </i>
-                            <i data-href="{{ path('image_delete', {'id': trick.id,'image_id': image.id}) }}"
+                            <i data-href="{{ path('image_delete', {'slug': trick.slug,'image_id': image.id}) }}"
                                class="fa fa-trash fa-margin delete"
                                title="Supprimer l'image">
                             </i>
@@ -68,7 +68,7 @@
                                class="fa fa-pencil fa-margin update"
                                title="Modifier la video">
                             </i>
-                            <i data-href="{{ path('delete_video',{'id': trick.id,'video_id': video.id}) }}"
+                            <i data-href="{{ path('delete_video',{'slug': trick.slug,'video_id': video.id}) }}"
                                class="fa fa-trash fa-margin delete"
                                title="Supprimer la video">
                             </i>
@@ -82,11 +82,11 @@
             </div>
             <div class="btn-media-group col-lg-12">
                 <div class="form-group">
-                    <button data-href="{{ path('add_image',{'id':trick.id}) }}"
+                    <button data-href="{{ path('add_image',{'slug':trick.slug}) }}"
                             title="Ajouter une image"
                             class="btn btn-primary add">Ajouter une image
                     </button>
-                    <button data-href="{{ path('add_video',{'id':trick.id}) }}"
+                    <button data-href="{{ path('add_video',{'slug':trick.slug}) }}"
                             title="Ajouter une vidéo"
                             class="btn btn-success add">Ajouter une video
                     </button>
@@ -107,7 +107,7 @@
                 <div class="btn-action-group">
                     <div class="form-group">
                         <button type="button" class="delete btn btn-danger"
-                                data-href="{{ path('trick_delete', {'id': trick.id}) }}"
+                                data-href="{{ path('trick_delete', {'slug': trick.slug}) }}"
                                 title="Supprimer la figure">Supprimer
                         </button>
                         <button type="submit" class="btn btn-success" value="Valider">Valider</button>

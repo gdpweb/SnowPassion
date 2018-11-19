@@ -63,7 +63,7 @@ class AppFixtures extends AbstractFixture implements FixtureInterface, Container
     private function loadImageAvatar(ObjectManager $manager)
     {
         $infoImages = [
-            ['avatar-1', 'admin'],
+            ['avatar-1', 'admin56'],
             ['avatar-2', 'utilisateur1'],
             ['avatar-3', 'utilisateur2'],
             ['avatar-4', 'utilisateur3'],
@@ -86,7 +86,7 @@ class AppFixtures extends AbstractFixture implements FixtureInterface, Container
     private function loadUsers(ObjectManager $manager)
     {
         $infoUsers = [
-            ['admin', ['ROLE_ADMIN'], 'admin@gdpweb.fr', 'avatar-1'],
+            ['admin56', ['ROLE_ADMIN'], 'admin56@gdpweb.fr', 'avatar-1'],
             ['utilisateur1', ['ROLE_USER'], 'utilisateur2@gdpweb.fr', 'avatar-2'],
             ['utilisateur2', ['ROLE_USER'], 'utilisateur3@gdpweb.fr', 'avatar-3'],
             ['utilisateur3', ['ROLE_USER'], 'utilisateur4@gdpweb.fr', 'avatar-4'],
@@ -191,19 +191,19 @@ class AppFixtures extends AbstractFixture implements FixtureInterface, Container
             ['Style week',
                 'Pendant le saut, saisir la carre backside de la planche, entre les deux pieds, 
                 avec la main avant',
-                'admin', ['img-trick-2', 'img-trick-21', 'img-trick-22'], 'video-2', 'groupe1', ],
+                'admin56', ['img-trick-2', 'img-trick-21', 'img-trick-22'], 'video-2', 'groupe1', ],
             ['Seat belt',
                 'Pendant le saut, saisir la carre frontside à l\'arrière avec la main avant ',
                 'utilisateur2', ['img-trick-3', 'img-trick-31', 'img-trick-32'], 'video-3', 'groupe1', ],
             ['Tail grab',
                 'Saisie de la partie arrière de la planche, avec la main arrière',
-                'admin', ['img-trick-4', 'img-trick-41', 'img-trick-42'], 'video-4', 'groupe1', ],
+                'admin56', ['img-trick-4', 'img-trick-41', 'img-trick-42'], 'video-4', 'groupe1', ],
             ['Big foot',
                 'On réalise trois tours complets, uniquement des rotations horizontales.',
                 'utilisateur3', ['img-trick-5', 'img-trick-51', 'img-trick-52'], 'video-5', 'groupe2', ],
             ['Front flips',
                 'Le Front flips est une rotation verticale vers l\'avant.',
-                'admin', ['img-trick-6', 'img-trick-61', 'img-trick-62', 'img-trick-63'], 'video-6',
+                'admin56', ['img-trick-6', 'img-trick-61', 'img-trick-62', 'img-trick-63'], 'video-6',
                 'groupe3', ],
             ['Corkscrew',
                 'Rotation initialement horizontale mais lancée avec un mouvement des épaules 
@@ -211,14 +211,14 @@ class AppFixtures extends AbstractFixture implements FixtureInterface, Container
                 'utilisateur2', ['img-trick-7', 'img-trick-71', 'img-trick-72'], 'video-7', 'groupe4', ],
             ['Nose slide',
                 'On slide avec l\'avant de la planche sur la barre',
-                'admin', ['img-trick-8', 'img-trick-81', 'img-trick-82'], 'video-8', 'groupe5', ],
+                'admin56', ['img-trick-8', 'img-trick-81', 'img-trick-82'], 'video-8', 'groupe5', ],
             ['Backside Air',
                 'S\'il ne devait rester qu\'un trick dans le snowboard, ce serait peut être celui là. 
                 L\'occasion de commencer cette nouvelle saison des trick tips sur une bonne note ! ',
                 'utilisateur2', ['img-trick-9', 'img-trick-91', 'img-trick-92'], 'video-9', 'groupe7', ],
             ['Tail slide',
                 'On slide avec l\'arrière de la planche sur la barre',
-                'admin', ['img-trick-10', 'img-trick-101', 'img-trick-102'], 'video-10', 'groupe5', ],
+                'admin56', ['img-trick-10', 'img-trick-101', 'img-trick-102'], 'video-10', 'groupe5', ],
         ];
 
         foreach ($infoTricks as $infoTrick) {
@@ -249,7 +249,7 @@ class AppFixtures extends AbstractFixture implements FixtureInterface, Container
             ['utilisateur1', 'Merci, pour cet article.'],
             ['utilisateur2', 'Super les photos!'],
             ['utilisateur3', 'Je débute, merci pour l\'article'],
-            ['admin', 'Bonjour, il manque des informations et des photos!'],
+            ['admin56', 'Bonjour, il manque des informations et des photos!'],
             ['utilisateur1', 'Merci pour ces conseils très clairs et très utiles.'],
             ['utilisateur3', 'Bon article!'],
             ['utilisateur2', 'En tant que débutant, je suis très content de trouver des informations 

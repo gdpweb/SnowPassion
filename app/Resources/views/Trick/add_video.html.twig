@@ -1,5 +1,5 @@
 {% block body %}
-    <form id="form" action="{{ path('add_video', {'id':trick.id}) }}" method="post" enctype="multipart/form-data">
+    <form id="form" action="{{ path('add_video', {'slug':trick.slug}) }}" method="post" enctype="multipart/form-data">
         <div id="form-container">
             {{ form_row(form.url) }}
             {{ form_rest(form) }}

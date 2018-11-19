@@ -47,7 +47,7 @@ class VideoDeleteHandler
         $this->handler->setFlash('success', 'La video a été supprimée');
 
         return $this->handler->redirect('trick_edit', [
-            'id' => $this->trick->getId(),
+            'slug' => $this->trick->getSlug(),
         ]);
     }
 

@@ -26,6 +26,9 @@ class UserManager
      */
     private $em;
     private $container;
+    /**
+     * @var EncoderFactoryInterface
+     */
     private $encoderFactory;
 
     public function __construct(
@@ -37,15 +40,13 @@ class UserManager
         $this->mailer = $mailer;
         $this->em = $em;
         $this->container = $container;
-        $this->encoderFactory = $encoderFactory;
+        $this->setEncoderFactory($encoderFactory);
     }
 
     /**
      * @param $token
      *
      * @throws \Doctrine\ORM\NonUniqueResultException
-     *
-     * @return mixed
      */
     public function tokenValid($token)
     {
@@ -70,6 +71,8 @@ class UserManager
         $this->em->persist($user);
         $this->em->flush();
         $this->mailer->resetUserMailer($user);
+
+        return $user;
     }
 
     private function createToken(User $user)

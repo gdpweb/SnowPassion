@@ -13,7 +13,6 @@ use AppBundle\Entity\Image;
 use AppBundle\Entity\Trick;
 use AppBundle\Entity\Video;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\NonUniqueResultException;
 
 class TrickManager
 {
@@ -41,12 +40,12 @@ class TrickManager
             ->getListTricks(Trick::NB_TRICKS_PAGE);
     }
 
+    /**
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
     public function countTricks()
     {
-        try {
-            return $this->em->getRepository('AppBundle:Trick')->countTricksMax();
-        } catch (NonUniqueResultException $e) {
-        }
+        return $this->em->getRepository('AppBundle:Trick')->countTricksMax();
     }
 
     public function saveTrick(Trick $trick, $user = null)

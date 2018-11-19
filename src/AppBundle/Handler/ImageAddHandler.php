@@ -43,7 +43,7 @@ class ImageAddHandler
         $this->handler->setFlash('success', 'L\'image a été ajoutée');
 
         return $this->handler->redirect('trick_edit', [
-            'id' => $this->trick->getId(),
+            'slug' => $this->trick->getSlug(),
         ]);
     }
 

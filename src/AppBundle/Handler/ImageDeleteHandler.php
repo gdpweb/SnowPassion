@@ -41,7 +41,7 @@ class ImageDeleteHandler
         $this->handler->setFlash('success', 'L\'image a été supprimée');
 
         return $this->handler->redirect('trick_edit', [
-            'id' => $this->trick->getId(),
+            'slug' => $this->trick->getSlug(),
         ]);
     }
 

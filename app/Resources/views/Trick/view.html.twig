@@ -22,7 +22,7 @@
                     <a href="{{ path('trick_edit',{'slug': trick.slug}) }}">
                      <i class="fa fa-pencil fa-margin"></i>
                     </a>
-                    <i data-href="{{ path('trick_delete',{'id': trick.id}) }}"
+                    <i data-href="{{ path('trick_delete',{'slug': trick.slug}) }}"
                        class="fa fa-trash fa-margin delete"
                        title="Supprimer la figure">
                     </i>
@@ -106,7 +106,7 @@
                                 {% if nbPages > 1 %}
                                     <li{% if p == 1 %} class="active" {% endif %}>
                                         <a class="btn-comments"
-                                           data-href="{{ path("app_trick_comments",{'id':trick.id,'page': p}) }}">{{ p }}</a>
+                                           data-href="{{ path("trick_list_comments",{'slug':trick.slug,'page': p}) }}">{{ p }}</a>
                                     </li>
                                 {% endif %}
                             {% endfor %}

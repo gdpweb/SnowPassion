@@ -15,6 +15,7 @@ security:
 
     main:
       pattern: ^/
+      user_checker: AppBundle\Security\UserChecker
       anonymous: true
       form_login:
         login_path: login

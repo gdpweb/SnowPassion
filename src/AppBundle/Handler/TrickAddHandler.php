@@ -9,6 +9,8 @@
 
 namespace AppBundle\Handler;
 
+use AppBundle\Entity\Image;
+use AppBundle\Entity\Trick;
 use AppBundle\Manager\TrickManager;
 use AppBundle\Service\SPHandler;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -63,7 +65,9 @@ class TrickAddHandler
      */
     public function handle($formType)
     {
-        if ($this->handler->isSubmitted($formType)) {
+        $trick = new Trick();
+        $trick->addImage(new Image());
+        if ($this->handler->isSubmitted($formType, $trick)) {
             return $this->onSuccess();
         }
 
