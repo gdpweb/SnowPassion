@@ -9,7 +9,12 @@
 
 namespace Tests\AppBundle\Manager;
 
+use AppBundle\Entity\Image;
+use AppBundle\Entity\Trick;
+use AppBundle\Entity\User;
+use AppBundle\Entity\Video;
 use AppBundle\Manager\TrickManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class TrickManagerTest extends KernelTestCase
@@ -19,9 +24,19 @@ class TrickManagerTest extends KernelTestCase
      */
     private $em;
     /**
+     * @var \Doctrine\ORM\EntityManager
+     */
+    private $emMock;
+
+    /**
      * @var TrickManager
      */
     private $trickManager;
+    /**
+     * @var TrickManager
+     */
+    private $trickManagerMock;
+
 
     /**
      * {@inheritdoc}
@@ -34,24 +49,55 @@ class TrickManagerTest extends KernelTestCase
             ->get('doctrine')
             ->getManager();
         $this->trickManager = new TrickManager($this->em);
+
+        $this->emMock = $this->createMock(EntityManagerInterface::class);
+        $this->trickManagerMock = new TrickManager($this->emMock);
     }
 
     public function testGetAll()
     {
         $tricks = $this->trickManager->getAll();
-        $this->assertTrue(\count($tricks) >= 1);
+        $this->assertTrue(\count($tricks) == 10);
     }
 
     public function testGetListTricks()
     {
         $tricks = $this->trickManager->getListTricks();
-        $this->assertTrue(\count($tricks) >= 1);
+        $this->assertTrue(\count($tricks) == 10);
     }
 
     public function testCountTricks()
     {
         $tricks = $this->trickManager->countTricks();
-        $this->assertTrue($tricks >= 1);
+        $this->assertTrue($tricks == 10);
+    }
+
+    public function testSaveTrick()
+    {
+        $user = $this->createMock(User::class);
+        $user->method('getUsername')->willReturn('admin56');
+        $trick = new Trick();
+        $this->trickManagerMock->saveTrick($trick, $user);
+        $this->assertEquals('admin56', $trick->getAuteur()->getUsername());
+
+    }
+
+    public function testAddImage()
+    {
+
+        $image = $this->createMock(Image::class);
+        $trick = new Trick();
+        $this->trickManagerMock->addImage($trick, $image);
+        $this->assertEquals($image, $trick->getImages()->first());
+    }
+
+    public function testAddVideo()
+    {
+
+        $video = $this->createMock(Video::class);
+        $trick = new Trick();
+        $this->trickManagerMock->addVideo($trick, $video);
+        $this->assertEquals($video, $trick->getVideos()->first());
     }
 
     /**
@@ -62,6 +108,6 @@ class TrickManagerTest extends KernelTestCase
         parent::tearDown();
 
         $this->em->close();
-        $this->em = null; // avoid memory leaks
+        $this->em = null;
     }
 }

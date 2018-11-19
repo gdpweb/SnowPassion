@@ -9,9 +9,12 @@
 
 namespace Tests\AppBundle\Controller;
 
+use AppBundle\Controller\UserController;
 use AppBundle\Entity\User;
+use AppBundle\Manager\UserManager;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\BrowserKit\Request;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class UserControllerTest extends WebTestCase
@@ -87,11 +90,8 @@ class UserControllerTest extends WebTestCase
         /** @var User $user */
         $user = $userManager->findOneBy(['username' => 'admin56']);
         $tokenUser = $user->getToken();
-        $crawler = $this->client->request('GET', '/reset/'.$tokenUser);
-        $form = $crawler->selectButton('Réinitialiser')->form();
-        $form['appbundle_user[email]'] = 'admin56@gdpweb.fr';
-        $form['appbundle_user[password]'] = 'admin56';
-        $this->client->submit($form);
+        $this->client->request('GET', '/reset/'.$tokenUser);
         $this->assertTrue($this->client->getResponse()->isRedirect('/'));
+
     }
 }

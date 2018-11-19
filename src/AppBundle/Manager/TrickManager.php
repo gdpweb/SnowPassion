@@ -40,6 +40,10 @@ class TrickManager
             ->getListTricks(Trick::NB_TRICKS_PAGE);
     }
 
+    /**
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
     public function countTricks()
     {
         return $this->em->getRepository('AppBundle:Trick')->countTricksMax();
@@ -56,6 +60,8 @@ class TrickManager
             $this->em->persist($trick);
         }
         $this->em->flush();
+
+
     }
 
     public function deleteTrick(Trick $trick)
