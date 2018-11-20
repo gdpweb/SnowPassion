@@ -26,7 +26,7 @@ SnowPassion is a collaborative website to introduce snowboarding to the general 
 - Create tests database: bin/console doctrine:schema:create --env=test
 - Update database: bin/console doctrine:schema:update --force --env=test
 - Load tests data fixtures: bin/console doctrine:fixtures:load --env=test
-- Run units and functionals tests: bin/simple-phpunit
+- Run units and functionals tests: vendor/bin/simple-phpunit
 
 ## Licence
 
