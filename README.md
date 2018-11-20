@@ -1,7 +1,7 @@
 # SnowPassion
 <img src="http://snowpassion.gdpweb.fr/assets/img/logo-small.png"  width="100" />
 
-This project has been realized as part of project 6** Openclassroom** training.
+This project has been realized as part of project 6 **Openclassroom** training.
 
 SnowPassion is a collaborative website to introduce snowboarding to the general public and help them learn tricks.
 - Compatible with all major browsers
