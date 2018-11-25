@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block body %}
+
     <div class="col-lg-10 col-lg-offset-1">
         <div class="corps col-xs-12">
             <div class="intro-header header row"
@@ -36,11 +37,13 @@
                 </div>
             </div>
             {% endif %}
-            <div id="media" class="col-lg-12  hidden-sm hidden-xs">
+            <section id="media" class="col-xs-12 hidden-sm hidden-xs">
                 {% for image in trick.images|slice(1) %}
-                    <div class="col-lg-3 media-image">
-                        <img class="img-trick" src="{{ asset(trick_directory~image.id~'.'~image.ext) }}"
-                             alt="{{ image.alt }}">
+                    <div class="col-lg-2 col-md-3 media-image">
+                        <a href="{{ asset(trick_directory~image.id~'.'~image.ext) }}" target="_blank">
+                            <img class="img-trick" src="{{ asset(trick_directory_mini~image.id~'.'~image.ext) }}"
+                                 alt="{{ image.alt }}">
+                        </a>
                         <div class="fa-button">
                         <span>
                             <i data-href="{{ path('update_image',{'id': image.id}) }}"
@@ -57,11 +60,15 @@
                 {% endfor %}
 
                 {% for video in trick.videos %}
-                    <div class="col-lg-3">
-                        <iframe class="media-video"
-                                src="{{ video.url }}"
-                                frameborder="0" allow="autoplay" encrypted-media allowfullscreen>
-                        </iframe>
+                    <div class="col-lg-2 col-md-3">
+                        <a href="{{ video.url }}?rel=0" target="_blank">
+                            <div class="embed-responsive embed-responsive-4by3">
+                                <embed class="embed-responsive-item"
+                                       src="{{ video.url }}">
+                            </div>
+                            <div class="overlay"></div>
+                        </a>
+
                         <div class="fa-button">
                         <span>
                             <i data-href="{{ path('update_video',{'id': video.id}) }}"
@@ -76,7 +83,7 @@
                         </div>
                     </div>
                 {% endfor %}
-            </div>
+            </section>
             <div class="visible-xs visible-sm text-center margin-top">
                 <button id="media-visible" class="btn btn-default">Voir les médias</button>
             </div>

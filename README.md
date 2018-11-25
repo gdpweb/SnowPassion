@@ -14,7 +14,6 @@ SnowPassion is a collaborative website to introduce snowboarding to the general 
 
 ## Installation
 - Clone the master branch
-- Rename app/config/parameters.yml.dist to parameters.yml and customize the configuration and the settings for the database connection.
 - Install dependencies with: composer install
 - Create database: bin/console doctrine:database:create
 - Update database: bin/console doctrine:schema:update --force
@@ -27,6 +26,9 @@ SnowPassion is a collaborative website to introduce snowboarding to the general 
 - Update database: bin/console doctrine:schema:update --env=test
 - Load tests data fixtures: bin/console doctrine:fixtures:load --env=test
 - Run units and functionals tests: vendor/bin/simple-phpunit
+
+## Theme
+This project use Start Bootstrap theme: https://startbootstrap.com/template-overviews/clean-blog/
 
 ## Licence
 

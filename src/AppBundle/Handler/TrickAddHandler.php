@@ -66,7 +66,6 @@ class TrickAddHandler
     public function handle($formType)
     {
         $trick = new Trick();
-        $trick->addImage(new Image());
         if ($this->handler->isSubmitted($formType, $trick)) {
             return $this->onSuccess();
         }

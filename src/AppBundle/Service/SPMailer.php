@@ -41,7 +41,7 @@ class SPMailer
             <p>Cordialement SnowPassion.</p>
             </html>";
 
-        $this->to = 'stephanebriere@hotmail.fr';
+        $this->to = $user->getEmail();
         $this->sendMessage();
     }
 
@@ -57,9 +57,7 @@ class SPMailer
             ce lien</a></p>
             <p>Cordialement SnowPassion.</p>
             </html>";
-
-        $this->to = 'stephanebriere@hotmail.fr';
-
+        $this->to = $user->getEmail();
         $this->sendMessage();
     }
 
