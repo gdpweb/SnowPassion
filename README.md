@@ -29,6 +29,7 @@ SnowPassion is a collaborative website to introduce snowboarding to the general 
 
 ## Theme
 This project use Start Bootstrap theme: https://startbootstrap.com/template-overviews/clean-blog/
+
 ## Licence
 
 [![Open Source Love](https://badges.frapsoft.com/os/v2/open-source.png?v=103)](https://github.com/ellerbrock/open-source-badges/)
