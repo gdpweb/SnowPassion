@@ -30,6 +30,7 @@ use AppBundle\Handler\VideoUpdateHandler;
 use AppBundle\Manager\CommentManager;
 use AppBundle\Manager\TrickManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -99,6 +100,7 @@ class TrickController extends Controller
 
     /**
      * @Route("/admin/add", name="trick_add")
+     * @Security("is_granted('ROLE_ADMIN')")
      *
      * @return RedirectResponse|Response
      */
@@ -111,6 +113,7 @@ class TrickController extends Controller
 
     /**
      * @Route("/admin/edit/{slug}", name="trick_edit")
+     * @Security("is_granted('ROLE_ADMIN')")
      *
      * @return RedirectResponse|Response
      */
@@ -123,6 +126,7 @@ class TrickController extends Controller
 
     /**
      * @Route("/admin/delete/{slug}", name="trick_delete")
+     * @Security("is_granted('ROLE_ADMIN')")
      *
      * @return Response
      */
@@ -135,6 +139,7 @@ class TrickController extends Controller
 
     /**
      * @Route("/admin/add_image/{slug}", name="add_image")
+     * @Security("is_granted('ROLE_ADMIN')")
      *
      * @return Response
      */
@@ -148,6 +153,7 @@ class TrickController extends Controller
 
     /**
      * @Route("/admin/update_image/{id}", name="update_image")
+     * @Security("is_granted('ROLE_ADMIN')")
      *
      * @return Response
      */
@@ -164,6 +170,7 @@ class TrickController extends Controller
      *     "image", class="AppBundle:Image",
      *     options={"id" = "image_id"}
      *     )
+     * @Security("is_granted('ROLE_ADMIN')")
      *
      * @return Response
      */
@@ -177,6 +184,7 @@ class TrickController extends Controller
 
     /**
      * @Route("/admin/add_video/{slug}", name="add_video")
+     * @Security("is_granted('ROLE_ADMIN')")
      *
      * @return Response
      */
@@ -190,6 +198,7 @@ class TrickController extends Controller
 
     /**
      * @Route("/admin/update_video/{id}", name="update_video")
+     * @Security("is_granted('ROLE_ADMIN')")
      *
      * @return Response
      */
@@ -204,6 +213,7 @@ class TrickController extends Controller
      * @Route("/admin/trick/{slug}/delete_video/{video_id}", name="delete_video")
      * @ParamConverter(
      *     "video", class="AppBundle:Video", options={"id" = "video_id"})
+     * @Security("is_granted('ROLE_ADMIN')")
      *
      * @return RedirectResponse|Response
      */

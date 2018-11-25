@@ -87,9 +87,9 @@ class AppFixtures extends AbstractFixture implements FixtureInterface, Container
     {
         $infoUsers = [
             ['admin56', ['ROLE_ADMIN'], 'admin56@gdpweb.fr', 'avatar-1'],
-            ['utilisateur1', ['ROLE_USER'], 'utilisateur2@gdpweb.fr', 'avatar-2'],
-            ['utilisateur2', ['ROLE_USER'], 'utilisateur3@gdpweb.fr', 'avatar-3'],
-            ['utilisateur3', ['ROLE_USER'], 'utilisateur4@gdpweb.fr', 'avatar-4'],
+            ['utilisateur1', ['ROLE_ADMIN'], 'utilisateur2@gdpweb.fr', 'avatar-2'],
+            ['utilisateur2', ['ROLE_ADMIN'], 'utilisateur3@gdpweb.fr', 'avatar-3'],
+            ['utilisateur3', ['ROLE_ADMIN'], 'utilisateur4@gdpweb.fr', 'avatar-4'],
         ];
         foreach ($infoUsers as $infoUser) {
             $user = new User();
