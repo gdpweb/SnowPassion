@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    $(".delete").click(function () {
+       $(".delete").click(function () {
         let titre;
         if ($(this).attr("title") === null) {
             titre = "SnowPassion";
@@ -65,7 +65,7 @@ $(document).ready(function () {
     });
 
 
-    $(".msg-flash").delay(2000).fadeOut(1000, function () {
+    $(".msg-flash").delay(3000).fadeOut(1000, function () {
         $(this).remove();
     });
 
